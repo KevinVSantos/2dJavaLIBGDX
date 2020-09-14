@@ -37,7 +37,7 @@ public class Goomba extends Enemy
         stateTime = 0;
        
         setBounds(getX(), getY(), 16 / GameProject.PPM, 16 / GameProject.PPM);
-        setToDestroy = false;
+        setToDestroy = false; 
         destroyed = false;
       //  angle = 0;
     }

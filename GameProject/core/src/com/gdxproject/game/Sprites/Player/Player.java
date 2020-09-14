@@ -41,7 +41,7 @@ public class Player extends Sprite {
     private boolean runningRight;
     
     private TextureRegion bigMarioStand;
-    private Animation<TextureRegion> bigMarioJump;
+    private Animation<TextureRegion> bigMarioJump; 
     private Animation<TextureRegion> bigMarioRun;
     
     private TextureRegion marioDead;      

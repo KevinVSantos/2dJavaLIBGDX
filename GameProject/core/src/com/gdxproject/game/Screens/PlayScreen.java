@@ -107,10 +107,9 @@ public class PlayScreen implements Screen {
         
         Gdx.app.log("massa","DIED");
         //Defini a musica de fundo do jogo
-        //music = GameProject.manager.get("mario/audio/music/mario_music.ogg", Music.class);
+        music = GameProject.manager.get("mario/audio/music/mario_music.ogg", Music.class);
         //music = GameProject.manager.get("mario/audio/music/Blinding_Lights.ogg", Music.class);
-        
-        music = Gdx.audio.newMusic(Gdx.files.internal("audio/Blinding_Lights.mp3"));
+        //music = Gdx.audio.newMusic(Gdx.files.internal("audio/Blinding_Lights.mp3"));
         
         music.setLooping(true);
         music.setVolume(0.3f);
@@ -180,7 +179,7 @@ public class PlayScreen implements Screen {
     	//lembrar que inimigos só são ativados após a aproximação do jogador
        for(Enemy enemy : creator.getEnemies()) {
             enemy.update(dt);
-            if(enemy.getX() < player.getX() + 224 / GameProject.PPM) {
+            if(enemy.getX() < player.getX() + 400 / GameProject.PPM) {
                 enemy.b2body.setActive(true);
             }
         }
@@ -197,6 +196,13 @@ public class PlayScreen implements Screen {
         if(player.currentState != Player.State.DEAD) {
             gamecam.position.x = player.b2body.getPosition().x;
         }
+        
+        
+        if(gamecam.position.x < 2) {
+        	gamecam.position.x = 2;
+        } else {
+        		 gamecam.position.x = player.b2body.getPosition().x;
+        }
     	
         //Atualiza nossa gamecam com as coordenadas corretas após alteração
         gamecam.update();
@@ -204,6 +210,7 @@ public class PlayScreen implements Screen {
         renderer.setView(gamecam);
 
     }
+    
     
 	@Override
 	public void render(float delta) {
