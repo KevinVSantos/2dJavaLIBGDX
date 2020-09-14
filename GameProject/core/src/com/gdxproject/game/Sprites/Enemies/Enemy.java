@@ -31,7 +31,7 @@ public abstract class Enemy extends Sprite {
     public abstract void hitOnHead(Player mario); //se player pular em cima do inimigo
     public abstract void hitByEnemy(Enemy enemy); //se inimigos se chocarem
 
-    
+     
     //função responsavel por inverter o vetor de direção do inimigo
     public void reverseVelocity(boolean x, boolean y){
         if(x)

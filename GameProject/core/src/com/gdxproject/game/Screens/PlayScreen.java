@@ -81,15 +81,18 @@ public class PlayScreen implements Screen {
         
         //Carrega nosso mapa e configura nosso rederizador do mapa 
         maploader = new TmxMapLoader();
-        map = maploader.load("mario/level1.tmx");
+        
+       // map = maploader.load("mario/level1.tmx");
+        map = maploader.load("map/map.tmx");
+        
         renderer = new OrthogonalTiledMapRenderer(map, 1  / GameProject.PPM);
        
         //inicializa e seta nossa gamecam para ser centralizada corretamente no inicio do mapa
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
-
+        
         //cria nosso mundo Box2D, configura nenhuma gravidade para X, -10 gravidade em Y, e mantem os corpos em repouso
         world = new World(new Vector2(0, -10), true);
-        //Permissão para debug lines do nosso mundo Box2D.
+        //Permissão para debug lines do nosso mundo Box2D. 
         b2dr = new Box2DDebugRenderer();       
         //Inicializa a construção do nosso tiled map
         creator = new B2WorldCreator(this);
@@ -101,15 +104,21 @@ public class PlayScreen implements Screen {
         //Seta as normas que serão utilizadas para o contato
         world.setContactListener(new WorldContactListener());
         
+        
+        Gdx.app.log("massa","DIED");
         //Defini a musica de fundo do jogo
-        music = GameProject.manager.get("mario/audio/music/mario_music.ogg", Music.class);
+        //music = GameProject.manager.get("mario/audio/music/mario_music.ogg", Music.class);
+        //music = GameProject.manager.get("mario/audio/music/Blinding_Lights.ogg", Music.class);
+        
+        music = Gdx.audio.newMusic(Gdx.files.internal("audio/Blinding_Lights.mp3"));
+        
         music.setLooping(true);
         music.setVolume(0.3f);
         music.play();
         
         //inicializa os items que poderão ser utilizados pelo personagem
-        items = new Array<Item>();
-        itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
+      /*  items = new Array<Item>();
+        itemsToSpawn = new LinkedBlockingQueue<ItemDef>();*/
 	}
 	
 	public void spawnItem(ItemDef idef){
@@ -142,7 +151,7 @@ public class PlayScreen implements Screen {
 	public void handleInput(float dt){
         //Controla nosso Player usando impulsos imediatos
 	   if(player.currentState != Player.State.DEAD) {
-           if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
+           if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.currentState != Player.State.FALLING && player.currentState != Player.State.JUMPING)
             	player.b2body.applyLinearImpulse(new Vector2(0, 4f), player.b2body.getWorldCenter(), true);
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2)
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
@@ -159,8 +168,7 @@ public class PlayScreen implements Screen {
     	
         //chamada para os input do jogador
     	handleInput(dt);
-        handleSpawningItems();
-
+        //handleSpawningItems();
     	
     	//takes 1 step in the physics simulation(60 times per second)
         world.step(1 / 60f, 6, 2);
@@ -170,7 +178,7 @@ public class PlayScreen implements Screen {
     	
     	//atualiza os inimigos
     	//lembrar que inimigos só são ativados após a aproximação do jogador
-        for(Enemy enemy : creator.getEnemies()) {
+       for(Enemy enemy : creator.getEnemies()) {
             enemy.update(dt);
             if(enemy.getX() < player.getX() + 224 / GameProject.PPM) {
                 enemy.b2body.setActive(true);
@@ -178,8 +186,8 @@ public class PlayScreen implements Screen {
         }
 
         //atualiza os itens
-        for(Item item : items)
-            item.update(dt);
+        /*for(Item item : items)
+            item.update(dt);*/
 
         //atualiza o HUD
         hud.update(dt);
@@ -212,7 +220,6 @@ public class PlayScreen implements Screen {
 
         //renderer our Box2DDebugLines
         b2dr.render(world, gamecam.combined);
-
         
         //Seta a projeção para a gamecam e desenha o conteudo definido na tela
         game.batch.setProjectionMatrix(gamecam.combined);
@@ -220,8 +227,8 @@ public class PlayScreen implements Screen {
         player.draw(game.batch);
         for (Enemy enemy : creator.getEnemies())
             enemy.draw(game.batch);
-        for (Item item : items)
-            item.draw(game.batch);
+        /*for (Item item : items)
+            item.draw(game.batch);*/
         game.batch.end();
         
 
@@ -235,7 +242,6 @@ public class PlayScreen implements Screen {
 	        game.setScreen(new GameOverScreen(game));
 	        dispose();
 		}
-
 		 
 	}
 

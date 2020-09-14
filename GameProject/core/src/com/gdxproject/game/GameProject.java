@@ -2,6 +2,7 @@ package com.gdxproject.game;
 
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -35,11 +36,11 @@ public class GameProject extends Game {
 	Uma maneira é passar o Assetmanager para as classes que precisam dele.
 	Por enquanto será usado de maneira estatica para salvar o tempo. */
 	public static AssetManager manager;
-	
+	 
 	@Override
 	public void create () {
 		
-		batch = new SpriteBatch();
+		batch = new SpriteBatch(); 
 		
 		/// carregando assets no jogo
 		manager = new AssetManager();
@@ -52,6 +53,7 @@ public class GameProject extends Game {
 		manager.load("mario/audio/sounds/powerdown.wav", Sound.class);
 		manager.load("mario/audio/sounds/stomp.wav", Sound.class);
 		manager.load("mario/audio/sounds/mariodie.wav", Sound.class);
+		manager.load("mario/audio/music/Blinding_Lights.ogg", Sound.class);
 		manager.finishLoading();
 
 		//Seta a tela inicial

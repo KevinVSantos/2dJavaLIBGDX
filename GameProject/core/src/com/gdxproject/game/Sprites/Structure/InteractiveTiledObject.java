@@ -41,7 +41,7 @@ public abstract class InteractiveTiledObject {
         bdef.type = BodyDef.BodyType.StaticBody;
         bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / GameProject.PPM, (bounds.getY() + bounds.getHeight() / 2) / GameProject.PPM);
 
-        body = world.createBody(bdef);
+        body = world.createBody(bdef); 
 
         shape.setAsBox(bounds.getWidth() / 2 / GameProject.PPM, bounds.getHeight() / 2 / GameProject.PPM);
         fdef.shape = shape;

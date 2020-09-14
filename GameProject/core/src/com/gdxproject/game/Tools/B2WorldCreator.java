@@ -1,9 +1,12 @@
 package com.gdxproject.game.Tools;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -42,17 +45,38 @@ public class B2WorldCreator {
          	
          	//defini a posição do bdef
          	bdef.position.set((rect.getX() + rect.getWidth() / 2 ) / GameProject.PPM, (rect.getY() + rect.getHeight() / 2)/ GameProject.PPM);
-         
+         	
          	// cria o corpo no mundo
          	body = world.createBody(bdef);
-         	
          	shape.setAsBox((rect.getWidth() / 2)/ GameProject.PPM, (rect.getHeight() / 2)/ GameProject.PPM);// defini a forma
          	fdef.shape = shape;// passa a forma para o corpo
          	body.createFixture(fdef); //cria a fixture no mundo
          }
+         for(MapObject object : map.getLayers().get(3).getObjects().getByType(PolygonMapObject.class)) {
+          	Polygon pol = ((PolygonMapObject) object).getPolygon();// cria um retangulo para definir o objeto
+ 
+          	bdef.type = BodyType.StaticBody;//defini o objeto como estatico
+          	
+          	//defini a posição do bdef
+          	//bdef.position.set((pol.getX() / 2 ) / GameProject.PPM, (pol.getY()  / 2)/ GameProject.PPM);
+          	
+          	      	
+          	bdef.position.set(((pol.getX())/ GameProject.PPM), ((pol.getY() )/ GameProject.PPM));
+          	pol.setPosition(0, 0);
+          	pol.setScale(1  / GameProject.PPM,1  / GameProject.PPM);
+
+          	shape.set(pol.getTransformedVertices());
+        
+          	// cria o corpo no mundo
+          	body = world.createBody(bdef);
+          	//shape.setAsBox((pol.getScaleX() / 2)/ GameProject.PPM, (pol.getScaleY() / 2)/ GameProject.PPM);// defini a forma
+          	fdef.shape = shape;// passa a forma para o corpo
+          	body.createFixture(fdef); //cria a fixture no mundo
+          }
+          
          
        //Cria os tubos para bodies/fixtures
-         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
+         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
          	Rectangle rect = ((RectangleMapObject) object).getRectangle(); // cria um retangulo para definir o objeto
          	
          	bdef.type = BodyType.StaticBody;  //defini o objeto como estatico
@@ -71,7 +95,45 @@ public class B2WorldCreator {
          
          }
          
-       //Cria os brick bodies/fixtures
+         for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
+          	Rectangle rect = ((RectangleMapObject) object).getRectangle(); // cria um retangulo para definir o objeto
+          	
+          	bdef.type = BodyType.StaticBody;  //defini o objeto como estatico
+          	
+          	//defini a posição do bdef
+          	bdef.position.set((rect.getX() + rect.getWidth() / 2 ) / GameProject.PPM, (rect.getY() + rect.getHeight() / 2)/ GameProject.PPM);
+          	
+              
+          	body = world.createBody(bdef); // cria o corpo no mundo
+          	
+          	shape.setAsBox((rect.getWidth() / 2)/ GameProject.PPM, (rect.getHeight() / 2)/ GameProject.PPM); // defini a forma
+          	fdef.shape = shape; // passa a forma para o corpo
+          	fdef.filter.categoryBits = GameProject.OBJECT_BIT; // defini o tipo de bit de contato do corpo
+          	body.createFixture(fdef); //cria a fixture no mundo
+          
+          
+          }
+         
+         for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
+           	Rectangle rect = ((RectangleMapObject) object).getRectangle(); // cria um retangulo para definir o objeto
+           	
+           	bdef.type = BodyType.StaticBody;  //defini o objeto como estatico
+           	
+           	//defini a posição do bdef
+           	bdef.position.set((rect.getX() + rect.getWidth() / 2 ) / GameProject.PPM, (rect.getY() + rect.getHeight() / 2)/ GameProject.PPM);
+           	
+               
+           	body = world.createBody(bdef); // cria o corpo no mundo
+           	
+           	shape.setAsBox((rect.getWidth() / 2)/ GameProject.PPM, (rect.getHeight() / 2)/ GameProject.PPM); // defini a forma
+           	fdef.shape = shape; // passa a forma para o corpo
+           	fdef.filter.categoryBits = GameProject.OBJECT_BIT; // defini o tipo de bit de contato do corpo
+           	body.createFixture(fdef); //cria a fixture no mundo
+           
+           
+           }
+         
+      /* //Cria os brick bodies/fixtures
          for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
          	new Brick(screen, object);
          }
@@ -79,16 +141,16 @@ public class B2WorldCreator {
        //Cria os blocos de moedas bodies/fixtures
          for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {   
          	new Coin(screen, object);        
-         }
+         }*/
          
        //create all goombas
         goombas = new Array<Goomba>();
-        for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             goombas.add(new Goomba(screen, rect.getX() / GameProject.PPM, rect.getY() / GameProject.PPM));
         }
         turtles = new Array<Turtle>();
-        for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             turtles.add(new Turtle(screen, rect.getX() / GameProject.PPM, rect.getY() / GameProject.PPM));
         }

@@ -26,4 +26,4 @@ public class Brick extends InteractiveTiledObject {
     	GameProject.manager.get("mario/audio/sounds/bump.wav", Sound.class).play();
     }
 
-}
+} 

@@ -89,7 +89,7 @@ public class Player extends Sprite {
         bigMarioRun = new Animation(0.1f, frames);
 
         frames.clear();
-        
+         
       //get jump animation frames and add them to marioJump Animation
         for(int i = 4; i < 6; i++)
             frames.add(new TextureRegion(screen.getAtlas().findRegion("big_mario"),  i * 16, 0, 16, 32));
@@ -271,7 +271,7 @@ public class Player extends Sprite {
         else {
             if (marioIsBig) {
                 marioIsBig = false;
-                timeToRedefineMario = true;                
+                timeToRedefineMario = true;                 
                 setBounds(getX(), getY(), getWidth(), getHeight() / 2);
                 GameProject.manager.get("mario/audio/sounds/powerdown.wav", Sound.class).play();
                
@@ -283,7 +283,7 @@ public class Player extends Sprite {
     }
     
     public void jump(){
-        if ( currentState != State.JUMPING ) {
+        if ( currentState != State.JUMPING &&  currentState != State.FALLING) {
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
             currentState = State.JUMPING;
         }

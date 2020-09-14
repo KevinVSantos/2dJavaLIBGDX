@@ -23,7 +23,7 @@ public class WorldContactListener implements ContactListener {
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;//bit de contato que difine qual é o objeto
         
        
-        //switch para o tipo de contato
+        //switch para o tipo de contato 
         switch (cDef){           
         case GameProject.MARIO_HEAD_BIT | GameProject.BRICK_BIT:
         case GameProject.MARIO_HEAD_BIT | GameProject.COIN_BIT:
