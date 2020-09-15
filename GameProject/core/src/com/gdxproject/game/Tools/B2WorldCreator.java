@@ -19,15 +19,15 @@ import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Screens.PlayScreen;
 import com.gdxproject.game.Sprites.Enemies.CoinFinal;
 import com.gdxproject.game.Sprites.Enemies.Enemy;
-import com.gdxproject.game.Sprites.Enemies.Goomba;
-import com.gdxproject.game.Sprites.Enemies.Turtle;
+import com.gdxproject.game.Sprites.Enemies.Enemy1;
+import com.gdxproject.game.Sprites.Enemies.Enemy2;
 import com.gdxproject.game.Sprites.Structure.Brick;
 import com.gdxproject.game.Sprites.Structure.Coin;
 
 public class B2WorldCreator {
 	
-	private Array<Goomba> goombas;
-    private Array<Turtle> turtles;
+	private Array<Enemy1> enemies1;
+    private Array<Enemy2> enemies2;
     private Array<CoinFinal> coins;
 
     public B2WorldCreator(PlayScreen screen){
@@ -146,15 +146,15 @@ public class B2WorldCreator {
          }*/
          
        //create all goombas
-        goombas = new Array<Goomba>();
+         enemies1 = new Array<Enemy1>();
         for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            goombas.add(new Goomba(screen, rect.getX() / GameProject.PPM, rect.getY() / GameProject.PPM));
+            enemies1.add(new Enemy1(screen, rect.getX() / GameProject.PPM, rect.getY() / GameProject.PPM));
         }
-        turtles = new Array<Turtle>();
+        enemies2 = new Array<Enemy2>();
         for(MapObject object : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            turtles.add(new Turtle(screen, rect.getX() / GameProject.PPM, rect.getY() / GameProject.PPM));
+            enemies2.add(new Enemy2(screen, rect.getX() / GameProject.PPM, rect.getY() / GameProject.PPM));
         }
         
         coins = new Array<CoinFinal>();
@@ -167,15 +167,15 @@ public class B2WorldCreator {
     }
     
     //recebe os goombas
-    public Array<Goomba> getGoombas() {
-        return goombas;
+    public Array<Enemy1> getEnemies1() {
+        return enemies1;
     }
     
     //recebe os inimigos
     public Array<Enemy> getEnemies(){
         Array<Enemy> enemies = new Array<Enemy>();
-        enemies.addAll(goombas);
-        enemies.addAll(turtles);
+        enemies.addAll(enemies1);
+        enemies.addAll(enemies2);
         enemies.addAll(coins);
         return enemies;
     }

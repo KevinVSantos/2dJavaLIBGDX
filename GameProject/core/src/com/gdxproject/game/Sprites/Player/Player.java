@@ -22,7 +22,6 @@ import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Screens.PlayScreen;
 import com.gdxproject.game.Sprites.Enemies.Enemy;
-import com.gdxproject.game.Sprites.Enemies.Turtle;
 
 
 
@@ -266,9 +265,9 @@ public class Player extends Sprite {
     }
 
     public void hit(Enemy enemy){
-        if(enemy instanceof Turtle && ((Turtle) enemy).currentState == Turtle.State.STANDING_SHELL)
+        /*if(enemy instanceof Turtle && ((Turtle) enemy).currentState == Turtle.State.STANDING_SHELL)
             ((Turtle) enemy).kick(enemy.b2body.getPosition().x > b2body.getPosition().x ? Turtle.KICK_RIGHT : Turtle.KICK_LEFT);
-        else {
+        else {*/
             if (marioIsBig) {
                 marioIsBig = false;
                 timeToRedefineMario = true;                 
@@ -279,7 +278,7 @@ public class Player extends Sprite {
             } else {
             	 	die();
             }
-        }
+       // }
     }
     
     public void jump(){

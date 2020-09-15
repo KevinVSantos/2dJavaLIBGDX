@@ -20,7 +20,7 @@ import com.gdxproject.game.Sprites.Player.FireBall;
 import com.gdxproject.game.Sprites.Player.Player;
 
 
-public class Goomba extends Enemy
+public class Enemy2 extends Enemy
 {
     private float stateTime;
     private Animation<TextureRegion> walkAnimation;
@@ -31,16 +31,16 @@ public class Goomba extends Enemy
    // float angle;
 
 
-    public Goomba(PlayScreen screen, float x, float y) {
+    public Enemy2(PlayScreen screen, float x, float y) {
         super(screen, x, y);
         frames = new Array<TextureRegion>();
         for(int i = 0; i < 4; i++) 
             //frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"), i * 16, 0, 16, 16));
-        frames.add(new TextureRegion(new Texture(Gdx.files.internal("Enemy.png")),  4+(i * 24), 5, 16, 20));
+        frames.add(new TextureRegion(new Texture(Gdx.files.internal("Enemy.png")),  4+(i * 24), 68, 16, 20));
         walkAnimation = new Animation(0.4f, frames);
         stateTime = 0;
        
-        setBounds(getX(), getY(), 16 / GameProject.PPM, 16 / GameProject.PPM);
+        setBounds(getX(), getY(), 16 / GameProject.PPM, 20 / GameProject.PPM);
         setToDestroy = false; 
         destroyed = false;
       //  angle = 0;
@@ -148,9 +148,9 @@ public class Goomba extends Enemy
     
     @Override
     public void hitByEnemy(Enemy enemy) {
-        if(enemy instanceof Turtle && ((Turtle) enemy).currentState == Turtle.State.MOVING_SHELL)
+      /*  if(enemy instanceof Turtle && ((Turtle) enemy).currentState == Turtle.State.MOVING_SHELL)
             setToDestroy = true;
         else
-            reverseVelocity(true, false);
+            reverseVelocity(true, false);*/
     }
 }
