@@ -44,7 +44,7 @@ public class WorldContactListener implements ContactListener {
             else
                 ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
             break;
-        case GameProject.MARIO_BIT | GameProject.ENEMY_BIT:
+        case GameProject.MARIO_BIT | GameProject.ENEMY_BIT: 
             if(fixA.getFilterData().categoryBits == GameProject.MARIO_BIT)
                 ((Player) fixA.getUserData()).hit((Enemy)fixB.getUserData());
             else
@@ -66,11 +66,17 @@ public class WorldContactListener implements ContactListener {
             else
                 ((Item)fixB.getUserData()).use((Player) fixA.getUserData());
             break;
-            case GameProject.FIREBALL_BIT | GameProject.OBJECT_BIT:
+        case GameProject.FIREBALL_BIT | GameProject.OBJECT_BIT:
             if(fixA.getFilterData().categoryBits == GameProject.FIREBALL_BIT)
                 ((FireBall)fixA.getUserData()).setToDestroy();
             else
                 ((FireBall)fixB.getUserData()).setToDestroy();
+            break;
+        case GameProject.FIREBALL_BIT | GameProject.ENEMY_BIT:
+        	if(fixA.getFilterData().categoryBits == GameProject.ENEMY_BIT)
+                ((Enemy)fixA.getUserData()).hitbyFireball((FireBall) fixB.getUserData());
+            else
+                ((Enemy)fixB.getUserData()).hitbyFireball((FireBall) fixA.getUserData());
             break;
         }
     }

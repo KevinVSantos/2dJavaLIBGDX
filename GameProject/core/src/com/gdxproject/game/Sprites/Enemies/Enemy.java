@@ -6,8 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.gdxproject.game.Screens.PlayScreen;
+import com.gdxproject.game.Sprites.Player.FireBall;
 import com.gdxproject.game.Sprites.Player.Player;
-
+ 
 
 public abstract class Enemy extends Sprite {
 	//atributos que serão setados para os inimigos
@@ -24,12 +25,13 @@ public abstract class Enemy extends Sprite {
         velocity = new Vector2(-1, -2); // vetor de velocidade do inimigo
         b2body.setActive(false); 
        
-    }
+    } 
 
     protected abstract void defineEnemy(); // defini/cria o inimigo
     public abstract void update(float dt); // atualiza as informaçoes do inimigo
     public abstract void hitOnHead(Player mario); //se player pular em cima do inimigo
     public abstract void hitByEnemy(Enemy enemy); //se inimigos se chocarem
+    public abstract void hitbyFireball(FireBall fire); //se player pular em cima do inimigo
 
      
     //função responsavel por inverter o vetor de direção do inimigo

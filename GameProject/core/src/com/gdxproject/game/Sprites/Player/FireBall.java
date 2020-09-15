@@ -2,6 +2,7 @@ package com.gdxproject.game.Sprites.Player;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,34 +24,30 @@ public class FireBall extends Sprite {
     //Array<TextureRegion> frames;
     Animation<TextureRegion> fireAnimation;
     float stateTime;
-    boolean destroyed;
+    boolean destroyed;  
     boolean setToDestroy;
     boolean fireRight;
 
     Body b2body;
     public FireBall(PlayScreen screen, float x, float y, boolean fireRight){
-    	Gdx.app.log("massa","DIED");
+    
     	this.fireRight = fireRight;
         this.screen = screen;
-        this.world = screen.getWorld();
-        Gdx.app.log("massa","DIED");
+        this.world = screen.getWorld(); 
         Array<TextureRegion> frames = new Array<TextureRegion>();
-        Gdx.app.log("massa","DIED");
-        for(int i = 0; i < 4; i++){
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("fireball"), i * 8, 0, 8, 8));
+        for(int i = 0; i < 1; i++){
+        	frames.add(new TextureRegion(new Texture(Gdx.files.internal("bullet2.png")), (i *10), 4, 35, 15));
+           // frames.add(new TextureRegion(screen.getAtlas().findRegion("fireball"), i * 8, 0, 8, 8));
         }
-        Gdx.app.log("massa","DIED");
         fireAnimation = new Animation(0.2f, frames);
         setRegion(fireAnimation.getKeyFrame(0));
-        Gdx.app.log("massa","DIED");
-        setBounds(x, y, 6 / GameProject.PPM, 6 / GameProject.PPM);
-        Gdx.app.log("massa","DIED");
+        setBounds(x, y, 14 / GameProject.PPM, 6 / GameProject.PPM);
         defineFireBall();
     }
 
     public void defineFireBall(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(fireRight ? getX() + 12 /GameProject.PPM : getX() - 12 /GameProject.PPM, getY());
+        bdef.position.set(fireRight ?  getX() + 12 /GameProject.PPM : getX() - 12 /GameProject.PPM, getY());
         bdef.type = BodyDef.BodyType.DynamicBody;
         if(!world.isLocked())
         b2body = world.createBody(bdef);
@@ -69,7 +66,8 @@ public class FireBall extends Sprite {
         fdef.restitution = 1;
         fdef.friction = 0;
         b2body.createFixture(fdef).setUserData(this);
-        b2body.setLinearVelocity(new Vector2(fireRight ? 2 : -2, 2.5f));
+        b2body.setGravityScale(0.0f);
+        b2body.setLinearVelocity(new Vector2(fireRight ? 6 : -6, 0));
     }
 
     public void update(float dt){
@@ -80,8 +78,8 @@ public class FireBall extends Sprite {
             world.destroyBody(b2body);
             destroyed = true;
         }
-        if(b2body.getLinearVelocity().y > 2f)
-            b2body.setLinearVelocity(b2body.getLinearVelocity().x, 2f);
+       /* if(b2body.getLinearVelocity().y > 2f)
+            b2body.setLinearVelocity(b2body.getLinearVelocity().x, 2f);*/
         if((fireRight && b2body.getLinearVelocity().x < 0) || (!fireRight && b2body.getLinearVelocity().x > 0))
             setToDestroy();
     }

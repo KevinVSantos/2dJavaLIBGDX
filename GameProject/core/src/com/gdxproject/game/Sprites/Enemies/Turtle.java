@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Screens.PlayScreen;
+import com.gdxproject.game.Sprites.Player.FireBall;
 import com.gdxproject.game.Sprites.Player.Player;
 
 
@@ -130,6 +131,10 @@ public class Turtle extends Enemy {
             velocity.x = 0;
         }
     }
+    
+    @Override
+    public void hitbyFireball(FireBall fire) {
+     }
 
     @Override
     public void hitByEnemy(Enemy enemy) {

@@ -28,7 +28,7 @@ public abstract class InteractiveTiledObject {
     protected Fixture fixture;
 
     public InteractiveTiledObject(PlayScreen screen, MapObject object){
-    	  this.world = screen.getWorld();
+    	  this.world = screen.getWorld(); 
           this.map = screen.getMap();
           this.object = object;
           this.screen = screen;

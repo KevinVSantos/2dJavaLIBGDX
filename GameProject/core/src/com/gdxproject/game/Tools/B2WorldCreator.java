@@ -43,11 +43,11 @@ public class B2WorldCreator {
          	
          	bdef.type = BodyType.StaticBody;//defini o objeto como estatico
          	
-         	//defini a posição do bdef
+         	//defini a posição do bdef 
          	bdef.position.set((rect.getX() + rect.getWidth() / 2 ) / GameProject.PPM, (rect.getY() + rect.getHeight() / 2)/ GameProject.PPM);
          	
          	// cria o corpo no mundo
-         	body = world.createBody(bdef);
+         	body = world.createBody(bdef); 
          	shape.setAsBox((rect.getWidth() / 2)/ GameProject.PPM, (rect.getHeight() / 2)/ GameProject.PPM);// defini a forma
          	fdef.shape = shape;// passa a forma para o corpo
          	body.createFixture(fdef); //cria a fixture no mundo

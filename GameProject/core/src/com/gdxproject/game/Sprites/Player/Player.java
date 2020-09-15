@@ -374,7 +374,7 @@ public class Player extends Sprite {
 	                GameProject.BRICK_BIT |
 	                GameProject.ENEMY_BIT |
 	                GameProject.OBJECT_BIT |
-	                GameProject.ENEMY_HEAD_BIT |
+	                GameProject.ENEMY_HEAD_BIT | 
 	                GameProject.ITEM_BIT;
 
 	        fdef.shape = shape;

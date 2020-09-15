@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Screens.PlayScreen;
+import com.gdxproject.game.Sprites.Player.FireBall;
 import com.gdxproject.game.Sprites.Player.Player;
 
 
@@ -31,7 +32,7 @@ public class Goomba extends Enemy
     public Goomba(PlayScreen screen, float x, float y) {
         super(screen, x, y);
         frames = new Array<TextureRegion>();
-        for(int i = 0; i < 2; i++)
+        for(int i = 0; i < 2; i++) 
             frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"), i * 16, 0, 16, 16));
         walkAnimation = new Animation(0.4f, frames);
         stateTime = 0;
@@ -73,7 +74,8 @@ public class Goomba extends Enemy
                 GameProject.BRICK_BIT |
                 GameProject.ENEMY_BIT |
                 GameProject.OBJECT_BIT |
-                GameProject.MARIO_BIT;
+                GameProject.MARIO_BIT |
+                GameProject.FIREBALL_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
@@ -106,6 +108,12 @@ public class Goomba extends Enemy
         setToDestroy = true;
         GameProject.manager.get("mario/audio/sounds/stomp.wav", Sound.class).play();
     }
+    
+    @Override
+    public void hitbyFireball(FireBall fire) {
+         setToDestroy = true;
+         GameProject.manager.get("mario/audio/sounds/stomp.wav", Sound.class).play();
+     }
     
     @Override
     public void hitByEnemy(Enemy enemy) {
