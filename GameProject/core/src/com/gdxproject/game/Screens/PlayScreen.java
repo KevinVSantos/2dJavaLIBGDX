@@ -55,7 +55,7 @@ public class PlayScreen implements Screen {
     //Musicas
     private Music music;
 
-    //Referente aos itens coletados pelo pelo jogador
+    //Referente aos itens coletados pelo pelo jogador 
     private Array<Item> items;
     private LinkedBlockingQueue<ItemDef> itemsToSpawn;
     
@@ -90,6 +90,10 @@ public class PlayScreen implements Screen {
         //inicializa e seta nossa gamecam para ser centralizada corretamente no inicio do mapa
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
         
+        //gamecam.setToOrtho(false,GameProject.V_WIDTH/ GameProject.PPM,GameProject.V_HEIGHT/ GameProject.PPM);
+        
+        
+        
         //cria nosso mundo Box2D, configura nenhuma gravidade para X, -10 gravidade em Y, e mantem os corpos em repouso
         world = new World(new Vector2(0, -10), true);
         //Permissão para debug lines do nosso mundo Box2D. 
@@ -108,12 +112,12 @@ public class PlayScreen implements Screen {
         Gdx.app.log("massa","DIED");
         //Defini a musica de fundo do jogo
         //music = GameProject.manager.get("mario/audio/music/mario_music.ogg", Music.class);
-        //music = GameProject.manager.get("mario/audio/music/Blinding_Lights.ogg", Music.class);
+        music = GameProject.manager.get("audio/Blinding_Lights.mp3", Music.class);
         //music = Gdx.audio.newMusic(Gdx.files.internal("audio/Blinding_Lights.mp3"));
         
-      //  music.setLooping(true);
-      //  music.setVolume(0.3f);
-      //  music.play();
+        music.setLooping(true);
+        music.setVolume(0.3f);
+        music.play();
         
         //inicializa os items que poderão ser utilizados pelo personagem
       /*  items = new Array<Item>();
@@ -211,9 +215,12 @@ public class PlayScreen implements Screen {
         gamecam.update();
         //Passa ao renderer para desenhar na tela apenas o que nossa camera pode ver no nosso mundo.
         renderer.setView(gamecam);
+        
+        //renderer.setView(gamecam.combined,0,0,width,height);
 
     }
     
+  
     
 	@Override
 	public void render(float delta) {
@@ -227,7 +234,7 @@ public class PlayScreen implements Screen {
 
         //Renderiza nosso mapa do jogo
         renderer.render();
-
+        
         //renderer our Box2DDebugLines
         b2dr.render(world, gamecam.combined);
         
@@ -263,10 +270,21 @@ public class PlayScreen implements Screen {
         return false;
     }
 
-    @Override
-    public void resize(int width, int height) {
+    //@Override
+    /*public void resize(int width, int height) {
         //atualiza a nossa Viewport do jogo
         gamePort.update(width,height);
+
+    }*/
+    
+    @Override
+    public void resize(int width, int height) {
+        // TODO Auto-generated method stub
+
+        //gamecan.setToOrtho(false, width/10,height/10);
+        //atualiza a nossa Viewport do jogo
+        gamePort.update(width,height);
+
 
     }
 
