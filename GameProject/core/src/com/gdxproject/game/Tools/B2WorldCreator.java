@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Screens.PlayScreen;
+import com.gdxproject.game.Sprites.Enemies.CoinFinal;
 import com.gdxproject.game.Sprites.Enemies.Enemy;
 import com.gdxproject.game.Sprites.Enemies.Goomba;
 import com.gdxproject.game.Sprites.Enemies.Turtle;
@@ -27,6 +28,7 @@ public class B2WorldCreator {
 	
 	private Array<Goomba> goombas;
     private Array<Turtle> turtles;
+    private Array<CoinFinal> coins;
 
     public B2WorldCreator(PlayScreen screen){
     	World world = screen.getWorld(); // recebe o mundo da screen
@@ -154,6 +156,13 @@ public class B2WorldCreator {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             turtles.add(new Turtle(screen, rect.getX() / GameProject.PPM, rect.getY() / GameProject.PPM));
         }
+        
+        coins = new Array<CoinFinal>();
+        for(MapObject object : map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            coins.add(new CoinFinal(screen, rect.getX() / GameProject.PPM, rect.getY() / GameProject.PPM));
+        }
+
          
     }
     
@@ -167,7 +176,8 @@ public class B2WorldCreator {
         Array<Enemy> enemies = new Array<Enemy>();
         enemies.addAll(goombas);
         enemies.addAll(turtles);
+        enemies.addAll(coins);
         return enemies;
-    }     
+    }
     
 }
