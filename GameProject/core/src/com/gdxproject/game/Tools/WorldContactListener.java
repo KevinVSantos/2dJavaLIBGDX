@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.gdxproject.game.GameProject;
+import com.gdxproject.game.Sprites.Enemies.CoinFinal;
 import com.gdxproject.game.Sprites.Enemies.Enemy;
 import com.gdxproject.game.Sprites.Items.Item;
 import com.gdxproject.game.Sprites.Player.FireBall;
@@ -77,6 +78,9 @@ public class WorldContactListener implements ContactListener {
                 ((Enemy)fixA.getUserData()).hitbyFireball((FireBall) fixB.getUserData());
             else
                 ((Enemy)fixB.getUserData()).hitbyFireball((FireBall) fixA.getUserData());
+            break;
+        case GameProject.MARIO_BIT | GameProject.COIN_BIT:
+            ((CoinFinal)fixB.getUserData()).getCoin();
             break;
         }
     }
