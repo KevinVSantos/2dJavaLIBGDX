@@ -2,7 +2,9 @@ package com.gdxproject.game.Sprites.Enemies;
 
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -32,8 +34,9 @@ public class Goomba extends Enemy
     public Goomba(PlayScreen screen, float x, float y) {
         super(screen, x, y);
         frames = new Array<TextureRegion>();
-        for(int i = 0; i < 2; i++) 
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"), i * 16, 0, 16, 16));
+        for(int i = 0; i < 4; i++) 
+            //frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"), i * 16, 0, 16, 16));
+        frames.add(new TextureRegion(new Texture(Gdx.files.internal("Enemy.png")),  4+(i * 24), 5, 16, 20));
         walkAnimation = new Animation(0.4f, frames);
         stateTime = 0;
        
@@ -48,14 +51,42 @@ public class Goomba extends Enemy
         if(setToDestroy && !destroyed){ 	
             world.destroyBody(b2body);
             destroyed = true;
-            setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba"), 32, 0, 16, 16));
+           //setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba"), 32, 0, 16, 16));
+            setRegion(getFrame(walkAnimation.getKeyFrame(stateTime, true),false));
+           
+            
             stateTime = 0;
         }
         else if(!destroyed) {
             b2body.setLinearVelocity(velocity);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-            setRegion(walkAnimation.getKeyFrame(stateTime, true));
+           setRegion(getFrame(walkAnimation.getKeyFrame(stateTime, true),true));
+           //setRegion(getFrame(stateTime));
         }
+    }
+    
+    public TextureRegion getFrame(TextureRegion region, boolean t){
+  
+    	if(t) {
+    		
+            if((b2body.getLinearVelocity().x < 0 ) && !region.isFlipX()){
+                region.flip(true, false);
+            }
+
+            else if((b2body.getLinearVelocity().x > 0) && region.isFlipX()){
+                region.flip(true, false);
+            }
+
+    		
+    	}else {
+    		
+    		region.flip(false, true);
+    		
+    	}
+     
+        //return our final adjusted frame
+        return region;
+
     }
 
     @Override
