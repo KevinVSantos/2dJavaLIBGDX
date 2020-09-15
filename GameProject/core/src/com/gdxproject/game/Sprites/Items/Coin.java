@@ -1,16 +1,19 @@
-package com.gdxproject.game.Sprites.Enemies;
+package com.gdxproject.game.Sprites.Items;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Scenes.Hud;
@@ -19,17 +22,30 @@ import com.gdxproject.game.Sprites.Enemies.Enemy;
 import com.gdxproject.game.Sprites.Player.FireBall;
 import com.gdxproject.game.Sprites.Player.Player;
 
-public class CoinFinal extends Enemy{
+public class Coin extends Sprite {
     
-        private float stateTime;
-        private Animation<TextureRegion> walkAnimation;
-        private Array<TextureRegion> frames;
+	
+	//atributos que serão setados para os inimigos
+    protected World world;
+    protected PlayScreen screen; 
+    public Body b2body;
+    public Vector2 velocity;
+    private float stateTime;
+    private Animation<TextureRegion> walkAnimation;
+    private Array<TextureRegion> frames;
 
-        private boolean setToDestroy;
-        private boolean destroyed;
+    private boolean setToDestroy;
+    private boolean destroyed;
+
     
-    public CoinFinal(PlayScreen screen, float x, float y) {
-        super(screen, x, y);
+    public Coin(PlayScreen screen, float x, float y) {
+       
+        
+        this.world = screen.getWorld(); //  recebe o mundo da screen
+        this.screen = screen; //recebe a screen
+        setPosition(x, y);
+        defineCoin(); // classe que será responsavel por definir o inimigo
+        b2body.setActive(false); 
         
         frames = new Array<TextureRegion>();
         
@@ -44,7 +60,6 @@ public class CoinFinal extends Enemy{
         frames.add(new TextureRegion(new Texture(Gdx.files.internal("coins/coin8.png")), 0, 0, 20, 20));
         frames.add(new TextureRegion(new Texture(Gdx.files.internal("coins/coin9.png")), 0, 0, 20, 20));
         frames.add(new TextureRegion(new Texture(Gdx.files.internal("coins/coin10.png")), 0, 0, 20, 20));
-            //frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"), i * 16, 0, 16, 16));
         walkAnimation = new Animation(0.2f, frames);
         stateTime = 0;
        
@@ -61,7 +76,7 @@ public class CoinFinal extends Enemy{
             world.destroyBody(b2body);
             destroyed = true;
             setRegion(new TextureRegion(new Texture(Gdx.files.internal("coins/coin.png")), 0, 0, 20, 20));
-            stateTime = 0;
+            stateTime = 0; 
         }
         else if(!destroyed) {
             //b2body.setLinearVelocity(velocity);
@@ -70,8 +85,7 @@ public class CoinFinal extends Enemy{
         }
     }
 
-    @Override
-    protected void defineEnemy() {
+    protected void defineCoin() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.DynamicBody;
@@ -92,24 +106,11 @@ public class CoinFinal extends Enemy{
     }
 
     public void draw(Batch batch){
-        if(!destroyed || stateTime < 1)
+        if(!destroyed)
             super.draw(batch);
     }
     
     
-    
-    @Override
-    public void reverseVelocity(boolean x, boolean y){
-        
-    }
-    
-    @Override
-    public void hitOnHead(Player mario) {
-
-        
-        
-        //add score
-    }
     
     public void getCoin(){
         GameProject.manager.get("mario/audio/sounds/coin.wav", Sound.class).play();
@@ -117,15 +118,5 @@ public class CoinFinal extends Enemy{
         Hud.addScore(100);
     }
     
-    @Override
-    public void hitByEnemy(Enemy enemy) {
-        
-    }
-
-	@Override
-	public void hitbyFireball(FireBall fire) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

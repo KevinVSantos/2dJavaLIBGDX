@@ -44,7 +44,7 @@ public abstract class InteractiveTiledObject {
         body = world.createBody(bdef); 
 
         shape.setAsBox(bounds.getWidth() / 2 / GameProject.PPM, bounds.getHeight() / 2 / GameProject.PPM);
-        fdef.shape = shape;
+        fdef.shape = shape; 
         fixture = body.createFixture(fdef);
 
     }

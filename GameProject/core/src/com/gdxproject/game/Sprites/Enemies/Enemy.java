@@ -13,7 +13,7 @@ import com.gdxproject.game.Sprites.Player.Player;
 public abstract class Enemy extends Sprite {
 	//atributos que serão setados para os inimigos
     protected World world;
-    protected PlayScreen screen;
+    protected PlayScreen screen; 
     public Body b2body;
     public Vector2 velocity;
 

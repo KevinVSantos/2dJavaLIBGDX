@@ -17,18 +17,17 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Screens.PlayScreen;
-import com.gdxproject.game.Sprites.Enemies.CoinFinal;
 import com.gdxproject.game.Sprites.Enemies.Enemy;
 import com.gdxproject.game.Sprites.Enemies.Enemy1;
 import com.gdxproject.game.Sprites.Enemies.Enemy2;
+import com.gdxproject.game.Sprites.Items.Coin;
 import com.gdxproject.game.Sprites.Structure.Brick;
-import com.gdxproject.game.Sprites.Structure.Coin;
 
 public class B2WorldCreator {
 	
 	private Array<Enemy1> enemies1;
     private Array<Enemy2> enemies2;
-    private Array<CoinFinal> coins;
+    private Array<Coin> coins;
 
     public B2WorldCreator(PlayScreen screen){
     	World world = screen.getWorld(); // recebe o mundo da screen
@@ -157,10 +156,10 @@ public class B2WorldCreator {
             enemies2.add(new Enemy2(screen, rect.getX() / GameProject.PPM, rect.getY() / GameProject.PPM));
         }
         
-        coins = new Array<CoinFinal>();
+        coins = new Array<Coin>();
         for(MapObject object : map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            coins.add(new CoinFinal(screen, rect.getX() / GameProject.PPM, rect.getY() / GameProject.PPM));
+            coins.add(new Coin(screen, rect.getX() / GameProject.PPM, rect.getY() / GameProject.PPM));
         }
 
          
@@ -176,8 +175,14 @@ public class B2WorldCreator {
         Array<Enemy> enemies = new Array<Enemy>();
         enemies.addAll(enemies1);
         enemies.addAll(enemies2);
-        enemies.addAll(coins);
         return enemies;
+    }
+    
+    //recebe os inimigos
+    public Array<Coin> getCoins(){
+        Array<Coin> multicoins = new Array<Coin>();
+        multicoins.addAll(coins);
+        return multicoins;
     }
     
 }

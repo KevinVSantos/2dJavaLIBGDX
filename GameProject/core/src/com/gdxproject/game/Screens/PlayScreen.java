@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Scenes.Hud;
 import com.gdxproject.game.Sprites.Enemies.Enemy;
+import com.gdxproject.game.Sprites.Items.Coin;
 import com.gdxproject.game.Sprites.Items.Item;
 import com.gdxproject.game.Sprites.Items.ItemDef;
 import com.gdxproject.game.Sprites.Items.Mushroom;
@@ -55,9 +56,6 @@ public class PlayScreen implements Screen {
     //Musicas
     private Music music;
 
-    //Referente aos itens coletados pelo pelo jogador 
-    private Array<Item> items;
-    private LinkedBlockingQueue<ItemDef> itemsToSpawn;
     
         
 	public PlayScreen(GameProject game) {
@@ -124,20 +122,6 @@ public class PlayScreen implements Screen {
         itemsToSpawn = new LinkedBlockingQueue<ItemDef>();*/
 	}
 	
-	public void spawnItem(ItemDef idef){
-        itemsToSpawn.add(idef);
-    }
-
-
-    public void handleSpawningItems(){    	
-        if(!itemsToSpawn.isEmpty()){
-            ItemDef idef = itemsToSpawn.poll();
-            if(idef.type == Mushroom.class){
-            	
-                items.add(new Mushroom(this, idef.position.x, idef.position.y));
-            }
-        }
-    }
 
 
     public TextureAtlas getAtlas(){
@@ -188,9 +172,12 @@ public class PlayScreen implements Screen {
             }
         }
 
-        //atualiza os itens
-        /*for(Item item : items)
-            item.update(dt);*/
+       for(Coin coin : creator.getCoins()) {
+    	   coin.update(dt);
+           if(coin.getX() < player.getX() + 400 / GameProject.PPM) {
+        	   coin.b2body.setActive(true);
+           }
+       }
 
         //atualiza o HUD
         hud.update(dt);
@@ -200,7 +187,7 @@ public class PlayScreen implements Screen {
         if(player.currentState != Player.State.DEAD) {
             gamecam.position.x = player.b2body.getPosition().x;
         }
-        
+         
         
         if(gamecam.position.x < 2) {
         	gamecam.position.x = 2;
@@ -244,8 +231,8 @@ public class PlayScreen implements Screen {
         player.draw(game.batch);
         for (Enemy enemy : creator.getEnemies())
             enemy.draw(game.batch);
-        /*for (Item item : items)
-            item.draw(game.batch);*/
+        for (Coin coin : creator.getCoins())
+        	coin.draw(game.batch);
         game.batch.end();
         
 
