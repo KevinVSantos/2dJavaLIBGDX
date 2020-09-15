@@ -107,13 +107,13 @@ public class PlayScreen implements Screen {
         
         Gdx.app.log("massa","DIED");
         //Defini a musica de fundo do jogo
-        music = GameProject.manager.get("mario/audio/music/mario_music.ogg", Music.class);
+        //music = GameProject.manager.get("mario/audio/music/mario_music.ogg", Music.class);
         //music = GameProject.manager.get("mario/audio/music/Blinding_Lights.ogg", Music.class);
         //music = Gdx.audio.newMusic(Gdx.files.internal("audio/Blinding_Lights.mp3"));
         
-        music.setLooping(true);
-        music.setVolume(0.3f);
-        music.play();
+      //  music.setLooping(true);
+      //  music.setVolume(0.3f);
+      //  music.play();
         
         //inicializa os items que poderão ser utilizados pelo personagem
       /*  items = new Array<Item>();
@@ -200,10 +200,13 @@ public class PlayScreen implements Screen {
         
         if(gamecam.position.x < 2) {
         	gamecam.position.x = 2;
+        }else if(gamecam.position.x > 41){
+        	gamecam.position.x = 41;        	
         } else {
         		 gamecam.position.x = player.b2body.getPosition().x;
         }
-    	
+
+
         //Atualiza nossa gamecam com as coordenadas corretas após alteração
         gamecam.update();
         //Passa ao renderer para desenhar na tela apenas o que nossa camera pode ver no nosso mundo.
