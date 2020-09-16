@@ -177,7 +177,7 @@ public class Player extends Sprite {
    public void die() {
 
         if (!isDead()) {
-        	//GameProject.manager.get("audio/effects/gameover.wav", Music.class).play();
+        	//GameProject.manager.get("audio/effects/gameover.wav", Sound.class).play();
             GameProject.manager.get("audio/music/Blinding_Lights.mp3", Music.class).stop();
             GameProject.manager.get("audio/effects/death.mp3", Sound.class).play();
             marioIsDead = true;

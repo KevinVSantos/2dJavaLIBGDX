@@ -59,7 +59,7 @@ public class PlayScreen implements Screen {
 	public PlayScreen(GameProject game) {
 		
 		//carrega o atlas referente as texturas
-		atlas = new TextureAtlas("mario/Mario_and_Enemies.pack");
+		atlas = new TextureAtlas("Mario_and_Enemies.pack");
 		
 		//recebe a classe principal do jogo
 		this.game = game;

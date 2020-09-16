@@ -25,7 +25,7 @@ public class Enemy2 extends Enemy
     private float stateTime;
     private Animation<TextureRegion> walkAnimation;
     private Array<TextureRegion> frames;
-    
+     
     private boolean setToDestroy;
     private boolean destroyed;
    // float angle;
@@ -36,7 +36,7 @@ public class Enemy2 extends Enemy
         frames = new Array<TextureRegion>();
         for(int i = 0; i < 4; i++) 
             //frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"), i * 16, 0, 16, 16));
-        frames.add(new TextureRegion(new Texture(Gdx.files.internal("Enemy.png")),  4+(i * 24), 68, 16, 20));
+        frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/Enemy.png")),  4+(i * 24), 68, 16, 20));
         walkAnimation = new Animation(0.4f, frames);
         stateTime = 0;
        
@@ -136,13 +136,13 @@ public class Enemy2 extends Enemy
     @Override
    public void hitOnHead(Player mario) {
         setToDestroy = true;
-        GameProject.manager.get("mario/audio/sounds/stomp.wav", Sound.class).play();
+        GameProject.manager.get("audio/stomp.wav", Sound.class).play();
     }
     
     @Override
     public void hitbyFireball(Bullet fire) {
          setToDestroy = true;
-         GameProject.manager.get("mario/audio/sounds/stomp.wav", Sound.class).play();
+         GameProject.manager.get("audio/stomp.wav", Sound.class).play();
      }
     
     @Override

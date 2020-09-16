@@ -112,7 +112,7 @@ public class Coin extends Sprite {
     
     
     public void getCoin(){
-        GameProject.manager.get("mario/audio/sounds/coin.wav", Sound.class).play();
+        GameProject.manager.get("audio/coin.wav", Sound.class).play();
         setToDestroy = true;
         Hud.addScore(100);
     }
