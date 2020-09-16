@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.gdxproject.game.Screens.PlayScreen;
-import com.gdxproject.game.Sprites.Player.FireBall;
+import com.gdxproject.game.Sprites.Player.Bullet;
 import com.gdxproject.game.Sprites.Player.Player;
  
 
@@ -31,7 +31,7 @@ public abstract class Enemy extends Sprite {
     public abstract void update(float dt); // atualiza as informaçoes do inimigo
     public abstract void hitOnHead(Player mario); //se player pular em cima do inimigo
     public abstract void hitByEnemy(Enemy enemy); //se inimigos se chocarem
-    public abstract void hitbyFireball(FireBall fire); //se player pular em cima do inimigo
+    public abstract void hitbyFireball(Bullet fire); //se player pular em cima do inimigo
 
      
     //função responsavel por inverter o vetor de direção do inimigo

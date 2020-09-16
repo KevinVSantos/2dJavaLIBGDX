@@ -23,12 +23,9 @@ import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Scenes.Hud;
 import com.gdxproject.game.Sprites.Enemies.Enemy;
 import com.gdxproject.game.Sprites.Items.Coin;
-import com.gdxproject.game.Sprites.Items.Item;
-import com.gdxproject.game.Sprites.Items.ItemDef;
-import com.gdxproject.game.Sprites.Items.Mushroom;
 import com.gdxproject.game.Sprites.Player.Player;
+import com.gdxproject.game.Sprites.Structure.WorldContactListener;
 import com.gdxproject.game.Tools.B2WorldCreator;
-import com.gdxproject.game.Tools.WorldContactListener;
 
 public class PlayScreen implements Screen {
 
@@ -109,17 +106,13 @@ public class PlayScreen implements Screen {
         
         Gdx.app.log("massa","DIED");
         //Defini a musica de fundo do jogo
-        //music = GameProject.manager.get("mario/audio/music/mario_music.ogg", Music.class);
         music = GameProject.manager.get("audio/Blinding_Lights.mp3", Music.class);
-        //music = Gdx.audio.newMusic(Gdx.files.internal("audio/Blinding_Lights.mp3"));
         
         music.setLooping(true);
         music.setVolume(0.3f);
         music.play();
-        
-        //inicializa os items que poderão ser utilizados pelo personagem
-      /*  items = new Array<Item>();
-        itemsToSpawn = new LinkedBlockingQueue<ItemDef>();*/
+
+
 	}
 	
 
@@ -257,18 +250,11 @@ public class PlayScreen implements Screen {
         return false;
     }
 
-    //@Override
-    /*public void resize(int width, int height) {
-        //atualiza a nossa Viewport do jogo
-        gamePort.update(width,height);
-
-    }*/
     
     @Override
     public void resize(int width, int height) {
         // TODO Auto-generated method stub
 
-        //gamecan.setToOrtho(false, width/10,height/10);
         //atualiza a nossa Viewport do jogo
         gamePort.update(width,height);
 

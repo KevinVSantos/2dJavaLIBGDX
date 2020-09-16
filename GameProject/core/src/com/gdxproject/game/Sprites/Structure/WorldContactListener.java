@@ -1,4 +1,4 @@
-package com.gdxproject.game.Tools;
+package com.gdxproject.game.Sprites.Structure;
 
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -8,11 +8,8 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Sprites.Enemies.Enemy;
 import com.gdxproject.game.Sprites.Items.Coin;
-import com.gdxproject.game.Sprites.Items.Item;
-import com.gdxproject.game.Sprites.Player.FireBall;
+import com.gdxproject.game.Sprites.Player.Bullet;
 import com.gdxproject.game.Sprites.Player.Player;
-import com.gdxproject.game.Sprites.Structure.InteractiveTiledObject;;;
-
 
 public class WorldContactListener implements ContactListener {
     @Override
@@ -26,14 +23,9 @@ public class WorldContactListener implements ContactListener {
        
         //switch para o tipo de contato 
         switch (cDef){           
-        case GameProject.MARIO_HEAD_BIT | GameProject.BRICK_BIT:
-        case GameProject.MARIO_HEAD_BIT | GameProject.COIN_BIT:
-            if(fixA.getFilterData().categoryBits == GameProject.MARIO_HEAD_BIT)
-                ((InteractiveTiledObject) fixB.getUserData()).onHeadHit((Player) fixA.getUserData());
-            else
-                ((InteractiveTiledObject) fixA.getUserData()).onHeadHit((Player) fixB.getUserData());
-            break;
-        case GameProject.ENEMY_HEAD_BIT | GameProject.MARIO_BIT:
+        case GameProject.PLAYER_HEAD_BIT | GameProject.HOLE_BIT:
+    
+        case GameProject.ENEMY_HEAD_BIT | GameProject.PLAYER_BIT:
             if(fixA.getFilterData().categoryBits == GameProject.ENEMY_HEAD_BIT)
                 ((Enemy)fixA.getUserData()).hitOnHead((Player) fixB.getUserData());
             else
@@ -45,8 +37,8 @@ public class WorldContactListener implements ContactListener {
             else
                 ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
             break;
-        case GameProject.MARIO_BIT | GameProject.ENEMY_BIT: 
-            if(fixA.getFilterData().categoryBits == GameProject.MARIO_BIT)
+        case GameProject.PLAYER_BIT | GameProject.ENEMY_BIT: 
+            if(fixA.getFilterData().categoryBits == GameProject.PLAYER_BIT)
                 ((Player) fixA.getUserData()).hit((Enemy)fixB.getUserData());
             else
                 ((Player) fixB.getUserData()).hit((Enemy)fixA.getUserData());
@@ -54,32 +46,20 @@ public class WorldContactListener implements ContactListener {
         case GameProject.ENEMY_BIT | GameProject.ENEMY_BIT:
             ((Enemy)fixA.getUserData()).hitByEnemy((Enemy)fixB.getUserData());
             ((Enemy)fixB.getUserData()).hitByEnemy((Enemy)fixA.getUserData());
-            break;
-        case GameProject.ITEM_BIT | GameProject.OBJECT_BIT:
-            if(fixA.getFilterData().categoryBits == GameProject.ITEM_BIT)
-                ((Item)fixA.getUserData()).reverseVelocity(true, false);
+            break;       
+        case GameProject.BULLET_BIT | GameProject.OBJECT_BIT: 
+            if(fixA.getFilterData().categoryBits == GameProject.BULLET_BIT)
+                ((Bullet)fixA.getUserData()).setToDestroy();
             else
-                ((Item)fixB.getUserData()).reverseVelocity(true, false);
+                ((Bullet)fixB.getUserData()).setToDestroy();
             break;
-        case GameProject.ITEM_BIT | GameProject.MARIO_BIT:
-            if(fixA.getFilterData().categoryBits == GameProject.ITEM_BIT)
-                ((Item)fixA.getUserData()).use((Player) fixB.getUserData());
-            else
-                ((Item)fixB.getUserData()).use((Player) fixA.getUserData());
-            break;
-        case GameProject.FIREBALL_BIT | GameProject.OBJECT_BIT: 
-            if(fixA.getFilterData().categoryBits == GameProject.FIREBALL_BIT)
-                ((FireBall)fixA.getUserData()).setToDestroy();
-            else
-                ((FireBall)fixB.getUserData()).setToDestroy();
-            break;
-        case GameProject.FIREBALL_BIT | GameProject.ENEMY_BIT:
+        case GameProject.BULLET_BIT | GameProject.ENEMY_BIT:
         	if(fixA.getFilterData().categoryBits == GameProject.ENEMY_BIT)
-                ((Enemy)fixA.getUserData()).hitbyFireball((FireBall) fixB.getUserData());
+                ((Enemy)fixA.getUserData()).hitbyFireball((Bullet) fixB.getUserData());
             else
-                ((Enemy)fixB.getUserData()).hitbyFireball((FireBall) fixA.getUserData());
+                ((Enemy)fixB.getUserData()).hitbyFireball((Bullet) fixA.getUserData());
             break;
-        case GameProject.MARIO_BIT | GameProject.COIN_BIT:
+        case GameProject.PLAYER_BIT | GameProject.COIN_BIT:
             ((Coin)fixB.getUserData()).getCoin();
             break;
         }

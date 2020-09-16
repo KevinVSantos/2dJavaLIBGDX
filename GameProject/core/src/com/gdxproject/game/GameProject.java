@@ -18,8 +18,8 @@ public class GameProject extends Game {
 	//Box2D Bits de colisão
 	public static final short NOTHING_BIT = 0;
 	public static final short GROUND_BIT = 1;
-	public static final short MARIO_BIT = 2;
-	public static final short BRICK_BIT = 4;
+	public static final short PLAYER_BIT = 2;
+	public static final short HOLE_BIT = 4;
 	public static final short COIN_BIT = 8;
 	public static final short DESTROYED_BIT = 16;
 	
@@ -27,8 +27,8 @@ public class GameProject extends Game {
 	public static final short ENEMY_BIT = 64;
 	public static final short ENEMY_HEAD_BIT = 128;
 	public static final short ITEM_BIT = 256;
-	public static final short MARIO_HEAD_BIT = 512;
-	public static final short FIREBALL_BIT = 1024;
+	public static final short PLAYER_HEAD_BIT = 512;
+	public static final short BULLET_BIT = 1024;
 
 	public SpriteBatch batch;
 
@@ -47,10 +47,6 @@ public class GameProject extends Game {
 		manager.load("mario/audio/music/mario_music.ogg", Music.class); 
 		manager.load("mario/audio/sounds/coin.wav", Sound.class);
 		manager.load("mario/audio/sounds/bump.wav", Sound.class);
-		manager.load("mario/audio/sounds/breakblock.wav", Sound.class);
-		manager.load("mario/audio/sounds/powerup_spawn.wav", Sound.class);
-		manager.load("mario/audio/sounds/powerup.wav", Sound.class);
-		manager.load("mario/audio/sounds/powerdown.wav", Sound.class);
 		manager.load("mario/audio/sounds/stomp.wav", Sound.class);
 		manager.load("mario/audio/sounds/mariodie.wav", Sound.class);
 		manager.load("audio/Blinding_Lights.mp3", Music.class);

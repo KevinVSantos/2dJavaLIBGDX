@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Screens.PlayScreen;
-import com.gdxproject.game.Sprites.Player.FireBall;
+import com.gdxproject.game.Sprites.Player.Bullet;
 import com.gdxproject.game.Sprites.Player.Player;
 
 
@@ -102,11 +102,10 @@ public class Enemy1 extends Enemy
         fdef.filter.categoryBits = GameProject.ENEMY_BIT;
         fdef.filter.maskBits = GameProject.GROUND_BIT |
                 GameProject.COIN_BIT |
-                GameProject.BRICK_BIT |
                 GameProject.ENEMY_BIT |
                 GameProject.OBJECT_BIT |
-                GameProject.MARIO_BIT |
-                GameProject.FIREBALL_BIT;
+                GameProject.PLAYER_BIT |
+                GameProject.BULLET_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
@@ -141,7 +140,7 @@ public class Enemy1 extends Enemy
     }
     
     @Override
-    public void hitbyFireball(FireBall fire) {
+    public void hitbyFireball(Bullet fire) {
          setToDestroy = true;
          GameProject.manager.get("mario/audio/sounds/stomp.wav", Sound.class).play();
      }

@@ -21,7 +21,6 @@ import com.gdxproject.game.Sprites.Enemies.Enemy;
 import com.gdxproject.game.Sprites.Enemies.Enemy1;
 import com.gdxproject.game.Sprites.Enemies.Enemy2;
 import com.gdxproject.game.Sprites.Items.Coin;
-import com.gdxproject.game.Sprites.Structure.Brick;
 
 public class B2WorldCreator {
 	
@@ -133,16 +132,6 @@ public class B2WorldCreator {
            
            
            }
-         
-      /* //Cria os brick bodies/fixtures
-         for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
-         	new Brick(screen, object);
-         }
-         
-       //Cria os blocos de moedas bodies/fixtures
-         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {   
-         	new Coin(screen, object);        
-         }*/
          
        //create all goombas
          enemies1 = new Array<Enemy1>();

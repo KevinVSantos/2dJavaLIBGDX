@@ -19,7 +19,6 @@ import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Scenes.Hud;
 import com.gdxproject.game.Screens.PlayScreen;
 import com.gdxproject.game.Sprites.Enemies.Enemy;
-import com.gdxproject.game.Sprites.Player.FireBall;
 import com.gdxproject.game.Sprites.Player.Player;
 
 public class Coin extends Sprite {
@@ -97,9 +96,9 @@ public class Coin extends Sprite {
         fdef.filter.categoryBits = GameProject.COIN_BIT;
         fdef.filter.maskBits = GameProject.GROUND_BIT |
                 GameProject.COIN_BIT |
-                GameProject.BRICK_BIT |
+                GameProject.HOLE_BIT |
                 GameProject.OBJECT_BIT |
-                GameProject.MARIO_BIT;
+                GameProject.PLAYER_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);

@@ -55,7 +55,7 @@ public class Player extends Sprite {
     
     protected Fixture fixture;
 
-    private Array<FireBall> fireballs;
+    private Array<Bullet> bullets;
     
     
     public Player(PlayScreen screen){
@@ -122,7 +122,7 @@ public class Player extends Sprite {
         setRegion(marioStand);
         
         
-        fireballs = new Array<FireBall>();
+        bullets = new Array<Bullet>();
         
     }
 
@@ -144,10 +144,10 @@ public class Player extends Sprite {
          }
              
 
-        for(FireBall  ball : fireballs) {
-             ball.update(dt);
-             if(ball.isDestroyed())
-                 fireballs.removeValue(ball, true);
+        for(Bullet  bullet : bullets) {
+        	bullet.update(dt);
+             if(bullet.isDestroyed())
+            	 bullets.removeValue(bullet, true);
          }
     }
     
@@ -301,10 +301,10 @@ public class Player extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(6 / GameProject.PPM);
-        fdef.filter.categoryBits = GameProject.MARIO_BIT;
+        fdef.filter.categoryBits = GameProject.PLAYER_BIT;
         fdef.filter.maskBits = GameProject.GROUND_BIT |
                 GameProject.COIN_BIT |
-                GameProject.BRICK_BIT |
+                GameProject.HOLE_BIT |
                 GameProject.ENEMY_BIT |
                 GameProject.OBJECT_BIT |
                 GameProject.ENEMY_HEAD_BIT |
@@ -315,7 +315,7 @@ public class Player extends Sprite {
 
         EdgeShape head = new EdgeShape();
         head.set(new Vector2(-2 / GameProject.PPM, 6 / GameProject.PPM), new Vector2(2 / GameProject.PPM, 6 / GameProject.PPM));
-        fdef.filter.categoryBits = GameProject.MARIO_HEAD_BIT;
+        fdef.filter.categoryBits = GameProject.PLAYER_HEAD_BIT;
         fdef.shape = head;
         fdef.isSensor = true;
 
@@ -334,12 +334,12 @@ public class Player extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(6 / GameProject.PPM);
-        fdef.filter.categoryBits = GameProject.MARIO_BIT;
+        fdef.filter.categoryBits = GameProject.PLAYER_BIT;
         fdef.filter.maskBits = GameProject.GROUND_BIT |
                 GameProject.COIN_BIT |
-                GameProject.BRICK_BIT |
                 GameProject.ENEMY_BIT |
                 GameProject.OBJECT_BIT |
+                GameProject.HOLE_BIT |
                 GameProject.ENEMY_HEAD_BIT |
                 GameProject.ITEM_BIT;
 
@@ -348,7 +348,7 @@ public class Player extends Sprite {
 
         EdgeShape head = new EdgeShape();
         head.set(new Vector2(-2 / GameProject.PPM, 6 / GameProject.PPM), new Vector2(2 / GameProject.PPM, 6 / GameProject.PPM));
-        fdef.filter.categoryBits = GameProject.MARIO_HEAD_BIT;
+        fdef.filter.categoryBits = GameProject.PLAYER_HEAD_BIT;
         fdef.shape = head;
         fdef.isSensor = true;
 
@@ -356,6 +356,7 @@ public class Player extends Sprite {
     }
 	
 	 public void defineBigMario(){
+		 
 		 Vector2 currentPosition = b2body.getPosition();
 	        world.destroyBody(b2body);
 
@@ -367,10 +368,10 @@ public class Player extends Sprite {
 	        FixtureDef fdef = new FixtureDef();
 	        CircleShape shape = new CircleShape();
 	        shape.setRadius(6 / GameProject.PPM);
-	        fdef.filter.categoryBits = GameProject.MARIO_BIT;
+	        fdef.filter.categoryBits = GameProject.PLAYER_BIT;
 	        fdef.filter.maskBits = GameProject.GROUND_BIT |
 	                GameProject.COIN_BIT |
-	                GameProject.BRICK_BIT |
+	                GameProject.HOLE_BIT |
 	                GameProject.ENEMY_BIT |
 	                GameProject.OBJECT_BIT |
 	                GameProject.ENEMY_HEAD_BIT | 
@@ -383,21 +384,22 @@ public class Player extends Sprite {
 
 	        EdgeShape head = new EdgeShape();
 	        head.set(new Vector2(-2 / GameProject.PPM, 6 / GameProject.PPM), new Vector2(2 / GameProject.PPM, 6 / GameProject.PPM));
-	        fdef.filter.categoryBits = GameProject.MARIO_HEAD_BIT;
+	        fdef.filter.categoryBits = GameProject.PLAYER_HEAD_BIT;
 	        fdef.shape = head;
 	        fdef.isSensor = true;
 
 	        b2body.createFixture(fdef).setUserData(this);
 	        timeToDefineBigMario = false;
+	        
 	    }
 	 
 	 	public void fire(PlayScreen screen){
-	        fireballs.add(new FireBall(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight ? true : false));
+	 		bullets.add(new Bullet(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight ? true : false));
 	    }
 
 	    public void draw(Batch batch){
 	        super.draw(batch);
-	        for(FireBall ball : fireballs)
+	        for(Bullet ball : bullets)
 	            ball.draw(batch);
 	    }
 

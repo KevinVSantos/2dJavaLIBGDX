@@ -17,7 +17,7 @@ import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Screens.PlayScreen;
 
 
-public class FireBall extends Sprite {
+public class Bullet extends Sprite {
 
     PlayScreen screen;
     World world;
@@ -29,7 +29,7 @@ public class FireBall extends Sprite {
     boolean fireRight;
 
     Body b2body;
-    public FireBall(PlayScreen screen, float x, float y, boolean fireRight){
+    public Bullet(PlayScreen screen, float x, float y, boolean fireRight){
     
     	this.fireRight = fireRight;
         this.screen = screen;
@@ -55,10 +55,10 @@ public class FireBall extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(3 / GameProject.PPM);
-        fdef.filter.categoryBits = GameProject.FIREBALL_BIT;
+        fdef.filter.categoryBits = GameProject.BULLET_BIT;
         fdef.filter.maskBits = GameProject.GROUND_BIT |
                 GameProject.COIN_BIT |
-                GameProject.BRICK_BIT |
+                GameProject.HOLE_BIT |
                 GameProject.ENEMY_BIT |
                 GameProject.OBJECT_BIT;
 
