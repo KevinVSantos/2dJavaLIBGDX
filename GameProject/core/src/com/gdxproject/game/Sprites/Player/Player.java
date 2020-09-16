@@ -5,6 +5,7 @@ package com.gdxproject.game.Sprites.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -60,15 +61,15 @@ public class Player extends Sprite {
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         //get run animation frames and add them to marioRun Animation
-        for(int i = 1; i < 10; i++)
+        for(int i = 1; i < 4; i++)
+        	frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4+(50*i), 43, 38, 40));
             //frames.add(new TextureRegion(getTexture(), i * 16, 10, 16, 16));
-        	frames.add(new TextureRegion(screen.getAtlas().findRegion("little_mario"), i * 16, 0, 16, 16));
+        	//frames.add(new TextureRegion(screen.getAtlas().findRegion("little_mario"), i * 16, 0, 16, 16));
         marioRun = new Animation(0.1f, frames);
 
         frames.clear();
         
-        for(int i = 4; i < 6; i++)
-            frames.add(new TextureRegion(getTexture(), i * 16, 10, 16, 16));
+         frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4+(50), 43, 38, 40));
         marioJump = new Animation(0.1f, frames);
 
         frames.clear();
@@ -77,15 +78,15 @@ public class Player extends Sprite {
 
         
       //create texture region for mario standing
-        marioStand = new TextureRegion(screen.getAtlas().findRegion("little_mario"), 0, 0, 16, 16);
+        marioStand = new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4, 3, 38, 40);
 
         //create dead mario texture region
-        marioDead = new TextureRegion(screen.getAtlas().findRegion("little_mario"), 96, 0, 16, 16);
+        marioDead = new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4, 3, 38, 40);
 
         
-        defineMario();
+        definePlayer();
         //marioStand = new TextureRegion(getTexture(), 0, 10, 16, 16);
-        setBounds(0, 0, 16 / GameProject.PPM, 16 / GameProject.PPM);
+        setBounds(0, 0, 22 / GameProject.PPM, 30 / GameProject.PPM);
         setRegion(marioStand);
         
         
@@ -96,7 +97,7 @@ public class Player extends Sprite {
 
     public void update(float dt){
     	
-    	setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);         
+        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 - 6 / GameProject.PPM);       
          //update sprite with the correct frame depending on marios current action
          setRegion(getFrame(dt));
 
@@ -133,13 +134,13 @@ public class Player extends Sprite {
         }
 
         //if mario is running left and the texture isnt facing left... flip it.
-        if((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()){
+        if((b2body.getLinearVelocity().x > 0 || !runningRight) && !region.isFlipX()){
             region.flip(true, false);
             runningRight = false;
         }
 
         //if mario is running right and the texture isnt facing right... flip it.
-        else if((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()){
+        else if((b2body.getLinearVelocity().x < 0 || runningRight) && region.isFlipX()){
             region.flip(true, false);
             runningRight = true;
         }
@@ -213,9 +214,9 @@ public class Player extends Sprite {
     }
     
     
-	public void defineMario(){
+	public void definePlayer(){
 		BodyDef bdef = new BodyDef();
-        bdef.position.set(32 / GameProject.PPM, 32 / GameProject.PPM);
+        bdef.position.set(32 / GameProject.PPM, 64 / GameProject.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -232,7 +233,9 @@ public class Player extends Sprite {
                 GameProject.ITEM_BIT;
 
         fdef.shape = shape;
-        b2body.createFixture(fdef).setUserData(this);
+         b2body.createFixture(fdef).setUserData(this);
+	        shape.setPosition(new Vector2(0, -14 / GameProject.PPM));
+	        b2body.createFixture(fdef).setUserData(this);
 
         EdgeShape head = new EdgeShape();
         head.set(new Vector2(-2 / GameProject.PPM, 6 / GameProject.PPM), new Vector2(2 / GameProject.PPM, 6 / GameProject.PPM));
@@ -242,6 +245,41 @@ public class Player extends Sprite {
 
         b2body.createFixture(fdef).setUserData(this);
     }
+	
+	/*public void definePlayer(){
+		 Vector2 currentPosition = b2body.getPosition();
+	        world.destroyBody(b2body);
+
+	        BodyDef bdef = new BodyDef();
+	        bdef.position.set(currentPosition.add(0, 10 / GameProject.PPM));
+	        bdef.type = BodyDef.BodyType.DynamicBody;
+	        b2body = world.createBody(bdef);
+
+	        FixtureDef fdef = new FixtureDef();
+	        CircleShape shape = new CircleShape();
+	        shape.setRadius(6 / GameProject.PPM);
+	        fdef.filter.categoryBits = GameProject.PLAYER_BIT;
+	        fdef.filter.maskBits = GameProject.GROUND_BIT |
+	                GameProject.COIN_BIT |
+	                GameProject.ENEMY_BIT |
+	                GameProject.OBJECT_BIT |
+	                GameProject.HOLE_BIT |
+	                GameProject.ENEMY_HEAD_BIT |
+	                GameProject.ITEM_BIT;
+
+	        fdef.shape = shape;
+	        b2body.createFixture(fdef).setUserData(this);
+	        shape.setPosition(new Vector2(0, -14 / GameProject.PPM));
+	        b2body.createFixture(fdef).setUserData(this);
+
+	        EdgeShape head = new EdgeShape();
+	        head.set(new Vector2(-2 / GameProject.PPM, 6 / GameProject.PPM), new Vector2(2 / GameProject.PPM, 6 / GameProject.PPM));
+	        fdef.filter.categoryBits = GameProject.PLAYER_HEAD_BIT;
+	        fdef.shape = head;
+	        fdef.isSensor = true;
+
+	        b2body.createFixture(fdef).setUserData(this);
+	    }*/
 	
 	
 	 

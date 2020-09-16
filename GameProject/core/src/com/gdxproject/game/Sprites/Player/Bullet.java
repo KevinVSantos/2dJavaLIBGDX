@@ -66,7 +66,7 @@ public class Bullet extends Sprite {
         fdef.friction = 0;
         b2body.createFixture(fdef).setUserData(this);
         b2body.setGravityScale(0.0f);
-        b2body.setLinearVelocity(new Vector2(fireRight ? 6 : -6, 0));
+        b2body.setLinearVelocity(new Vector2(!fireRight ? 6 : -6, 0));
     }
 
     public void update(float dt){
@@ -79,7 +79,7 @@ public class Bullet extends Sprite {
         }
        /* if(b2body.getLinearVelocity().y > 2f)
             b2body.setLinearVelocity(b2body.getLinearVelocity().x, 2f);*/
-        if((fireRight && b2body.getLinearVelocity().x < 0) || (!fireRight && b2body.getLinearVelocity().x > 0))
+        if((!fireRight && b2body.getLinearVelocity().x < 0) || (fireRight && b2body.getLinearVelocity().x > 0))
             setToDestroy();
     }
 
