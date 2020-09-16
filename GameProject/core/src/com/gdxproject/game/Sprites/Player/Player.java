@@ -177,9 +177,9 @@ public class Player extends Sprite {
    public void die() {
 
         if (!isDead()) {
-
-            GameProject.manager.get("mario/audio/music/mario_music.ogg", Music.class).stop();
-            GameProject.manager.get("mario/audio/sounds/mariodie.wav", Sound.class).play();
+        	//GameProject.manager.get("audio/effects/gameover.wav", Music.class).play();
+            GameProject.manager.get("audio/music/Blinding_Lights.mp3", Music.class).stop();
+            GameProject.manager.get("audio/effects/death.mp3", Sound.class).play();
             marioIsDead = true;
             Filter filter = new Filter();
             filter.maskBits = GameProject.NOTHING_BIT;
@@ -209,7 +209,7 @@ public class Player extends Sprite {
         if ( currentState != State.JUMPING &&  currentState != State.FALLING) {
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
             currentState = State.JUMPING;
-        }
+        } 
     }
     
     

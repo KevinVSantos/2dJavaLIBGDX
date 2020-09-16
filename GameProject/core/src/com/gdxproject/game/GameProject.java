@@ -44,12 +44,12 @@ public class GameProject extends Game {
 		
 		/// carregando assets no jogo
 		manager = new AssetManager();
-		manager.load("mario/audio/music/mario_music.ogg", Music.class); 
+		//manager.load("audio/music/gameover.wav", Music.class); 
 		manager.load("mario/audio/sounds/coin.wav", Sound.class);
 		manager.load("mario/audio/sounds/bump.wav", Sound.class);
-		manager.load("mario/audio/sounds/stomp.wav", Sound.class);
-		manager.load("mario/audio/sounds/mariodie.wav", Sound.class);
-		manager.load("audio/Blinding_Lights.mp3", Music.class);
+		manager.load("audio/effects/jump.ogg", Sound.class);
+		manager.load("audio/effects/death.mp3", Sound.class);
+		manager.load("audio/music/Blinding_Lights.mp3", Music.class);
 		manager.finishLoading();
 
 		//Seta a tela inicial

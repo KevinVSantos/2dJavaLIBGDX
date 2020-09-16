@@ -37,7 +37,6 @@ public class Bullet extends Sprite {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 0; i < 1; i++){
         	frames.add(new TextureRegion(new Texture(Gdx.files.internal("bullet.png")), (i *10), 4, 35, 15));
-           // frames.add(new TextureRegion(screen.getAtlas().findRegion("fireball"), i * 8, 0, 8, 8));
         }
         fireAnimation = new Animation(0.2f, frames);
         setRegion(fireAnimation.getKeyFrame(0));

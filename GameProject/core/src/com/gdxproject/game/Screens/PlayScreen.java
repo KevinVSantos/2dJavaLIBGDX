@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -106,7 +107,8 @@ public class PlayScreen implements Screen {
         
         Gdx.app.log("massa","DIED");
         //Defini a musica de fundo do jogo
-        music = GameProject.manager.get("audio/Blinding_Lights.mp3", Music.class);
+        music = GameProject.manager.get("audio/music/Blinding_Lights.mp3", Music.class);
+        
         
         music.setLooping(true);
         music.setVolume(0.3f);
@@ -131,8 +133,11 @@ public class PlayScreen implements Screen {
 	public void handleInput(float dt){
         //Controla nosso Player usando impulsos imediatos
 	   if(player.currentState != Player.State.DEAD) {
-           if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.currentState != Player.State.FALLING && player.currentState != Player.State.JUMPING)
-            	player.b2body.applyLinearImpulse(new Vector2(0, 4f), player.b2body.getWorldCenter(), true);
+           if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.currentState != Player.State.FALLING && player.currentState != Player.State.JUMPING) {
+        	   GameProject.manager.get("audio/effects/jump.ogg", Sound.class).play();
+           		player.b2body.applyLinearImpulse(new Vector2(0, 4f), player.b2body.getWorldCenter(), true);
+        	   
+           }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2)
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2)
