@@ -147,9 +147,6 @@ public class Enemy1 extends Enemy
     
     @Override
     public void hitByEnemy(Enemy enemy) {
-       /* if(enemy instanceof Turtle && ((Turtle) enemy).currentState == Turtle.State.MOVING_SHELL)
-            setToDestroy = true;
-        else
-            reverseVelocity(true, false);*/
+            reverseVelocity(true, false);
     }
 }
