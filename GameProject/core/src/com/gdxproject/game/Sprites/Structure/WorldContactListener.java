@@ -55,9 +55,9 @@ public class WorldContactListener implements ContactListener {
             break;
         case GameProject.BULLET_BIT | GameProject.ENEMY_BIT:
         	if(fixA.getFilterData().categoryBits == GameProject.ENEMY_BIT)
-                ((Enemy)fixA.getUserData()).hitbyFireball((Bullet) fixB.getUserData());
+                ((Enemy)fixA.getUserData()).hitbyBullet((Bullet) fixB.getUserData());
             else
-                ((Enemy)fixB.getUserData()).hitbyFireball((Bullet) fixA.getUserData());
+                ((Enemy)fixB.getUserData()).hitbyBullet((Bullet) fixA.getUserData());
             break;
         case GameProject.PLAYER_BIT | GameProject.COIN_BIT:
             ((Coin)fixB.getUserData()).getCoin();
