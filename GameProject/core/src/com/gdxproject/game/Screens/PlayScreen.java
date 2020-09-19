@@ -163,12 +163,16 @@ public class PlayScreen implements Screen {
     	
     	//atualiza os inimigos
     	//lembrar que inimigos só são ativados após a aproximação do jogador
+    	 
        for(Enemy enemy : creator.getEnemies()) {
             enemy.update(dt);
+            if(player.currentState == Player.State.DEAD) 
+            	enemy.b2body.setLinearVelocity(new Vector2(0f, 0f));
             if(enemy.getX() < player.getX() + 400 / GameProject.PPM) {
                 enemy.b2body.setActive(true);
             }
         }
+    	 
 
        for(Coin coin : creator.getCoins()) {
     	   coin.update(dt);
