@@ -3,6 +3,7 @@ package com.gdxproject.game.Sprites.Player;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -27,22 +28,24 @@ import com.gdxproject.game.Sprites.Enemies.Enemy;
 
 
 public class Player extends Sprite {
-	  public enum State { FALLING, JUMPING, STANDING, RUNNING, GROWING, DEAD };
+	  public enum State { FALLING, JUMPING, STANDING, RUNNING, SHOOTING, GROWING, DEAD };
 	    public State currentState;
 	    public State previousState;
 
     public World world;
     public Body b2body;
-    private TextureRegion marioStand;
+    private TextureRegion playerStand;
     
-    private Animation<TextureRegion>  marioRun;
-    private Animation<TextureRegion>  marioJump;
+    private Animation<TextureRegion>  playerRun;
+    private Animation<TextureRegion>  playerJump;
+    private Animation<TextureRegion>  playerShoot;
     private float stateTimer;
+    private float shootTimer;
     private boolean runningRight;
     
     
-    private TextureRegion marioDead;      
-    private boolean marioIsDead;
+    private TextureRegion playerDead;      
+    private boolean playerIsDead;
     
     protected Fixture fixture;
 
@@ -63,14 +66,18 @@ public class Player extends Sprite {
         //get run animation frames and add them to marioRun Animation
         for(int i = 1; i < 4; i++)
         	frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4+(50*i), 43, 38, 40));
-            //frames.add(new TextureRegion(getTexture(), i * 16, 10, 16, 16));
-        	//frames.add(new TextureRegion(screen.getAtlas().findRegion("little_mario"), i * 16, 0, 16, 16));
-        marioRun = new Animation(0.1f, frames);
+        playerRun = new Animation(0.1f, frames);
+        
+        frames.clear();
+        
+        for(int i = 1; i < 4; i++)
+        	frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4+(50*i), 129, 38, 40));
+        playerShoot = new Animation(0.4f, frames);
 
         frames.clear();
         
          frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4+(50), 43, 38, 40));
-        marioJump = new Animation(0.1f, frames);
+         playerJump = new Animation(0.1f, frames);
 
         frames.clear();
         
@@ -78,16 +85,16 @@ public class Player extends Sprite {
 
         
       //create texture region for mario standing
-        marioStand = new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4, 3, 38, 40);
+        playerStand = new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4, 3, 38, 40);
 
         //create dead mario texture region
-        marioDead = new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4, 3, 38, 40);
+        playerDead = new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4, 3, 38, 40);
 
         
         definePlayer();
         //marioStand = new TextureRegion(getTexture(), 0, 10, 16, 16);
         setBounds(0, 0, 22 / GameProject.PPM, 30 / GameProject.PPM);
-        setRegion(marioStand);
+        setRegion(playerStand);
         
         
         bullets = new Array<Bullet>();
@@ -99,7 +106,17 @@ public class Player extends Sprite {
     	
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 - 6 / GameProject.PPM);       
          //update sprite with the correct frame depending on marios current action
-         setRegion(getFrame(dt));
+        
+        currentState = getState();
+    	if(currentState == State.SHOOTING && shootTimer <=4) {
+    		setRegion(getFrameFire(dt));
+    		shootTimer ++;
+    	}    		
+    	else {
+    		shootTimer = 0;
+    		setRegion(getFrame(dt));
+    	}
+    		
 
 
         for(Bullet  bullet : bullets) {
@@ -109,27 +126,58 @@ public class Player extends Sprite {
          }
     }
     
+    public TextureRegion getFrameFire(float dt){
+        //get marios current state. ie. jumping, running, standing...
+        
+
+        TextureRegion region;
+
+        region = playerShoot.getKeyFrame(dt, true);
+		
+
+        //if mario is running left and the texture isnt facing left... flip it.
+        if((b2body.getLinearVelocity().x > 0 || !runningRight) && !region.isFlipX()){
+            region.flip(true, false);
+            runningRight = false;
+        }
+
+        //if mario is running right and the texture isnt facing right... flip it.
+        else if((b2body.getLinearVelocity().x < 0 || runningRight) && region.isFlipX()){
+            region.flip(true, false);
+            runningRight = true;
+        }
+
+        //if the current state is the same as the previous state increase the state timer.
+        //otherwise the state has changed and we need to reset timer.
+        stateTimer = currentState == previousState ? stateTimer + dt : 0;
+        //update previous state
+        previousState = currentState;
+        //return our final adjusted frame
+        return region;
+
+    }
+    
     public TextureRegion getFrame(float dt){
         //get marios current state. ie. jumping, running, standing...
-        currentState = getState();
+        
 
         TextureRegion region;
 
         //depending on the state, get corresponding animation keyFrame.
         switch(currentState){
             case DEAD:
-                region = marioDead;
+                region = playerDead;
                 break;
             case JUMPING:
-                region =  marioJump.getKeyFrame(stateTimer);
+                region =  playerJump.getKeyFrame(stateTimer);
                 break;
             case RUNNING:
-                region = marioRun.getKeyFrame(stateTimer, true);
-                break;
+                region = playerRun.getKeyFrame(stateTimer, true);
+                break;            
             case FALLING:
             case STANDING:
             default:
-                region =  marioStand;
+                region =  playerStand;
                 break;
         }
 
@@ -158,10 +206,11 @@ public class Player extends Sprite {
     public State getState(){
         //Test to Box2D for velocity on the X and Y-Axis
         //if mario is going positive in Y-Axis he is jumping... or if he just jumped and is falling remain in jump state
-        if(marioIsDead)
+        if(playerIsDead)
             return State.DEAD;
-        else
-    	if((b2body.getLinearVelocity().y > 0 /*&& currentState == State.JUMPING*/) || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
+        else if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+            return State.SHOOTING;
+        else if((b2body.getLinearVelocity().y > 0 /*&& currentState == State.JUMPING*/) || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
     		return State.JUMPING;
         //if negative in Y-Axis mario is falling
         else if(b2body.getLinearVelocity().y < 0)
@@ -181,7 +230,7 @@ public class Player extends Sprite {
         	//GameProject.manager.get("audio/effects/gameover.wav", Sound.class).play();
             GameProject.manager.get("audio/music/Blinding_Lights.mp3", Music.class).stop();
             GameProject.manager.get("audio/effects/death.mp3", Sound.class).play();
-            marioIsDead = true;
+            playerIsDead = true;
             Filter filter = new Filter();
             filter.maskBits = GameProject.NOTHING_BIT;
 
@@ -194,7 +243,7 @@ public class Player extends Sprite {
     }
 
     public boolean isDead(){
-        return marioIsDead;
+        return playerIsDead;
     }
 
     public float getStateTimer(){
@@ -284,6 +333,7 @@ public class Player extends Sprite {
 	
 	 
 	 	public void fire(PlayScreen screen){
+	 		
 	 		bullets.add(new Bullet(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight ? true : false));
 	    }
 

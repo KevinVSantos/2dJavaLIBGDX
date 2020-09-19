@@ -40,7 +40,7 @@ public class Bullet extends Sprite {
         }
         fireAnimation = new Animation(0.2f, frames);
         setRegion(fireAnimation.getKeyFrame(0));
-        setBounds(x, y, 14 / GameProject.PPM, 6 / GameProject.PPM);
+        setBounds(x, y-0.1f, 14 / GameProject.PPM, 6 / GameProject.PPM);
         defineFireBall();
     }
 
@@ -67,20 +67,58 @@ public class Bullet extends Sprite {
         b2body.createFixture(fdef).setUserData(this);
         b2body.setGravityScale(0.0f);
         b2body.setLinearVelocity(new Vector2(!fireRight ? 6 : -6, 0));
+        
     }
 
     public void update(float dt){
         stateTime += dt;
-        setRegion(fireAnimation.getKeyFrame(stateTime, true));
-        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+        
         if((stateTime > 3 || setToDestroy) && !destroyed) {
             world.destroyBody(b2body);
             destroyed = true;
         }
+        if(setToDestroy && !destroyed){ 	
+            world.destroyBody(b2body);
+            destroyed = true;
+            setRegion(getFrame(fireAnimation.getKeyFrame(stateTime, true), false));
+           
+            
+            stateTime = 0;
+        }
+        else if(!destroyed) {
+            //  b2body.setLinearVelocity(velocity);
+            setRegion(getFrame(fireAnimation.getKeyFrame(stateTime, true), true));
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+           //setRegion(getFrame(stateTime));
+        }
        /* if(b2body.getLinearVelocity().y > 2f)
             b2body.setLinearVelocity(b2body.getLinearVelocity().x, 2f);*/
-        if((!fireRight && b2body.getLinearVelocity().x < 0) || (fireRight && b2body.getLinearVelocity().x > 0))
-            setToDestroy();
+       /* if((!fireRight && b2body.getLinearVelocity().x < 0) || (fireRight && b2body.getLinearVelocity().x > 0))
+            setToDestroy();*/
+    }
+    
+    public TextureRegion getFrame(TextureRegion region, boolean t){
+    	  
+    	if(t) {
+    		
+            if((b2body.getLinearVelocity().x < 0 ) && !region.isFlipX()){
+                region.flip(true, false);
+            }
+
+            else if((b2body.getLinearVelocity().x > 0) && region.isFlipX()){
+                region.flip(true, false);
+            }
+
+    		
+    	}else {
+    		
+    		region.flip(false, true);
+    		
+    	}
+     
+        //return our final adjusted frame
+        return region;
+
     }
 
     public void setToDestroy(){

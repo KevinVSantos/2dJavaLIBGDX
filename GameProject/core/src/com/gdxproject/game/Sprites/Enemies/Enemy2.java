@@ -40,7 +40,7 @@ public class Enemy2 extends Enemy
         walkAnimation = new Animation(0.4f, frames);
         stateTime = 0;
        
-        setBounds(getX(), getY(), 16 / GameProject.PPM, 20 / GameProject.PPM);
+        setBounds(getX(), getY(), 16 / GameProject.PPM, 30 / GameProject.PPM);
         setToDestroy = false; 
         destroyed = false;
       //  angle = 0;
@@ -109,6 +109,8 @@ public class Enemy2 extends Enemy
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
+        shape.setPosition(new Vector2(0, -8 / GameProject.PPM));
+        b2body.createFixture(fdef).setUserData(this);
 
         //Create the Head here:
         PolygonShape head = new PolygonShape();
@@ -140,7 +142,8 @@ public class Enemy2 extends Enemy
     }
     
     @Override
-    public void hitbyFireball(Bullet fire) {
+    public void hitbyBullet(Bullet bullet) {
+    	bullet.setToDestroy();
          setToDestroy = true;
          GameProject.manager.get("audio/stomp.wav", Sound.class).play();
      }
