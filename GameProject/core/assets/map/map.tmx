@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="269" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="17" nextobjectid="208">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="269" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="17" nextobjectid="209">
  <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="19637" columns="269">
   <image source="tileset.png" width="4304" height="1175"/>
  </tileset>
@@ -87,6 +87,6 @@
  </objectgroup>
  <objectgroup id="10" name="final"/>
  <objectgroup id="14" name="helicoptero">
-  <object id="205" x="162.515" y="134.849"/>
+  <object id="208" x="4223.33" y="133.333"/>
  </objectgroup>
 </map>

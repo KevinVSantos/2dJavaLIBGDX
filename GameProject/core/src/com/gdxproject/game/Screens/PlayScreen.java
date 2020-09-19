@@ -258,6 +258,12 @@ public class PlayScreen implements Screen {
 	        game.setScreen(new GameOverScreen(game));
 	        dispose();
 		}
+		
+		if(player.currentState == Player.State.SAVE)
+		{
+			game.setScreen(new SuccessScreen(game));
+	        dispose();
+		}
 		 
 	}
 
@@ -269,7 +275,11 @@ public class PlayScreen implements Screen {
         return false;
     }
 
-    
+	public boolean completeGame(){
+		//verifica se ocorreu um gameover
+        return Player.instance.saved;
+    }
+	
     @Override
     public void resize(int width, int height) {
         // TODO Auto-generated method stub

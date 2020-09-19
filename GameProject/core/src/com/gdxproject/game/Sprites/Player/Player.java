@@ -28,7 +28,7 @@ import com.gdxproject.game.Sprites.Enemies.Enemy;
 
 
 public class Player extends Sprite {
-	  public enum State { FALLING, JUMPING, STANDING, RUNNING, SHOOTING, GROWING, DEAD };
+	  public enum State { FALLING, JUMPING, STANDING, RUNNING, SHOOTING, GROWING, DEAD, SAVE };
 	    public State currentState;
 	    public State previousState;
 
@@ -42,7 +42,9 @@ public class Player extends Sprite {
     private float stateTimer;
     private float shootTimer;
     private boolean runningRight;
+    public boolean saved = false;
     
+    public static Player instance;
     
     private TextureRegion playerDead;      
     private boolean playerIsDead;
@@ -59,7 +61,7 @@ public class Player extends Sprite {
         previousState = State.STANDING;
         stateTimer = 0;
         runningRight = true;
-        
+        instance = this;
         
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -256,6 +258,10 @@ public class Player extends Sprite {
     public boolean isDead(){
         return playerIsDead;
     }
+    
+    public void setDead(boolean status) {
+    	playerIsDead  = status;
+    }
 
     public float getStateTimer(){
         return stateTimer;
@@ -349,10 +355,18 @@ public class Player extends Sprite {
 	 		bullets.add(new Bullet(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight ? true : false));
 	    }
 
+	 	public void setSaved(boolean status)
+	 	{
+	 		saved = status;
+	 	}
+	 	
 	    public void draw(Batch batch){
-	        super.draw(batch);
-	        for(Bullet ball : bullets)
-	            ball.draw(batch);
+	    	if(!saved)
+	    	{
+		        super.draw(batch);
+		        for(Bullet ball : bullets)
+		            ball.draw(batch);
+	    	}
 	    }
 
 }

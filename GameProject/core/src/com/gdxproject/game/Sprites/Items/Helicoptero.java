@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Screens.PlayScreen;
 import com.gdxproject.game.Sprites.Player.Player;
+import com.gdxproject.game.Sprites.Player.Player.State;
 
 public class Helicoptero extends Sprite {
 
@@ -30,6 +31,9 @@ public class Helicoptero extends Sprite {
     private float stateTime;
     private Animation<TextureRegion> walkAnimation;
     private Array<TextureRegion> frames;
+    private boolean startSave = false;
+    
+    private float startSaveTime;
 
     private boolean setToDestroy;
     private boolean destroyed;
@@ -88,12 +92,30 @@ public class Helicoptero extends Sprite {
     }
 	
 	public void draw(Batch batch){
+		
         if(!destroyed)
             super.draw(batch);
     }
     
 	public void update(float dt){
-        stateTime += dt;   	
+        stateTime += dt;
+        
+        if(Player.instance.saved)
+        {
+        	if(!startSave)
+        	{
+        		startSave = true;
+        		startSaveTime = 2;
+        		b2body.setLinearVelocity(new Vector2(1, 1));
+        	}else {
+        		if(startSaveTime < 0)
+        		{
+        			Player.instance.currentState = State.SAVE;
+        		}else {
+        			startSaveTime -= dt;
+        		}
+        	}
+        }
         if(setToDestroy && !destroyed){ 	
             world.destroyBody(b2body);
             destroyed = true;
@@ -108,8 +130,7 @@ public class Helicoptero extends Sprite {
 	
 	public void bind(Player player) {
 		player.finish();
-		b2body.setLinearVelocity(new Vector2(1, 1));
-        b2body.applyLinearImpulse(new Vector2(0.01f, 0.1f), b2body.getWorldCenter(), false);
+		player.setSaved(true);
         this.screen.setStateGame();
 	}
     
