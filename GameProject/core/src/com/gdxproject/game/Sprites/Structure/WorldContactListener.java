@@ -31,7 +31,7 @@ public class WorldContactListener implements ContactListener {
         //switch para o tipo de contato 
         switch (cDef){           
         case GameProject.PLAYER_HEAD_BIT | GameProject.HOLE_BIT:
-    
+     
         case GameProject.ENEMY_HEAD_BIT | GameProject.PLAYER_BIT:
             if(fixA.getFilterData().categoryBits == GameProject.ENEMY_HEAD_BIT)
                 ((Enemy)fixA.getUserData()).hitOnHead((Player) fixB.getUserData());
@@ -54,6 +54,14 @@ public class WorldContactListener implements ContactListener {
             ((Enemy)fixA.getUserData()).hitByEnemy((Enemy)fixB.getUserData());
             ((Enemy)fixB.getUserData()).hitByEnemy((Enemy)fixA.getUserData());
             break;       
+        case GameProject.ENEMY_BIT | GameProject.ENEMY_HEAD_BIT:
+            ((Enemy)fixA.getUserData()).hitByEnemy((Enemy)fixB.getUserData());
+            ((Enemy)fixB.getUserData()).hitByEnemy((Enemy)fixA.getUserData());
+            break;       
+        case GameProject.ENEMY_HEAD_BIT | GameProject.ENEMY_HEAD_BIT:
+            ((Enemy)fixA.getUserData()).hitByEnemy((Enemy)fixB.getUserData());
+            ((Enemy)fixB.getUserData()).hitByEnemy((Enemy)fixA.getUserData());
+            break;        
         case GameProject.BULLET_BIT | GameProject.OBJECT_BIT: 
             if(fixA.getFilterData().categoryBits == GameProject.BULLET_BIT)
                 ((Bullet)fixA.getUserData()).setToDestroy();

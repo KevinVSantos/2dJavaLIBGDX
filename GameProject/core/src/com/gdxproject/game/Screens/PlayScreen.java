@@ -88,7 +88,7 @@ public class PlayScreen implements Screen {
         
         //gamecam.setToOrtho(false,GameProject.V_WIDTH/ GameProject.PPM,GameProject.V_HEIGHT/ GameProject.PPM);
         
-        
+         
         
         //cria nosso mundo Box2D, configura nenhuma gravidade para X, -10 gravidade em Y, e mantem os corpos em repouso
         world = new World(new Vector2(0, -10), true);

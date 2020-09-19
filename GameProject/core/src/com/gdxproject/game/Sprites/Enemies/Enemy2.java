@@ -61,7 +61,7 @@ public class Enemy2 extends Enemy
             b2body.setLinearVelocity(velocity);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
            setRegion(getFrame(walkAnimation.getKeyFrame(stateTime, true),true));
-           //setRegion(getFrame(stateTime));
+           //setRegion(getFrame(stateTime)); 
         }
     }
     
