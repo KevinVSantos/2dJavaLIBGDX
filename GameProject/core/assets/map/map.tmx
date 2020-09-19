@@ -85,11 +85,8 @@
   <object id="201" x="997.333" y="84"/>
   <object id="202" x="324" y="88"/>
  </objectgroup>
- <objectgroup id="10" name="final">
-  <object id="197" x="4232" y="142.667"/>
- </objectgroup>
+ <objectgroup id="10" name="final"/>
  <objectgroup id="14" name="helicoptero">
-  <object id="205" x="163.667" y="155.667"/>
-  <object id="207" x="-163.636" y="830.303" width="863.636" height="27.2727"/>
+  <object id="205" x="4253.18" y="126.182"/>
  </objectgroup>
 </map>
