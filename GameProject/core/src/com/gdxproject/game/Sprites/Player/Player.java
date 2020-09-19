@@ -241,6 +241,17 @@ public class Player extends Sprite {
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
         }
     }
+   
+   public void finish(){
+       Filter filter = new Filter();
+       filter.maskBits = GameProject.NOTHING_BIT;
+
+       for (Fixture fixture : b2body.getFixtureList()) {
+           fixture.setFilterData(filter);
+       }
+       //world.destroyBody(b2body);
+      
+   }
 
     public boolean isDead(){
         return playerIsDead;
@@ -279,7 +290,8 @@ public class Player extends Sprite {
                 GameProject.OBJECT_BIT |
                 GameProject.HOLE_BIT |
                 GameProject.ENEMY_HEAD_BIT |
-                GameProject.ITEM_BIT;
+                GameProject.ITEM_BIT |
+                GameProject.FINAL_BIT;
 
         fdef.shape = shape;
          b2body.createFixture(fdef).setUserData(this);

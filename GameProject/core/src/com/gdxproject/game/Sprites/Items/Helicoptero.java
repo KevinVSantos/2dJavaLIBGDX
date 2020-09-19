@@ -12,9 +12,13 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.joints.FrictionJointDef;
+import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
+import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Screens.PlayScreen;
+import com.gdxproject.game.Sprites.Player.Player;
 
 public class Helicoptero extends Sprite {
 
@@ -72,7 +76,7 @@ public class Helicoptero extends Sprite {
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(48 / GameProject.PPM);
+        shape.setRadius(20 / GameProject.PPM);
         fdef.filter.categoryBits = GameProject.FINAL_BIT;
         fdef.filter.maskBits = GameProject.GROUND_BIT |
                 GameProject.PLAYER_BIT |
@@ -95,12 +99,18 @@ public class Helicoptero extends Sprite {
             destroyed = true;
             setRegion(walkAnimation.getKeyFrame(stateTime, true));
             stateTime = 0; 
-        }
-        else if(!destroyed) {
+        }else if(!destroyed) {
             //b2body.setLinearVelocity(velocity);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             setRegion(walkAnimation.getKeyFrame(stateTime, true));
         }
     }
+	
+	public void bind(Player player) {
+		player.finish();
+		b2body.setLinearVelocity(new Vector2(1, 1));
+        b2body.applyLinearImpulse(new Vector2(0.01f, 0.1f), b2body.getWorldCenter(), false);
+        this.screen.setStateGame();
+	}
     
 }

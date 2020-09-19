@@ -87,6 +87,6 @@
  </objectgroup>
  <objectgroup id="10" name="final"/>
  <objectgroup id="14" name="helicoptero">
-  <object id="205" x="4253.18" y="126.182"/>
+  <object id="205" x="162.515" y="134.849"/>
  </objectgroup>
 </map>

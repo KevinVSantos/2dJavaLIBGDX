@@ -54,10 +54,10 @@ public class PlayScreen implements Screen {
     //Musicas
     private Music music;
 
+    private int stateGame;
     
-        
 	public PlayScreen(GameProject game) {
-		
+		stateGame = 0;
 		//carrega o atlas referente as texturas
 		atlas = new TextureAtlas("Mario_and_Enemies.pack");
 		
@@ -177,12 +177,11 @@ public class PlayScreen implements Screen {
            }
        }
        
-       for(Helicoptero helicoptero : creator.getHelicopteros()) {
-    	   helicoptero.update(dt);
-           if(helicoptero.getX() < player.getX() + 400 / GameProject.PPM) {
-        	   helicoptero.b2body.setActive(true);
-           }
-       }
+       	Helicoptero helicoptero = creator.getHelicoptero();
+    	helicoptero.update(dt);
+        if(helicoptero.getX() < player.getX() + 400 / GameProject.PPM) {
+        	helicoptero.b2body.setActive(true);
+        }
 
         //atualiza o HUD
         hud.update(dt);
@@ -192,17 +191,22 @@ public class PlayScreen implements Screen {
         if(player.currentState != Player.State.DEAD) {
             gamecam.position.x = player.b2body.getPosition().x;
         }
-         
         
         if(gamecam.position.x < 2) {
-        	gamecam.position.x = 2;
-        }else if(gamecam.position.x > 41){
-        	gamecam.position.x = 41;        	
-        } else {
-        		 gamecam.position.x = player.b2body.getPosition().x;
+           	gamecam.position.x = 2;
+           }else if(gamecam.position.x > 41){
+           	gamecam.position.x = 41;        	
+           }else if(stateGame == 1){
+       	 gamecam.position.x = helicoptero.getX();
+        }else  {
+    	   
+    	    gamecam.position.x = player.b2body.getPosition().x;
+           
+    	   
         }
+       
 
-
+        
         //Atualiza nossa gamecam com as coordenadas corretas após alteração
         gamecam.update();
         //Passa ao renderer para desenhar na tela apenas o que nossa camera pode ver no nosso mundo.
@@ -238,8 +242,8 @@ public class PlayScreen implements Screen {
             enemy.draw(game.batch);
         for (Coin coin : creator.getCoins())
         	coin.draw(game.batch);
-        for (Helicoptero helicoptero : creator.getHelicopteros())
-        	helicoptero.draw(game.batch);
+        Helicoptero helicoptero = creator.getHelicoptero();
+        helicoptero.draw(game.batch);
         
         game.batch.end();
         
@@ -304,6 +308,10 @@ public class PlayScreen implements Screen {
 		
 	}
 
+	public void setStateGame(){
+    	stateGame = 1;
+    }
+	
 	@Override
 	public void dispose() {
 		//dispose de todos os nossos recursos abertos

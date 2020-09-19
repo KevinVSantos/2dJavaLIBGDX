@@ -1,14 +1,20 @@
 package com.gdxproject.game.Sprites.Structure;
 
+import java.util.Vector;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.joints.FrictionJointDef;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Sprites.Enemies.Enemy;
 import com.gdxproject.game.Sprites.Items.Coin;
+import com.gdxproject.game.Sprites.Items.Helicoptero;
 import com.gdxproject.game.Sprites.Player.Bullet;
 import com.gdxproject.game.Sprites.Player.Player;
 
@@ -64,19 +70,23 @@ public class WorldContactListener implements ContactListener {
             ((Coin)fixB.getUserData()).getCoin();
             break;
         case GameProject.PLAYER_BIT | GameProject.FINAL_BIT:
-        	if(fixA.getFilterData().categoryBits == GameProject.PLAYER_BIT)
-        		Gdx.app.log("massa","mario if");
-            else
-            	Gdx.app.log("massa","mario else");
+        	if(fixA.getFilterData().categoryBits == GameProject.PLAYER_BIT) {
+        		((Helicoptero) fixB.getUserData()).bind(((Player) fixA.getUserData()));
+            }else {
+            	((Helicoptero) fixA.getUserData()).bind(((Player) fixB.getUserData()));
+            }
         	break;
         case GameProject.PLAYER_HEAD_BIT | GameProject.FINAL_BIT:
-            if(fixA.getFilterData().categoryBits == GameProject.PLAYER_HEAD_BIT)
-                System.out.println("cabeça if");
-            else
-            	System.out.println("cabeça else");
-            break;
+        	if(fixA.getFilterData().categoryBits == GameProject.PLAYER_HEAD_BIT) {
+        		((Helicoptero) fixB.getUserData()).bind(((Player) fixA.getUserData()));
+            }else {
+            	((Helicoptero) fixA.getUserData()).bind(((Player) fixB.getUserData()));
+            }
         }
     }
+    
+
+    
 
     @Override
     public void endContact(Contact contact) {
