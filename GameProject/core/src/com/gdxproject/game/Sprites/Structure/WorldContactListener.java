@@ -82,6 +82,21 @@ public class WorldContactListener implements ContactListener {
             }else {
             	((Helicoptero) fixA.getUserData()).bind(((Player) fixB.getUserData()));
             }
+        	  break;
+        case GameProject.GROUND_BIT | GameProject.ENEMY_BIT:
+    		if(fixA.getFilterData().categoryBits == GameProject.ENEMY_BIT) {
+    			((Enemy)fixA.getUserData()).hitByEnemy((Enemy)fixA.getUserData());
+    		}else {
+    			((Enemy)fixB.getUserData()).hitByEnemy((Enemy)fixB.getUserData());
+    		}
+    		  break; 
+        case GameProject.FINAL_BIT | GameProject.ENEMY_BIT:
+    		if(fixA.getFilterData().categoryBits == GameProject.ENEMY_BIT) {
+    			((Enemy)fixA.getUserData()).hitByEnemy((Enemy)fixA.getUserData());
+    		}else {
+    			((Enemy)fixB.getUserData()).hitByEnemy((Enemy)fixB.getUserData());
+    		}
+    		  break; 
         }
     }
     

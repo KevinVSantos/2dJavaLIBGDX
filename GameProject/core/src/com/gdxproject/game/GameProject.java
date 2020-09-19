@@ -45,13 +45,15 @@ public class GameProject extends Game {
 		
 		/// carregando assets no jogo
 		manager = new AssetManager();
-		//manager.load("audio/music/gameover.wav", Music.class); 
+		manager.load("audio/effects/gameover.mp3", Music.class); 
 		manager.load("audio/coin.wav", Sound.class);
 		manager.load("audio/stomp.wav", Sound.class);
 		manager.load("audio/bump.wav", Sound.class);
 		manager.load("audio/effects/jump.ogg", Sound.class);
 		manager.load("audio/effects/death.mp3", Sound.class);
 		manager.load("audio/music/Blinding_Lights.mp3", Music.class);
+		manager.load("audio/voice/hahaha.mp3", Music.class);
+		manager.load("audio/voice/idiota.mp3", Music.class);
 		manager.finishLoading();
 
 		//Seta a tela inicial

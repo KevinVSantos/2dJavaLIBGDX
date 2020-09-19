@@ -81,6 +81,7 @@ public class Helicoptero extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(20 / GameProject.PPM);
+        shape.setPosition(new Vector2(-0.1f, -0.1f));
         fdef.filter.categoryBits = GameProject.FINAL_BIT;
         fdef.filter.maskBits = GameProject.GROUND_BIT |
                 GameProject.PLAYER_BIT |

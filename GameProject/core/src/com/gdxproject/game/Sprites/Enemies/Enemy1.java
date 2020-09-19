@@ -104,8 +104,14 @@ public class Enemy1 extends Enemy
                 GameProject.COIN_BIT |
                 GameProject.ENEMY_BIT |
                 GameProject.OBJECT_BIT |
-                GameProject.PLAYER_BIT |
+                GameProject.PLAYER_BIT |                
+                GameProject.HOLE_BIT |    
+                GameProject.ENEMY_HEAD_BIT |
+                GameProject.ITEM_BIT |
+                GameProject.FINAL_BIT |
                 GameProject.BULLET_BIT;
+        
+        
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
