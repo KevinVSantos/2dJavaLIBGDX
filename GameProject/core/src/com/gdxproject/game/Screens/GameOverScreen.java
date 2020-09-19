@@ -39,11 +39,16 @@ public class GameOverScreen implements Screen {
     private Animation<TextureRegion> walkAnimation;
     private Array<TextureRegion> frames;
     private EnemyB enemyb ;
+    
+
+    //Musicas
+    private Music music1;
+    private Music music2;
+
 
     public GameOverScreen(GameProject game){
         this.game = game;
-        GameProject.manager.get("audio/voice/hahaha.mp3", Music.class).play();
-        GameProject.manager.get("audio/voice/idiota.mp3", Music.class).play();
+        
         
       //inicializa a camera que irá seguir junto ao personagem
         gamecam = new OrthographicCamera();
@@ -74,6 +79,24 @@ public class GameOverScreen implements Screen {
         
         enemyb = new EnemyB(this, GameProject.V_WIDTH, GameProject.V_HEIGHT);
         
+        
+        
+        music1 = GameProject.manager.get("audio/voice/hahaha.mp3", Music.class);
+        music1.play();
+        
+        music2 =  GameProject.manager.get("audio/voice/idiota.mp3", Music.class);
+        music1.setOnCompletionListener(new Music.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(Music music) {
+            	music2.play();
+
+            }
+        });
+
+        
+        
+       
         
     }
 
