@@ -105,7 +105,7 @@ public class PlayScreen implements Screen {
         world.setContactListener(new WorldContactListener());
         
         
-        Gdx.app.log("massa","DIED");
+        
         //Defini a musica de fundo do jogo
         music = GameProject.manager.get("audio/music/Blinding_Lights.mp3", Music.class);
         

@@ -53,6 +53,9 @@ public class Player extends Sprite {
 
     private Array<Bullet> bullets;
     
+
+    private Music music;
+    
     
     public Player(PlayScreen screen){
     	super(screen.getAtlas().findRegion("little_mario"));
@@ -85,6 +88,8 @@ public class Player extends Sprite {
         
         for(int i = 1; i < 5; i++)
         	frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4+(50*i), 3, 38, 40));
+        	//frames.add(new TextureRegion(new Texture(Gdx.files.internal("enemyb.png")),  0, 0, 544, 544));
+        	
         playerStand = new Animation(1f, frames);
 
        frames.clear();
@@ -240,11 +245,15 @@ public class Player extends Sprite {
     
    public void die() {
 
-        if (!isDead()) {
-        	//GameProject.manager.get("audio/effects/gameover.wav", Sound.class).play();
+        if (!isDead()) {        	
             GameProject.manager.get("audio/music/Blinding_Lights.mp3", Music.class).stop();
+            
             GameProject.manager.get("audio/effects/death.mp3", Sound.class).play();
             playerIsDead = true;
+            GameProject.manager.get("audio/effects/gameover.mp3", Music.class).play();
+            
+            
+           
            /* Filter filter = new Filter();
             filter.maskBits = GameProject.NOTHING_BIT;
 
