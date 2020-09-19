@@ -21,12 +21,14 @@ import com.gdxproject.game.Sprites.Enemies.Enemy;
 import com.gdxproject.game.Sprites.Enemies.Enemy1;
 import com.gdxproject.game.Sprites.Enemies.Enemy2;
 import com.gdxproject.game.Sprites.Items.Coin;
+import com.gdxproject.game.Sprites.Items.Helicoptero;
 
 public class B2WorldCreator {
 	
 	private Array<Enemy1> enemies1;
     private Array<Enemy2> enemies2;
     private Array<Coin> coins;
+    private Array<Helicoptero> helicopteros;
 
     public B2WorldCreator(PlayScreen screen){
     	World world = screen.getWorld(); // recebe o mundo da screen
@@ -150,7 +152,12 @@ public class B2WorldCreator {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             coins.add(new Coin(screen, rect.getX() / GameProject.PPM, rect.getY() / GameProject.PPM));
         }
-
+        
+        helicopteros = new Array<Helicoptero>();
+        for(MapObject object : map.getLayers().get(11).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            helicopteros.add(new Helicoptero(screen, rect.getX() / GameProject.PPM, rect.getY() / GameProject.PPM));
+        }
          
     }
     
@@ -172,6 +179,13 @@ public class B2WorldCreator {
         Array<Coin> multicoins = new Array<Coin>();
         multicoins.addAll(coins);
         return multicoins;
+    }
+    
+
+    public Array<Helicoptero> getHelicopteros(){
+        Array<Helicoptero> multiHelicopteros = new Array<Helicoptero>();
+        multiHelicopteros.addAll(helicopteros);
+        return multiHelicopteros;
     }
     
 }

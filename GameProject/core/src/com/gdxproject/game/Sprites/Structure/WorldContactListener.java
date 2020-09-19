@@ -1,5 +1,6 @@
 package com.gdxproject.game.Sprites.Structure;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -61,6 +62,18 @@ public class WorldContactListener implements ContactListener {
             break;
         case GameProject.PLAYER_BIT | GameProject.COIN_BIT:
             ((Coin)fixB.getUserData()).getCoin();
+            break;
+        case GameProject.PLAYER_BIT | GameProject.FINAL_BIT:
+        	if(fixA.getFilterData().categoryBits == GameProject.PLAYER_BIT)
+        		Gdx.app.log("massa","mario if");
+            else
+            	Gdx.app.log("massa","mario else");
+        	break;
+        case GameProject.PLAYER_HEAD_BIT | GameProject.FINAL_BIT:
+            if(fixA.getFilterData().categoryBits == GameProject.PLAYER_HEAD_BIT)
+                System.out.println("cabeça if");
+            else
+            	System.out.println("cabeça else");
             break;
         }
     }

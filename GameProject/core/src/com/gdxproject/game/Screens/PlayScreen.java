@@ -17,13 +17,13 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Scenes.Hud;
 import com.gdxproject.game.Sprites.Enemies.Enemy;
 import com.gdxproject.game.Sprites.Items.Coin;
+import com.gdxproject.game.Sprites.Items.Helicoptero;
 import com.gdxproject.game.Sprites.Player.Player;
 import com.gdxproject.game.Sprites.Structure.WorldContactListener;
 import com.gdxproject.game.Tools.B2WorldCreator;
@@ -176,6 +176,13 @@ public class PlayScreen implements Screen {
         	   coin.b2body.setActive(true);
            }
        }
+       
+       for(Helicoptero helicoptero : creator.getHelicopteros()) {
+    	   helicoptero.update(dt);
+           if(helicoptero.getX() < player.getX() + 400 / GameProject.PPM) {
+        	   helicoptero.b2body.setActive(true);
+           }
+       }
 
         //atualiza o HUD
         hud.update(dt);
@@ -231,6 +238,9 @@ public class PlayScreen implements Screen {
             enemy.draw(game.batch);
         for (Coin coin : creator.getCoins())
         	coin.draw(game.batch);
+        for (Helicoptero helicoptero : creator.getHelicopteros())
+        	helicoptero.draw(game.batch);
+        
         game.batch.end();
         
 
