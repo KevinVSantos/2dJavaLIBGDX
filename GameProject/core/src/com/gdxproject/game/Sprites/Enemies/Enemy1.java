@@ -154,7 +154,7 @@ public class Enemy1 extends Enemy
          GameProject.manager.get("audio/stomp.wav", Sound.class).play();
          
      }
-    
+     
     @Override
     public void hitByEnemy(Enemy enemy) {
             reverseVelocity(true, false);

@@ -78,9 +78,9 @@ public class GameOverScreen implements Screen {
         gamecam.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         
         enemyb = new EnemyB(this, GameProject.V_WIDTH, GameProject.V_HEIGHT);
+         
         
-        
-        
+          
         music1 = GameProject.manager.get("audio/voice/hahaha.mp3", Music.class);
         music1.play();
         

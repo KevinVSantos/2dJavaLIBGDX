@@ -27,7 +27,7 @@ import com.gdxproject.game.Sprites.Player.Player;
 public class EnemyB extends Sprite
 {
     private float stateTime;
-    private Animation<TextureRegion> walkAnimation;
+    private Animation<TextureRegion> walkAnimation; 
     private Array<TextureRegion> frames;
     protected GameOverScreen screen; 
 
