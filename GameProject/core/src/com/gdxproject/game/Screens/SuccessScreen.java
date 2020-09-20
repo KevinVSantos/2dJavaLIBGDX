@@ -19,9 +19,11 @@ public class SuccessScreen implements Screen {
     private Stage stage;
 
     private Game game;
-
-    public SuccessScreen(Game game){
+    private int slevel;
+    
+    public SuccessScreen(Game game,int level){
         this.game = game;
+        slevel = level;
         viewport = new FitViewport(GameProject.V_WIDTH, GameProject.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, ((GameProject) game).batch);
 
@@ -49,7 +51,7 @@ public class SuccessScreen implements Screen {
     @Override
     public void render(float delta) {
         if(Gdx.input.justTouched()) {
-            game.setScreen(new PlayScreen((GameProject) game));
+            game.setScreen(new PlayScreen((GameProject) game, slevel));
             dispose();
         }
         Gdx.gl.glClearColor(0, 0, 0, 1);

@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdxproject.game.GameProject;
+import com.gdxproject.game.Menu.LevelSelect;
 import com.gdxproject.game.Sprites.Enemies.Enemy;
 import com.gdxproject.game.Sprites.Enemies.EnemyB;
 import com.gdxproject.game.Sprites.Items.Coin;
@@ -97,7 +98,8 @@ public class IntroStoryScreen implements Screen {
     }
     
     public void closeScreen() {
-    	game.setScreen(new PlayScreen((GameProject) game));
+    	//game.setScreen(new PlayScreen((GameProject) game));
+    	game.setScreen(new LevelSelect((GameProject) game));
         dispose();    	
     }
 

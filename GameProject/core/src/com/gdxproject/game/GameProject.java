@@ -7,8 +7,10 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.gdxproject.game.Menu.BBInputProcessor;
 import com.gdxproject.game.Screens.IntroDevScreen;
 import com.gdxproject.game.Screens.PlayScreen;
+
 
 public class GameProject extends Game {
 	//Tamanho da tela virtual e Escala do Box2D(Pixels por metro)
@@ -39,14 +41,22 @@ public class GameProject extends Game {
 	Uma maneira é passar o Assetmanager para as classes que precisam dele.
 	Por enquanto será usado de maneira estatica para salvar o tempo. */
 	public static AssetManager manager;
-	 
+	
+	//private GameStateManager gsm;
+	
+	
 	@Override
 	public void create () {
 		
 		batch = new SpriteBatch(); 
 		
+		Gdx.input.setInputProcessor(new BBInputProcessor());
+		
+		
+		
 		/// carregando assets no jogo
 		manager = new AssetManager();
+		manager.load("hit.wav", Music.class); 
 		manager.load("audio/effects/gameover.mp3", Music.class); 
 		manager.load("audio/coin.wav", Sound.class);
 		manager.load("audio/stomp.wav", Sound.class);
