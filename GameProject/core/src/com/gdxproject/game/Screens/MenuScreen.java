@@ -90,6 +90,12 @@ public class MenuScreen implements Screen {
     }
     
     public void closeScreen() {
+    	try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	game.setScreen(new LevelSelect((GameProject) game));
         dispose();    	
     }
