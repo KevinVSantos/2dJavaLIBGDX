@@ -32,7 +32,6 @@ public class GameOverScreen implements Screen {
     private Stage stage;
 	//Variaveis basicas da Playscreen
     private OrthographicCamera gamecam;
-
     private GameProject game;
     
     private float stateTime;
@@ -44,11 +43,11 @@ public class GameOverScreen implements Screen {
     //Musicas
     private Music music1;
     private Music music2;
+    private int slevel;
 
-
-    public GameOverScreen(GameProject game){
+    public GameOverScreen(GameProject game,int level){
         this.game = game;
-        
+        slevel = level;
         
       //inicializa a camera que irá seguir junto ao personagem
         gamecam = new OrthographicCamera();
@@ -119,7 +118,7 @@ public class GameOverScreen implements Screen {
     	
     	
         if(Gdx.input.justTouched()) {
-            game.setScreen(new PlayScreen((GameProject) game));
+            game.setScreen(new PlayScreen((GameProject) game, slevel));
             dispose();
         }
        Gdx.gl.glClearColor(0, 0, 0, 1);

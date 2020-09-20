@@ -56,11 +56,13 @@ public class PlayScreen implements Screen {
 
     private int stateGame;
     
-	public PlayScreen(GameProject game) {
+    public static int slevel;
+    
+	public PlayScreen(GameProject game,int level) {
 		stateGame = 0;
 		//carrega o atlas referente as texturas
 		atlas = new TextureAtlas("Mario_and_Enemies.pack");
-		
+		 slevel = level;
 		//recebe a classe principal do jogo
 		this.game = game;
 		
@@ -78,7 +80,7 @@ public class PlayScreen implements Screen {
         //Carrega nosso mapa e configura nosso rederizador do mapa 
         maploader = new TmxMapLoader();
         
-       // map = maploader.load("mario/level1.tmx");
+       // map = maploader.load("mario/level1.tmx");   
         map = maploader.load("map/map.tmx");
         
         renderer = new OrthogonalTiledMapRenderer(map, 1  / GameProject.PPM);
@@ -117,7 +119,9 @@ public class PlayScreen implements Screen {
 
 	}
 	
-
+	public OrthographicCamera getCam(){
+        return gamecam;
+    }
 
     public TextureAtlas getAtlas(){
         return atlas;
@@ -270,7 +274,7 @@ public class PlayScreen implements Screen {
 
         if(gameOver()){
 
-            game.setScreen(new GameOverScreen(game));
+            game.setScreen(new GameOverScreen(game, slevel));
 
                 Hud.saveScore();
 
@@ -280,7 +284,7 @@ public class PlayScreen implements Screen {
 		
 		if(player.currentState == Player.State.SAVE)
 		{
-			game.setScreen(new SuccessScreen(game));
+			game.setScreen(new SuccessScreen(game, slevel));
 	        dispose();
 		}
 		 
