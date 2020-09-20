@@ -64,7 +64,6 @@ public class PlayScreen implements Screen {
 		stateGame = 0;
 		nickname=nick;
 		//carrega o atlas referente as texturas
-		atlas = new TextureAtlas("Mario_and_Enemies.pack");
 		 slevel = level;
 		//recebe a classe principal do jogo
 		this.game = game;

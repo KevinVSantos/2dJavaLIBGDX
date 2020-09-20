@@ -59,7 +59,7 @@ public class Player extends Sprite {
     
     
     public Player(PlayScreen screen){
-    	super(screen.getAtlas().findRegion("little_mario"));
+    	super();
         this.world = screen.getWorld();
         currentState = State.STANDING;
         previousState = State.STANDING;
