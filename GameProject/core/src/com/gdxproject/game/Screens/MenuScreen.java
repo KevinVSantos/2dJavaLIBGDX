@@ -206,7 +206,7 @@ public class MenuScreen implements Screen {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	game.setScreen(new LevelSelect((GameProject) game));
+    	game.setScreen(new LevelSelect((GameProject) game, textField.getText()));
         dispose();    	
     }
 
@@ -221,7 +221,8 @@ public class MenuScreen implements Screen {
     	update(delta);
     	
     	
-        if(Gdx.input.justTouched()) {
+        if(Gdx.input.justTouched() && textField.getText().length() > 0) {
+        	
         	music1.stop();
             closeScreen();
         }

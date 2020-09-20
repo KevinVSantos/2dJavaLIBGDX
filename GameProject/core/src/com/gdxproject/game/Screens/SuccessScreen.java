@@ -37,10 +37,13 @@ public class SuccessScreen implements Screen {
     private Music music1;
     private Music music2;
     
-    public SuccessScreen(GameProject game,int level){
+    
+    String nickname;
+    
+    public SuccessScreen(GameProject game,int level,String nick){
         this.game = game;
         slevel = level;
-
+        nickname=nick;
 
       //inicializa a camera que irá seguir junto ao personagem
         gamecam = new OrthographicCamera();
@@ -105,7 +108,7 @@ public class SuccessScreen implements Screen {
  	update(delta);       
         
         if(Gdx.input.justTouched()) {
-            game.setScreen(new PlayScreen((GameProject) game, slevel));
+            game.setScreen(new PlayScreen((GameProject) game, slevel, nickname));
             dispose();
         }
         Gdx.gl.glClearColor(0, 0, 0, 1);
