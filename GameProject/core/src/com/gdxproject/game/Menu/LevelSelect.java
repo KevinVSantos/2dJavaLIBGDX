@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdxproject.game.Menu.GameButton;
 import com.gdxproject.game.Screens.PlayScreen;
+import com.gdxproject.game.Sprites.Enemies.EnemyB;
 import com.gdxproject.game.GameProject;
 
 public class LevelSelect implements Screen {
@@ -30,7 +31,11 @@ public class LevelSelect implements Screen {
 	 Stage stage;
 	 Group background;
 		Group foreground;
-	
+		BackMenu back;
+		
+		//Musicas
+	    private Music music1;
+	    
 	public LevelSelect(GameProject game) {
 		this.game = game;
 	        
@@ -56,26 +61,17 @@ public class LevelSelect implements Screen {
 		stage = new Stage();
 
 		background = new Group();
-		background.setBounds(0, 0, GameProject.V_WIDTH, GameProject.V_HEIGHT);
+		background.setBounds(100, 100, 100, 100);
 		background.setPosition(100, 100);
-	//	foreground = new Group();
-	//	foreground.setBounds(0, 0, GameProject.V_WIDTH, GameProject.V_HEIGHT);
-
-		// Notice the order
 		stage.addActor(background);
-	//	stage.addActor(foreground);
-
-	//	foreground.addActor(new Actor());
-		// Or anything else you want to add like you normally would to the stage. 
-
 		background.addActor(new Image(reg)); // your background image here.
 
+		back = new BackMenu(this, GameProject.V_WIDTH, GameProject.V_HEIGHT);
 		
-		//gamecamsetBounds(0,GameProject.V_WIDTH, GameProject.V_HEIGHT);
-	        
-	      //inicializa e seta nossa gamecam para ser centralizada corretamente no inicio do mapa
-	      //  gamecam.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
-	        
+		music1 = GameProject.manager.get("audio/music/song_story_requiem_for_a_dream.mp3", Music.class);
+        music1.play();
+        music1.setLooping(true);
+        
 	}
 	
 	public void handleInput() {
@@ -83,6 +79,7 @@ public class LevelSelect implements Screen {
 	
 	public void update(float dt) {
 		
+		back.update(dt);
 		handleInput();
 		
 		for(int row = 0; row < buttons.length; row++) {
@@ -95,6 +92,7 @@ public class LevelSelect implements Screen {
 					GameProject.manager.get("hit.wav", Music.class).play();
 					//buttons[row][col].setClicked();
 					Gdx.app.log("BUTTON", s);
+					music1.stop();
 					game.setScreen(new PlayScreen((GameProject) game, level));
 					//gsm.setState(GameStateManager.PLAY);
 				}
@@ -120,13 +118,12 @@ public class LevelSelect implements Screen {
         
        
        
-      // stage.draw();
         game.batch.setProjectionMatrix(gamecam.combined);
         
         game.batch.begin();        
-       
+       back.draw(game.batch);
       //  enemyb.draw(game.batch);  
-        game.batch.draw(reg, 0, 0); 
+        //game.batch.draw(reg, 0, 0); 
         game.batch.end();
         
 
