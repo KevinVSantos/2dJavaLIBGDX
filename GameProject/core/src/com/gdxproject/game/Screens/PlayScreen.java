@@ -133,7 +133,7 @@ public class PlayScreen implements Screen {
 	public void handleInput(float dt){
         //Controla nosso Player usando impulsos imediatos
 	   if(player.currentState != Player.State.DEAD) {
-           if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.currentState != Player.State.FALLING && player.currentState != Player.State.JUMPING) {
+           if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.currentState != Player.State.FALLING && player.currentState != Player.State.JUMPING && player.currentState != Player.State.SHOOTING) {
         	   GameProject.manager.get("audio/effects/jump.ogg", Sound.class).play();
            		player.b2body.applyLinearImpulse(new Vector2(0, 4f), player.b2body.getWorldCenter(), true);
         	   
