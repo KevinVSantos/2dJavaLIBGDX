@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.GameProject;
+import com.gdxproject.game.Scenes.Hud;
 import com.gdxproject.game.Screens.PlayScreen;
 import com.gdxproject.game.Sprites.Player.Bullet;
 import com.gdxproject.game.Sprites.Player.Player;
@@ -142,6 +143,9 @@ public class Enemy1 extends Enemy
    public void hitOnHead(Player mario) {
         setToDestroy = true;
         GameProject.manager.get("audio/stomp.wav", Sound.class).play();
+        Hud.addScore(185);
+
+        Gdx.app.log("massa","185");
     }
     
     @Override
@@ -149,11 +153,19 @@ public class Enemy1 extends Enemy
     	bullet.setToDestroy();
          setToDestroy = true;
          GameProject.manager.get("audio/stomp.wav", Sound.class).play();
+         Hud.addScore(100);
+
+         Gdx.app.log("massa","100");
          
      }
      
     @Override
     public void hitByEnemy(Enemy enemy) {
             reverseVelocity(true, false);
+    }
+    
+    @Override
+    public boolean isDestroyed() {
+    	return destroyed;
     }
 }

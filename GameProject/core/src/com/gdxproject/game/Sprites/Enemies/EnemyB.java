@@ -43,7 +43,6 @@ public class EnemyB extends Sprite
         walkAnimation = new Animation(0.1f, frames);        
         stateTime = 0;
         setBounds(0, 0, 100, 150 );
-        Gdx.app.log("massa","cons");
     }
 
     public void update(float dt){

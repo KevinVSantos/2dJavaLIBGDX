@@ -164,11 +164,14 @@ public class PlayScreen implements Screen {
     	//atualiza os inimigos
     	//lembrar que inimigos só são ativados após a aproximação do jogador
     	 
+    	
+        
+        
        for(Enemy enemy : creator.getEnemies()) {
             enemy.update(dt);
             if(player.currentState == Player.State.DEAD) 
             	enemy.b2body.setLinearVelocity(new Vector2(0f, 0f));
-            if(enemy.getX() < player.getX() + 400 / GameProject.PPM) {
+            if(!enemy.isDestroyed() && (enemy.getX() < player.getX() + 400 / GameProject.PPM)) {
                 enemy.b2body.setActive(true);
             }
         }
@@ -176,7 +179,7 @@ public class PlayScreen implements Screen {
 
        for(Coin coin : creator.getCoins()) {
     	   coin.update(dt);
-           if(coin.getX() < player.getX() + 400 / GameProject.PPM) {
+           if(!coin.isDestroyed() &&  (coin.getX() < player.getX() + 400 / GameProject.PPM)) {
         	   coin.b2body.setActive(true);
            }
        }
@@ -242,6 +245,12 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
+        
+        
+        
+        
+        
+        
         for (Enemy enemy : creator.getEnemies())
             enemy.draw(game.batch);
         for (Coin coin : creator.getCoins())
@@ -257,11 +266,17 @@ public class PlayScreen implements Screen {
         hud.stage.draw();
 		
 			
-		//se ocorrer um gameover a tela de GameOver será chamada e irá ocorrer um dispose dos recursos do game
-		if(gameOver()){
-	        game.setScreen(new GameOverScreen(game));
-	        dispose();
-		}
+        //se ocorrer um gameover a tela de GameOver será chamada e irá ocorrer um dispose dos recursos do game
+
+        if(gameOver()){
+
+            game.setScreen(new GameOverScreen(game));
+
+                Hud.saveScore();
+
+            dispose();
+
+        }
 		
 		if(player.currentState == Player.State.SAVE)
 		{

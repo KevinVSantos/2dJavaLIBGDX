@@ -114,7 +114,11 @@ public class Coin extends Sprite {
     public void getCoin(){
         GameProject.manager.get("audio/coin.wav", Sound.class).play();
         setToDestroy = true;
-        Hud.addScore(100);
+        Hud.addScore(300);
+    }
+    
+    public boolean isDestroyed() {
+    	return destroyed;
     }
     
 

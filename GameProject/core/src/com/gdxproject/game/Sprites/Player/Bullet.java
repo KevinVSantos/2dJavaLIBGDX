@@ -46,14 +46,14 @@ public class Bullet extends Sprite {
 
     public void defineFireBall(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(fireRight ?  getX() + 12 /GameProject.PPM : getX() - 12 /GameProject.PPM, getY());
+        bdef.position.set(fireRight ?  getX() + 12 /GameProject.PPM : getX() - 12 /GameProject.PPM, getY()+0.04f);
         bdef.type = BodyDef.BodyType.DynamicBody;
         if(!world.isLocked())
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(3 / GameProject.PPM);
+        shape.setRadius(0.7f / GameProject.PPM);
         fdef.filter.categoryBits = GameProject.BULLET_BIT;
         fdef.filter.maskBits = GameProject.GROUND_BIT |
                 GameProject.COIN_BIT |
