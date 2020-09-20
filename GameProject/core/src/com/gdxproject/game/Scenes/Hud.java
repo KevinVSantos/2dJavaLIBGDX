@@ -85,7 +85,7 @@ public class Hud implements Disposable{
          timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
          levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
          worldLabel = new Label("WORLD", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-         playerLabel = new Label("MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+         playerLabel = new Label(nickname, new Label.LabelStyle(new BitmapFont(), Color.WHITE));
          scoreRankName = new Label("RANK", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
 
