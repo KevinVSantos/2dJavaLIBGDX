@@ -99,7 +99,7 @@ public class IntroStoryScreen implements Screen {
     
     public void closeScreen() {
     	//game.setScreen(new PlayScreen((GameProject) game));
-    	game.setScreen(new LevelSelect((GameProject) game));
+    	game.setScreen(new MenuScreen((GameProject) game));
         dispose();    	
     }
 
