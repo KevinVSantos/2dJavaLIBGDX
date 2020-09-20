@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.gdxproject.game.Screens.IntroDevScreen;
 import com.gdxproject.game.Screens.PlayScreen;
 
 public class GameProject extends Game {
@@ -52,12 +53,16 @@ public class GameProject extends Game {
 		manager.load("audio/effects/jump.ogg", Sound.class);
 		manager.load("audio/effects/death.mp3", Sound.class);
 		manager.load("audio/music/Blinding_Lights.mp3", Music.class);
+		manager.load("audio/music/song_intro_daydreaming.mp3", Music.class);
+		manager.load("audio/music/song_intro_daydreaming_story.mp3", Music.class);
 		manager.load("audio/voice/hahaha.mp3", Music.class);
 		manager.load("audio/voice/idiota.mp3", Music.class);
 		manager.finishLoading();
 
 		//Seta a tela inicial
-		setScreen(new PlayScreen(this));
+		//setScreen(new PlayScreen(this));
+		
+		setScreen(new IntroDevScreen(this));
 	}
 
 
