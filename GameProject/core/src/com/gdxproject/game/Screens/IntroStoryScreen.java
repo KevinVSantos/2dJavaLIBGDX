@@ -108,6 +108,7 @@ public class IntroStoryScreen implements Screen {
     	
     	
         if(Gdx.input.justTouched()) {
+        	music1.stop();
         	closeScreen();
         }
        Gdx.gl.glClearColor(0, 0, 0, 1);
