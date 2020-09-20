@@ -40,7 +40,7 @@ public class LevelSelect implements Screen {
 	        
 	    viewport = new FitViewport(GameProject.V_WIDTH, GameProject.V_HEIGHT, gamecam);
 		
-		reg = new TextureRegion(new Texture(Gdx.files.internal("bgs.jpg")), 0, 0, 400, 228);
+		reg = new TextureRegion(new Texture(Gdx.files.internal("lvl_image.jpg")), 0, 0, 1600, 800);
 	
 		TextureRegion buttonReg = new TextureRegion(new Texture(Gdx.files.internal("hud.png")), 0, 0, 32, 32);
 		buttons = new GameButton[5][5];
