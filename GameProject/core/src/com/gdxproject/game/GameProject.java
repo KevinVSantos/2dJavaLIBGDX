@@ -31,6 +31,7 @@ public class GameProject extends Game {
 	public static final short PLAYER_HEAD_BIT = 512;
 	public static final short BULLET_BIT = 1024;
 	public static final short FINAL_BIT = 2048;
+	public static final short ENEMY_GROUND_BIT = 4096;
 
 	public SpriteBatch batch;
 

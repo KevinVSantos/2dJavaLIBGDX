@@ -44,6 +44,24 @@ public class WorldContactListener implements ContactListener {
             else
                 ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
             break;
+        case GameProject.ENEMY_HEAD_BIT | GameProject.OBJECT_BIT:
+            if(fixA.getFilterData().categoryBits == GameProject.ENEMY_HEAD_BIT)
+                ((Enemy)fixA.getUserData()).reverseVelocity(true, false);
+            else
+                ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
+            break;
+        case GameProject.ENEMY_HEAD_BIT | GameProject.ENEMY_GROUND_BIT:
+            if(fixA.getFilterData().categoryBits == GameProject.ENEMY_HEAD_BIT)
+                ((Enemy)fixA.getUserData()).reverseVelocity(true, false);
+            else
+                ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
+            break;
+        case GameProject.ENEMY_BIT | GameProject.ENEMY_GROUND_BIT:
+            if(fixA.getFilterData().categoryBits == GameProject.ENEMY_BIT)
+                ((Enemy)fixA.getUserData()).reverseVelocity(true, false);
+            else
+                ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
+            break;
         case GameProject.PLAYER_BIT | GameProject.ENEMY_BIT: 
             if(fixA.getFilterData().categoryBits == GameProject.PLAYER_BIT)
                 ((Player) fixA.getUserData()).hit((Enemy)fixB.getUserData());
@@ -61,7 +79,7 @@ public class WorldContactListener implements ContactListener {
         case GameProject.ENEMY_HEAD_BIT | GameProject.ENEMY_HEAD_BIT:
             ((Enemy)fixA.getUserData()).hitByEnemy((Enemy)fixB.getUserData());
             ((Enemy)fixB.getUserData()).hitByEnemy((Enemy)fixA.getUserData());
-            break;        
+            break;
         case GameProject.BULLET_BIT | GameProject.OBJECT_BIT: 
             if(fixA.getFilterData().categoryBits == GameProject.BULLET_BIT)
                 ((Bullet)fixA.getUserData()).setToDestroy();

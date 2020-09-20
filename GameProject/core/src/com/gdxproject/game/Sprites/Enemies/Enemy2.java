@@ -35,7 +35,6 @@ public class Enemy2 extends Enemy
         super(screen, x, y);
         frames = new Array<TextureRegion>();
         for(int i = 0; i < 4; i++) 
-            //frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"), i * 16, 0, 16, 16));
         frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/Enemy.png")),  4+(i * 24), 68, 16, 20));
         walkAnimation = new Animation(0.4f, frames);
         stateTime = 0;
@@ -43,7 +42,6 @@ public class Enemy2 extends Enemy
         setBounds(getX(), getY(), 16 / GameProject.PPM, 30 / GameProject.PPM);
         setToDestroy = false; 
         destroyed = false;
-      //  angle = 0;
     }
 
     public void update(float dt){
@@ -51,7 +49,6 @@ public class Enemy2 extends Enemy
         if(setToDestroy && !destroyed){ 	
             world.destroyBody(b2body);
             destroyed = true;
-           //setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba"), 32, 0, 16, 16));
             setRegion(getFrame(walkAnimation.getKeyFrame(stateTime, true),false));
            
             
@@ -60,8 +57,8 @@ public class Enemy2 extends Enemy
         else if(!destroyed) {
             b2body.setLinearVelocity(velocity);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-           setRegion(getFrame(walkAnimation.getKeyFrame(stateTime, true),true));
-           //setRegion(getFrame(stateTime)); 
+            setRegion(getFrame(walkAnimation.getKeyFrame(stateTime, true),true));
+        
         }
     }
     
@@ -109,7 +106,8 @@ public class Enemy2 extends Enemy
                 GameProject.ENEMY_HEAD_BIT |
                 GameProject.ITEM_BIT |
                 GameProject.FINAL_BIT |
-                GameProject.BULLET_BIT;
+                GameProject.BULLET_BIT |
+                GameProject.ENEMY_GROUND_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
@@ -121,8 +119,8 @@ public class Enemy2 extends Enemy
         Vector2[] vertice = new Vector2[4];
         vertice[0] = new Vector2(-5, 8).scl(1 / GameProject.PPM);
         vertice[1] = new Vector2(5, 8).scl(1 / GameProject.PPM);
-        vertice[2] = new Vector2(-3, 3).scl(1 / GameProject.PPM);
-        vertice[3] = new Vector2(3, 3).scl(1 / GameProject.PPM);
+        vertice[2] = new Vector2(-3, 10).scl(1 / GameProject.PPM);
+        vertice[3] = new Vector2(3, 10).scl(1 / GameProject.PPM);
         head.set(vertice);
 
         fdef.shape = head;

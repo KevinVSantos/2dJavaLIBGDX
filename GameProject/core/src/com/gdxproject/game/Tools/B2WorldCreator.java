@@ -116,6 +116,25 @@ public class B2WorldCreator {
           
           }
          
+         for(MapObject object : map.getLayers().get(12).getObjects().getByType(RectangleMapObject.class)) {
+           	Rectangle rect = ((RectangleMapObject) object).getRectangle(); // cria um retangulo para definir o objeto
+           	
+           	bdef.type = BodyType.StaticBody;  //defini o objeto como estatico
+           	
+           	//defini a posição do bdef
+           	bdef.position.set((rect.getX() + rect.getWidth() / 2 ) / GameProject.PPM, (rect.getY() + rect.getHeight() / 2)/ GameProject.PPM);
+           	
+               
+           	body = world.createBody(bdef); // cria o corpo no mundo
+           	
+           	shape.setAsBox((rect.getWidth() / 2)/ GameProject.PPM, (rect.getHeight() / 2)/ GameProject.PPM); // defini a forma
+           	fdef.shape = shape; // passa a forma para o corpo
+           	fdef.filter.categoryBits = GameProject.ENEMY_GROUND_BIT; // defini o tipo de bit de contato do corpo
+           	body.createFixture(fdef); //cria a fixture no mundo
+           
+           
+           }
+         
          for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
            	Rectangle rect = ((RectangleMapObject) object).getRectangle(); // cria um retangulo para definir o objeto
            	
