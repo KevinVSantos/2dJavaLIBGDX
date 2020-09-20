@@ -109,7 +109,8 @@ public class Enemy1 extends Enemy
                 GameProject.ENEMY_HEAD_BIT |
                 GameProject.ITEM_BIT |
                 GameProject.FINAL_BIT |
-                GameProject.BULLET_BIT;
+                GameProject.BULLET_BIT |
+                GameProject.ENEMY_GROUND_BIT;
         
         
 
