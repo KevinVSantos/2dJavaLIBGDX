@@ -1,6 +1,7 @@
 package com.gdxproject.game.Sprites.Items;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -37,7 +38,8 @@ public class Helicoptero extends Sprite {
 
     private boolean setToDestroy;
     private boolean destroyed;
-
+  //Musicas
+    private Music music;
 	
 	public Helicoptero(PlayScreen screen, float x, float y) {
        
@@ -130,6 +132,9 @@ public class Helicoptero extends Sprite {
     }
 	
 	public void bind(Player player) {
+		
+		music = GameProject.manager.get("audio/voice/coquinho.mp3", Music.class);
+        music.play();
 		player.finish();
 		player.setSaved(true);
         this.screen.setStateGame();

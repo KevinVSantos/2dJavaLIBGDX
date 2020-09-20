@@ -90,7 +90,7 @@
  </objectgroup>
  <objectgroup id="10" name="final"/>
  <objectgroup id="14" name="helicoptero">
-  <object id="208" x="4223.33" y="133.333"/>
+  <object id="208" x="160.33" y="84.333"/>
  </objectgroup>
  <objectgroup id="17" name="enemyground">
   <object id="210" x="1172" y="169.333"/>

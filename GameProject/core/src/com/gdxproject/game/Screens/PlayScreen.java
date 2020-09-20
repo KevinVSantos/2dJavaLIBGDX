@@ -285,6 +285,7 @@ public class PlayScreen implements Screen {
 		if(player.currentState == Player.State.SAVE)
 		{
 			game.setScreen(new SuccessScreen(game, slevel));
+			music.stop();
 	        dispose();
 		}
 		 
