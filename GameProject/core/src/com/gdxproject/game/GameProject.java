@@ -56,6 +56,7 @@ public class GameProject extends Game {
 		manager.load("audio/music/Blinding_Lights.mp3", Music.class);
 		manager.load("audio/music/song_intro_daydreaming.mp3", Music.class);
 		manager.load("audio/music/song_intro_daydreaming_story.mp3", Music.class);
+		manager.load("audio/music/song_story_requiem_for_a_dream.mp3", Music.class);
 		manager.load("audio/voice/hahaha.mp3", Music.class);
 		manager.load("audio/voice/idiota.mp3", Music.class);
 		manager.finishLoading();
