@@ -64,9 +64,16 @@ public class GameOverScreen implements Screen {
         table.setFillParent(true);
 
         Label gameOverLabel = new Label("GAME OVER", font);
-        Label playAgainLabel = new Label("Click to Play Again", font);
+        Label giveUpLabel = new Label("Não desista", font);
+        Label humanityLabel = new Label("A humanidade depende de você", font);
+        Label playAgainLabel = new Label("Clique na tela para tentar de novo", font);
 
         table.add(gameOverLabel).expandX();
+        table.row();
+        table.add(giveUpLabel).expandX().padTop(2f);
+        table.row();
+        table.add(humanityLabel).expandX().padTop(2f);
+        table.row();
         table.row();
         table.add(playAgainLabel).expandX().padTop(10f);
 
