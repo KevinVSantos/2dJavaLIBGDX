@@ -44,11 +44,13 @@ public class GameOverScreen implements Screen {
     private Music music1;
     private Music music2;
     private int slevel;
+    
+    String nickname;
 
-    public GameOverScreen(GameProject game,int level){
+    public GameOverScreen(GameProject game,int level, String nick){
         this.game = game;
         slevel = level;
-        
+        nickname= nick;
       //inicializa a camera que irá seguir junto ao personagem
         gamecam = new OrthographicCamera();
         
@@ -118,7 +120,7 @@ public class GameOverScreen implements Screen {
     	
     	
         if(Gdx.input.justTouched()) {
-            game.setScreen(new PlayScreen((GameProject) game, slevel));
+            game.setScreen(new PlayScreen((GameProject) game, slevel, nickname));
             dispose();
         }
        Gdx.gl.glClearColor(0, 0, 0, 1);

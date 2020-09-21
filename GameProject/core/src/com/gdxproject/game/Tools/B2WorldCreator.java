@@ -110,7 +110,7 @@ public class B2WorldCreator {
           	
           	shape.setAsBox((rect.getWidth() / 2)/ GameProject.PPM, (rect.getHeight() / 2)/ GameProject.PPM); // defini a forma
           	fdef.shape = shape; // passa a forma para o corpo
-          	fdef.filter.categoryBits = GameProject.OBJECT_BIT; // defini o tipo de bit de contato do corpo
+          	fdef.filter.categoryBits = GameProject.HOLE_BIT; // defini o tipo de bit de contato do corpo
           	body.createFixture(fdef); //cria a fixture no mundo
           
           

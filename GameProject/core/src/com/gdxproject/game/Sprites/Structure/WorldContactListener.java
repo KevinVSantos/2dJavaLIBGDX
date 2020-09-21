@@ -122,9 +122,27 @@ public class WorldContactListener implements ContactListener {
     		}else {
     			((Enemy)fixB.getUserData()).hitByEnemy((Enemy)fixB.getUserData());
     		}
+    		  break;     		  
+        case GameProject.HOLE_BIT | GameProject.PLAYER_BIT:
+    		if(fixA.getFilterData().categoryBits == GameProject.PLAYER_BIT) {
+    		       ((Player)fixA.getUserData()).die();
+    		}else {
+    			((Player)fixB.getUserData()).die();
+    		}
     		  break; 
+        case GameProject.HOLE_BIT | GameProject.ENEMY_BIT:
+    		if(fixA.getFilterData().categoryBits == GameProject.ENEMY_BIT) {
+    		       ((Enemy)fixA.getUserData()).hitHole();
+    		       }else {
+    			((Enemy)fixB.getUserData()).hitHole();
+    		}
+    		  break; 	  
+    		  
+    		  
         }
-    }
+    	
+}
+    
     
 
     

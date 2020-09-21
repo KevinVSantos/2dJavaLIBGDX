@@ -69,6 +69,9 @@ public class GameProject extends Game {
 		manager.load("audio/music/song_story_requiem_for_a_dream.mp3", Music.class);
 		manager.load("audio/voice/hahaha.mp3", Music.class);
 		manager.load("audio/voice/idiota.mp3", Music.class);
+		manager.load("audio/voice/ofendendo.mp3", Music.class);
+		manager.load("audio/voice/coquinho.mp3", Music.class);
+		manager.load("audio/voice/feliz.mp3", Music.class);
 		manager.finishLoading();
 
 		//Seta a tela inicial

@@ -58,10 +58,12 @@ public class PlayScreen implements Screen {
     
     public static int slevel;
     
-	public PlayScreen(GameProject game,int level) {
+    String nickname;
+    
+	public PlayScreen(GameProject game,int level, String nick) {
 		stateGame = 0;
+		nickname=nick;
 		//carrega o atlas referente as texturas
-		atlas = new TextureAtlas("Mario_and_Enemies.pack");
 		 slevel = level;
 		//recebe a classe principal do jogo
 		this.game = game;
@@ -75,7 +77,7 @@ public class PlayScreen implements Screen {
         
        
         //Cria nossa HUD para pontuação/timers/level informaçoes
-        hud = new Hud(game.batch);
+        hud = new Hud(game.batch, nickname);
         
         //Carrega nosso mapa e configura nosso rederizador do mapa 
         maploader = new TmxMapLoader();
@@ -274,7 +276,7 @@ public class PlayScreen implements Screen {
 
         if(gameOver()){
 
-            game.setScreen(new GameOverScreen(game, slevel));
+            game.setScreen(new GameOverScreen(game, slevel, nickname));
 
                 Hud.saveScore();
 
@@ -284,7 +286,9 @@ public class PlayScreen implements Screen {
 		
 		if(player.currentState == Player.State.SAVE)
 		{
-			game.setScreen(new SuccessScreen(game, slevel));
+			game.setScreen(new SuccessScreen(game, slevel, nickname));
+			 Hud.saveScore();
+			music.stop();
 	        dispose();
 		}
 		 

@@ -163,4 +163,8 @@ public class Enemy2 extends Enemy
     	return destroyed;
     }
     
+    public void hitHole() {
+        setToDestroy = true;
+    }
+    
 }

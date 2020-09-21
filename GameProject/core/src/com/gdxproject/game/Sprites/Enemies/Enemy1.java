@@ -168,4 +168,10 @@ public class Enemy1 extends Enemy
     public boolean isDestroyed() {
     	return destroyed;
     }
+    
+    public void hitHole() {
+        setToDestroy = true;
+    }
+    
+    
 }

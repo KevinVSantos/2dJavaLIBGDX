@@ -42,10 +42,11 @@ public class Hud implements Disposable{
 
      public static ArrayList<Score> scores;
      FileSave<ArrayList<Score>> file;
-     public static String nickname = "Teste"; 
+     public static String nickname; 
    
-     public Hud(SpriteBatch sb){
+     public Hud(SpriteBatch sb, String nick){
          String aux = "";
+         nickname = nick;
          //definição das nossas variaveis de rastreamento
          worldTimer = 300;
          timeCount = 0;

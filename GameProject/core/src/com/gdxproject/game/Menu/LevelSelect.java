@@ -35,10 +35,11 @@ public class LevelSelect implements Screen {
 		
 		//Musicas
 	    private Music music1;
+	    private String nickname;
 	    
-	public LevelSelect(GameProject game) {
+	public LevelSelect(GameProject game, String nick) {
 		this.game = game;
-	        
+	        nickname = nick;
 		//Gdx.input.getInputProcessor().keyUp(keycode);
 	    //inicializa a camera que irá seguir junto ao personagem
 	    gamecam = new OrthographicCamera();
@@ -93,7 +94,7 @@ public class LevelSelect implements Screen {
 					//buttons[row][col].setClicked();
 					Gdx.app.log("BUTTON", s);
 					music1.stop();
-					game.setScreen(new PlayScreen((GameProject) game, level));
+					game.setScreen(new PlayScreen((GameProject) game, level, nickname));
 					//gsm.setState(GameStateManager.PLAY);
 				}
 			}
