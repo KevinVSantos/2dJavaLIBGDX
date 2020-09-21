@@ -33,6 +33,7 @@ public abstract class Enemy extends Sprite {
     public abstract void hitByEnemy(Enemy enemy); //se inimigos se chocarem
     public abstract void hitbyBullet(Bullet bullet); //se player pular em cima do inimigo
     public abstract boolean isDestroyed(); //se player pular em cima do inimigo
+    public abstract void hitHole();
 
      
     //função responsavel por inverter o vetor de direção do inimigo
