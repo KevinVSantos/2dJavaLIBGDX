@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdxproject.game.GameProject;
+import com.gdxproject.game.Menu.LevelSelect;
 import com.gdxproject.game.Sprites.Enemies.EnemyB;
 import com.gdxproject.game.Sprites.Enemies.EnemyBF;
 import com.gdxproject.game.Sprites.Items.Book;
@@ -84,12 +85,12 @@ public class SuccessScreen implements Screen {
         music1 = GameProject.manager.get("audio/voice/ofendendo.mp3", Music.class);
         music1.play();
         
-        music2 =  GameProject.manager.get("audio/voice/feliz.mp3", Music.class);
+      //  music2 =  GameProject.manager.get("audio/voice/feliz.mp3", Music.class);
         music1.setOnCompletionListener(new Music.OnCompletionListener() {
 
             @Override
             public void onCompletion(Music music) {
-            	music2.play();
+            	//music2.play();
 
             }
         });
@@ -108,7 +109,7 @@ public class SuccessScreen implements Screen {
  	update(delta);       
         
         if(Gdx.input.justTouched()) {
-            game.setScreen(new PlayScreen((GameProject) game, slevel, nickname));
+            game.setScreen(new LevelSelect((GameProject) game, nickname));
             dispose();
         }
         Gdx.gl.glClearColor(0, 0, 0, 1);
