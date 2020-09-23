@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -15,7 +14,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdxproject.game.Menu.GameButton;
 import com.gdxproject.game.Screens.PlayScreen;
-import com.gdxproject.game.Sprites.Enemies.EnemyB;
 import com.gdxproject.game.GameProject;
 
 public class LevelSelect implements Screen {
@@ -40,7 +38,6 @@ public class LevelSelect implements Screen {
 	public LevelSelect(GameProject game, String nick) {
 		this.game = game;
 	        nickname = nick;
-		//Gdx.input.getInputProcessor().keyUp(keycode);
 	    //inicializa a camera que irá seguir junto ao personagem
 	    gamecam = new OrthographicCamera();
 	        
@@ -109,11 +106,6 @@ public class LevelSelect implements Screen {
 		
 		update(delta);
     	
-    	
-      /*  if(Gdx.input.justTouched()) {
-        	game.setScreen(new PlayScreen((GameProject) game));
-            dispose();
-        }*/
        Gdx.gl.glClearColor(0, 0, 0, 1);
        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
@@ -122,14 +114,9 @@ public class LevelSelect implements Screen {
         game.batch.setProjectionMatrix(gamecam.combined);
         
         game.batch.begin();        
-       back.draw(game.batch);
-      //  enemyb.draw(game.batch);  
-        //game.batch.draw(reg, 0, 0); 
+        back.draw(game.batch);
         game.batch.end();
         
-
-     /*   gamecam.position.x = stage.getHeight();
-    	gamecam.position.y = stage.();*/
         
 		for(int row = 0; row < buttons.length; row++) {
 			for(int col = 0; col < buttons[0].length; col++) {

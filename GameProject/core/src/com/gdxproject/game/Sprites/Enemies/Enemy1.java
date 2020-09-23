@@ -29,7 +29,6 @@ public class Enemy1 extends Enemy
     
     private boolean setToDestroy;
     private boolean destroyed;
-   // float angle;
 
 
     public Enemy1(PlayScreen screen, float x, float y) {
@@ -37,7 +36,7 @@ public class Enemy1 extends Enemy
         frames = new Array<TextureRegion>();
         for(int i = 0; i < 4; i++) 
         frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/Enemy.png")),  4+(i * 24), 5, 16, 20));
-        walkAnimation = new Animation(0.4f, frames);
+        walkAnimation = new Animation<TextureRegion>(0.4f, frames);
         stateTime = 0;
        
         setBounds(getX(), getY(), 16 / GameProject.PPM, 24 / GameProject.PPM);
@@ -145,7 +144,6 @@ public class Enemy1 extends Enemy
         GameProject.manager.get("audio/stomp.wav", Sound.class).play();
         Hud.addScore(185);
 
-        Gdx.app.log("massa","185");
     }
     
     @Override
@@ -155,7 +153,6 @@ public class Enemy1 extends Enemy
          GameProject.manager.get("audio/stomp.wav", Sound.class).play();
          Hud.addScore(100);
 
-         Gdx.app.log("massa","100");
          
      }
      

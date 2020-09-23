@@ -3,25 +3,13 @@ package com.gdxproject.game.Sprites.Items;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.GameProject;
-import com.gdxproject.game.Screens.GameOverScreen;
-import com.gdxproject.game.Screens.PlayScreen;
-import com.gdxproject.game.Sprites.Player.Bullet;
-import com.gdxproject.game.Sprites.Player.Player;
 
 
 public class Menu extends Sprite
@@ -34,7 +22,6 @@ public class Menu extends Sprite
     public Menu(GameProject screen, float x, float y) {
 
         this.screen = screen; //recebe a screen
-        //setPosition(2, 2);
         frames = new Array<TextureRegion>();       
         for(int i = 1; i < 10; i++) {
         	for(int j = 1; j < 5; j++) {
@@ -42,10 +29,9 @@ public class Menu extends Sprite
         		}
         }   
             
-        walkAnimation = new Animation(0.1f, frames);        
+        walkAnimation = new Animation<TextureRegion>(0.1f, frames);        
         stateTime = 0;
-        setBounds(0, 0, screen.V_WIDTH, screen.V_HEIGHT);
-        Gdx.app.log("massa","cons");
+        setBounds(0, 0, GameProject.V_WIDTH, GameProject.V_HEIGHT);
     }
 
     public void update(float dt){

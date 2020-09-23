@@ -21,7 +21,6 @@ public class Bullet extends Sprite {
 
     PlayScreen screen;
     World world;
-    //Array<TextureRegion> frames;
     Animation<TextureRegion> fireAnimation;
     float stateTime;
     boolean destroyed;  
@@ -38,7 +37,7 @@ public class Bullet extends Sprite {
         for(int i = 0; i < 1; i++){
         	frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/bullet.png")), (i *10), 4, 35, 15));
         }
-        fireAnimation = new Animation(0.2f, frames);
+        fireAnimation = new Animation<TextureRegion>(0.2f, frames);
         setRegion(fireAnimation.getKeyFrame(0));
         setBounds(x, y-0.1f, 14 / GameProject.PPM, 6 / GameProject.PPM);
         defineFireBall();

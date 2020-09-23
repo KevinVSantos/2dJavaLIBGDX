@@ -9,7 +9,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gdxproject.game.Menu.BBInputProcessor;
 import com.gdxproject.game.Screens.IntroDevScreen;
-import com.gdxproject.game.Screens.PlayScreen;
 
 
 public class GameProject extends Game {
@@ -41,8 +40,7 @@ public class GameProject extends Game {
 	Uma maneira é passar o Assetmanager para as classes que precisam dele.
 	Por enquanto será usado de maneira estatica para salvar o tempo. */
 	public static AssetManager manager;
-	
-	//private GameStateManager gsm;
+
 	
 	
 	@Override
@@ -72,11 +70,12 @@ public class GameProject extends Game {
 		manager.load("audio/voice/ofendendo.mp3", Music.class);
 		manager.load("audio/voice/coquinho.mp3", Music.class);
 		manager.load("audio/voice/feliz.mp3", Music.class);
+		manager.load("audio/music/Paradise.mp3", Music.class);
 		manager.finishLoading();
-
-		//Seta a tela inicial
-		//setScreen(new PlayScreen(this));
 		
+		
+
+		//Seta a tela inicial		
 		setScreen(new IntroDevScreen(this));
 	}
 

@@ -55,9 +55,6 @@ public class Player extends Sprite {
     private Array<Bullet> bullets;
     
 
-    private Music music;
-    
-    
     public Player(PlayScreen screen){
     	super();
         this.world = screen.getWorld();
@@ -72,18 +69,18 @@ public class Player extends Sprite {
         //get run animation frames and add them to marioRun Animation
         for(int i = 1; i < 4; i++)
         	frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4+(50*i), 43, 38, 40));
-        playerRun = new Animation(0.1f, frames);
+        playerRun = new Animation<TextureRegion>(0.1f, frames);
         
         frames.clear();
         
         for(int i = 1; i < 5; i++)
         	frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4+(50*i), 129, 38, 40));
-        playerShoot = new Animation(1f, frames);
+        playerShoot = new Animation<TextureRegion>(1f, frames);
 
         frames.clear();
         
          frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4+(50), 43, 38, 40));
-         playerJump = new Animation(0.1f, frames);
+         playerJump = new Animation<TextureRegion>(0.1f, frames);
 
         frames.clear();
         
@@ -91,7 +88,7 @@ public class Player extends Sprite {
         	frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),  4+(50*i), 3, 38, 40));
         	//frames.add(new TextureRegion(new Texture(Gdx.files.internal("enemyb.png")),  0, 0, 544, 544));
         	
-        playerStand = new Animation(1f, frames);
+        playerStand = new Animation<TextureRegion>(1f, frames);
 
        frames.clear();
        
@@ -104,15 +101,12 @@ public class Player extends Sprite {
        frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/player.png")),   12+(50*8), 215, 38, 40));
        
        
-       playerDead = new Animation(0.2f, frames);
+       playerDead = new Animation<TextureRegion>(0.2f, frames);
 
-      //frames.clear();
 
         
         definePlayer();
-        //marioStand = new TextureRegion(getTexture(), 0, 10, 16, 16);
         setBounds(0, 0, 22 / GameProject.PPM, 30 / GameProject.PPM);
-    //    setRegion(playerStand);
         
         
         bullets = new Array<Bullet>();
@@ -123,7 +117,6 @@ public class Player extends Sprite {
     public void update(float dt){
     	
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 - 6 / GameProject.PPM);       
-         //update sprite with the correct frame depending on marios current action
         
         if(shootTimer ==0)
         	currentState = getState();
@@ -147,7 +140,6 @@ public class Player extends Sprite {
     }
     
     public TextureRegion getFrameFire(float dt){
-        //get marios current state. ie. jumping, running, standing...
         
 
         TextureRegion region;
@@ -155,35 +147,26 @@ public class Player extends Sprite {
         region = playerShoot.getKeyFrame(dt, true);
 		
 
-        //if mario is running left and the texture isnt facing left... flip it.
         if((b2body.getLinearVelocity().x > 0 || !runningRight) && !region.isFlipX()){
             region.flip(true, false);
             runningRight = false;
         }
 
-        //if mario is running right and the texture isnt facing right... flip it.
         else if((b2body.getLinearVelocity().x < 0 || runningRight) && region.isFlipX()){
             region.flip(true, false);
             runningRight = true;
         }
 
-        //if the current state is the same as the previous state increase the state timer.
-        //otherwise the state has changed and we need to reset timer.
         stateTimer = currentState == previousState ? stateTimer + dt : 0;
-        //update previous state
         previousState = currentState;
-        //return our final adjusted frame
         return region;
 
     }
     
-    public TextureRegion getFrame(float dt){
-        //get marios current state. ie. jumping, running, standing...
-        
+    public TextureRegion getFrame(float dt){     
 
         TextureRegion region;
 
-        //depending on the state, get corresponding animation keyFrame.
         switch(currentState){
             case DEAD:
                 region = playerDead.getKeyFrame(stateTimer, true);
@@ -201,44 +184,33 @@ public class Player extends Sprite {
                 break;
         }
 
-        //if mario is running left and the texture isnt facing left... flip it.
         if((b2body.getLinearVelocity().x > 0 || !runningRight) && !region.isFlipX()){
             region.flip(true, false);
             runningRight = false;
         }
 
-        //if mario is running right and the texture isnt facing right... flip it.
         else if((b2body.getLinearVelocity().x < 0 || runningRight) && region.isFlipX()){
             region.flip(true, false);
             runningRight = true;
         }
 
-        //if the current state is the same as the previous state increase the state timer.
-        //otherwise the state has changed and we need to reset timer.
         stateTimer = currentState == previousState ? stateTimer + dt : 0;
-        //update previous state
         previousState = currentState;
-        //return our final adjusted frame
         return region;
 
     }
 
     public State getState(){
-        //Test to Box2D for velocity on the X and Y-Axis
-        //if mario is going positive in Y-Axis he is jumping... or if he just jumped and is falling remain in jump state
         if(playerIsDead)
             return State.DEAD;
         else if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
             return State.SHOOTING;
-        else if((b2body.getLinearVelocity().y > 0 /*&& currentState == State.JUMPING*/) || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
+        else if((b2body.getLinearVelocity().y > 0) || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
     		return State.JUMPING;
-        //if negative in Y-Axis mario is falling
         else if(b2body.getLinearVelocity().y < 0)
             return State.FALLING;
-        //if mario is positive or negative in the X axis he is running
         else if(b2body.getLinearVelocity().x != 0)
             return State.RUNNING;
-        //if none of these return then he must be standing
         else
             return State.STANDING;
     }
@@ -253,16 +225,6 @@ public class Player extends Sprite {
             playerIsDead = true;
             GameProject.manager.get("audio/effects/gameover.mp3", Music.class).play();
             
-            
-           
-           /* Filter filter = new Filter();
-            filter.maskBits = GameProject.NOTHING_BIT;
-
-            for (Fixture fixture : b2body.getFixtureList()) {
-                fixture.setFilterData(filter);
-            }*/
-
-          //  b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
         }
     }
    
@@ -273,7 +235,6 @@ public class Player extends Sprite {
        for (Fixture fixture : b2body.getFixtureList()) {
            fixture.setFilterData(filter);
        }
-       //world.destroyBody(b2body);
       
    }
 
@@ -334,42 +295,6 @@ public class Player extends Sprite {
 
         b2body.createFixture(fdef).setUserData(this);
     }
-	
-	/*public void definePlayer(){
-		 Vector2 currentPosition = b2body.getPosition();
-	        world.destroyBody(b2body);
-
-	        BodyDef bdef = new BodyDef();
-	        bdef.position.set(currentPosition.add(0, 10 / GameProject.PPM));
-	        bdef.type = BodyDef.BodyType.DynamicBody;
-	        b2body = world.createBody(bdef);
-
-	        FixtureDef fdef = new FixtureDef();
-	        CircleShape shape = new CircleShape();
-	        shape.setRadius(6 / GameProject.PPM);
-	        fdef.filter.categoryBits = GameProject.PLAYER_BIT;
-	        fdef.filter.maskBits = GameProject.GROUND_BIT |
-	                GameProject.COIN_BIT |
-	                GameProject.ENEMY_BIT |
-	                GameProject.OBJECT_BIT |
-	                GameProject.HOLE_BIT |
-	                GameProject.ENEMY_HEAD_BIT |
-	                GameProject.ITEM_BIT;
-
-	        fdef.shape = shape;
-	        b2body.createFixture(fdef).setUserData(this);
-	        shape.setPosition(new Vector2(0, -14 / GameProject.PPM));
-	        b2body.createFixture(fdef).setUserData(this);
-
-	        EdgeShape head = new EdgeShape();
-	        head.set(new Vector2(-2 / GameProject.PPM, 6 / GameProject.PPM), new Vector2(2 / GameProject.PPM, 6 / GameProject.PPM));
-	        fdef.filter.categoryBits = GameProject.PLAYER_HEAD_BIT;
-	        fdef.shape = head;
-	        fdef.isSensor = true;
-
-	        b2body.createFixture(fdef).setUserData(this);
-	    }*/
-	
 	
 	 
 	 	public void fire(PlayScreen screen){

@@ -1,6 +1,5 @@
 package com.gdxproject.game.Screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -8,7 +7,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -16,7 +14,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Menu.LevelSelect;
-import com.gdxproject.game.Sprites.Enemies.EnemyB;
 import com.gdxproject.game.Sprites.Enemies.EnemyBF;
 import com.gdxproject.game.Sprites.Items.Book;
 import com.gdxproject.game.Sprites.Items.PlayerRun;
@@ -60,8 +57,8 @@ public class SuccessScreen implements Screen {
         table.center();
         table.setFillParent(true);
 
-        Label gameOverLabel = new Label("GG", font);
-        Label playAgainLabel = new Label("Click to Play Again", font);
+        Label gameOverLabel = new Label("!!GG!!", font);
+        Label playAgainLabel = new Label("clique na tela para voltar ao menu", font);
 
         table.add(gameOverLabel).expandX();
         table.row();
@@ -85,15 +82,8 @@ public class SuccessScreen implements Screen {
         music1 = GameProject.manager.get("audio/voice/ofendendo.mp3", Music.class);
         music1.play();
         
-      //  music2 =  GameProject.manager.get("audio/voice/feliz.mp3", Music.class);
-        music1.setOnCompletionListener(new Music.OnCompletionListener() {
-
-            @Override
-            public void onCompletion(Music music) {
-            	//music2.play();
-
-            }
-        });
+        music2 =  GameProject.manager.get("audio/music/Paradise.mp3", Music.class);
+        music2.play();
 
         
     }
@@ -109,6 +99,13 @@ public class SuccessScreen implements Screen {
  	update(delta);       
         
         if(Gdx.input.justTouched()) {
+        	try {
+    			Thread.sleep(200);
+    		} catch (InterruptedException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+        	music2.stop();
             game.setScreen(new LevelSelect((GameProject) game, nickname));
             dispose();
         }
@@ -116,16 +113,10 @@ public class SuccessScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         
-        game.batch.setProjectionMatrix(gamecam.combined);
-        
-        game.batch.begin();        
-       
-        /*   book.setOrigin(0, 0);
-        book.setCenter(GameProject.V_WIDTH/1.3f, GameProject.V_HEIGHT/8);
-        angle=angle+4;
-        book.setRotation(angle);*/
-        
-      book.setPosition(book.getX(), book.getY());
+        game.batch.setProjectionMatrix(gamecam.combined);        
+        game.batch.begin();               
+      
+        book.setPosition(book.getX(), book.getY());
         book.setOrigin(book.getWidth() / 2, book.getHeight() / 2);
         angle=angle-4;
         book.setRotation(angle);

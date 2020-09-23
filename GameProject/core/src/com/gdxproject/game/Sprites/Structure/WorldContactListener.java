@@ -1,16 +1,10 @@
 package com.gdxproject.game.Sprites.Structure;
 
-import java.util.Vector;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.joints.FrictionJointDef;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Sprites.Enemies.Enemy;
 import com.gdxproject.game.Sprites.Items.Coin;
@@ -149,7 +143,6 @@ public class WorldContactListener implements ContactListener {
 
     @Override
     public void endContact(Contact contact) {
-    	//Gdx.app.log("End Contact", "");
     }
 
     @Override

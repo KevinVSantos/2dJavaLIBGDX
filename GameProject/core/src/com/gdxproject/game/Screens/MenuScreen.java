@@ -1,37 +1,19 @@
 package com.gdxproject.game.Screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Menu.LevelSelect;
-import com.gdxproject.game.Scenes.Score;
-import com.gdxproject.game.Sprites.Enemies.Enemy;
-import com.gdxproject.game.Sprites.Enemies.EnemyB;
-import com.gdxproject.game.Sprites.Items.Coin;
-import com.gdxproject.game.Sprites.Items.Helicoptero;
-import com.gdxproject.game.Sprites.Items.IntroDev;
 import com.gdxproject.game.Sprites.Items.Menu;
 
 public class MenuScreen implements Screen {
@@ -42,9 +24,6 @@ public class MenuScreen implements Screen {
 
     private GameProject game;
     
-    private float stateTime;
-    private Animation<TextureRegion> walkAnimation;
-    private Array<TextureRegion> frames;
     private Menu menu ;
     
     private Skin skin;
@@ -66,8 +45,6 @@ public class MenuScreen implements Screen {
         viewport = new FitViewport(GameProject.V_WIDTH, GameProject.V_HEIGHT, gamecam);
         stage = new Stage(viewport, ((GameProject) game).batch);
 
-        Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
-
         Table table = new Table();
         table.center();
         table.setFillParent(true);
@@ -83,7 +60,6 @@ public class MenuScreen implements Screen {
         textField.setY(100);
         textField.setWidth(200);
         textField.setHeight(50);
-        //stage.addActor(textArea);
         stage.addActor(textField);
         
         
@@ -238,17 +214,14 @@ public class MenuScreen implements Screen {
         game.batch.end();
        
         
-      //Seta nosso batch para desenhar o que o a camera do HUD vê.
-       //game.batch.setProjectionMatrix(stage.getCamera().combined);
-        
         stage.draw();
     
     }
     
     public void update(float dt){
     	menu.update(dt);
-    	gamecam.position.x = menu.getX() + (game.V_WIDTH / 2);
-    	gamecam.position.y = menu.getY() + (game.V_HEIGHT / 2);
+    	gamecam.position.x = menu.getX() + (GameProject.V_WIDTH / 2);
+    	gamecam.position.y = menu.getY() + (GameProject.V_HEIGHT / 2);
     	//Atualiza nossa gamecam com as coordenadas corretas após alteração
         gamecam.update();
         verifyDigit();
