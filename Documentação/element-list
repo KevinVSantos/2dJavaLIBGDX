@@ -1,0 +1,10 @@
+com.gdxproject.game
+com.gdxproject.game.FileSave
+com.gdxproject.game.Menu
+com.gdxproject.game.Scenes
+com.gdxproject.game.Screens
+com.gdxproject.game.Sprites.Enemies
+com.gdxproject.game.Sprites.Items
+com.gdxproject.game.Sprites.Player
+com.gdxproject.game.Sprites.Structure
+com.gdxproject.game.Tools

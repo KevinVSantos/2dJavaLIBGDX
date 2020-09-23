@@ -12,19 +12,45 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Sprites.Items.IntroDev;
 
+/** 
+ * Tela de introdução com o nome dos desenvolvedores do jogo.
+ * */
 public class IntroDevScreen implements Screen {
+	
+	/**
+	 * Gerencia uma câmera e determina como as coordenadas mundiais são mapeadas para a tela.
+	 * */
     private Viewport viewport;
+    
+    /**
+     * 
+     * */
     private Stage stage;
-	//Variaveis basicas da Playscreen
+    
+    /**
+     * Variaveis basicas da Playscreen
+     * */
     private OrthographicCamera gamecam;
-
+    
+    /**
+     * 
+     * */
     private GameProject game;
-    private IntroDev introDev ;
+    
+    /**
+     * 
+     * */
+    private IntroDev introDev;
     
 
-    //Musicas
+    /**
+     * 
+     * */
     private Music music1;
-
+    
+    /**
+     * 
+     * */
     public IntroDevScreen(GameProject game){
         this.game = game;
         
