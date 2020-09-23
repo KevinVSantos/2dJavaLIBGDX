@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * Classe responsável por gerenciar menu.
+ */
 public class BackMenu extends Sprite
 {
     private float stateTime;
@@ -15,6 +18,12 @@ public class BackMenu extends Sprite
     private Array<TextureRegion> frames;
     protected LevelSelect screen; 
 
+    /**
+     * Classe responsável pelo menu.
+     * @param screen - Tela.
+     * @param x - Largura da Tela.
+     * @param y - Altura da Tela.
+     */
     public BackMenu(LevelSelect screen, float x, float y) {
 
         this.screen = screen; //recebe a screen
@@ -26,17 +35,20 @@ public class BackMenu extends Sprite
         setBounds(0, 0, 400, 228 );
     }
 
+    /**
+     * Método responsável por atualizar o que será exibido.
+     * @param dt
+     */
     public void update(float dt){
         stateTime += dt;   	
         setRegion(walkAnimation.getKeyFrame(stateTime, true));
-      
     }
 
-    public void draw(Batch batch){    	
-    	
-             super.draw(batch); 
-    		 
-    		
+    /**
+     * Método responsável por desenhar na tela.
+     */
+    public void draw(Batch batch){
+    	super.draw(batch); 
     }
 
 }

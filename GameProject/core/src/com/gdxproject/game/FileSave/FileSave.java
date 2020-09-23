@@ -9,8 +9,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
+/**
+ * Classe responsável por manipular arquivos de pesistencia de dados.
+ * @param <T> Genérico.
+ */
 public class FileSave<T> {
-    
+	
+	/**
+	 * Método responsável por ler o arquivo binário.
+	 */
     public T ReadBin(String path){
         
         T ret = null;
@@ -28,6 +35,10 @@ public class FileSave<T> {
             return ret;
         }
     }
+    
+    /**
+     * Método responsável por escrever o arquivo binário.
+     */
     public void WriteBin(String path, T obj){
         try {
            
