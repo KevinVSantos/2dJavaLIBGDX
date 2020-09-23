@@ -30,6 +30,10 @@ public class GameProject extends Game {
 	public static final short ENEMY_HEAD_BIT = 128;
 	public static final short ITEM_BIT = 256;
 	public static final short PLAYER_HEAD_BIT = 512;
+	/**
+	 * Bit de contato das balas
+	 * @
+	 */
 	public static final short BULLET_BIT = 1024;
 	public static final short FINAL_BIT = 2048;
 	public static final short ENEMY_GROUND_BIT = 4096;
