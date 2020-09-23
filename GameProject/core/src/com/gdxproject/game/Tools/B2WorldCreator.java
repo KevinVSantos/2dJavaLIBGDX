@@ -1,7 +1,6 @@
 package com.gdxproject.game.Tools;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -38,8 +37,6 @@ public class B2WorldCreator {
         FixtureDef fdef = new FixtureDef();
         Body body;
          
-         //Cria a superficie de contato(ground) para bodies/fixtures
-        //lembrando que o get(2) é referente a camada desejada do tiledmap
          for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
          	Rectangle rect = ((RectangleMapObject) object).getRectangle();// cria um retangulo para definir o objeto
          	
@@ -54,6 +51,7 @@ public class B2WorldCreator {
          	fdef.shape = shape;// passa a forma para o corpo
          	body.createFixture(fdef); //cria a fixture no mundo
          }
+         
          for(MapObject object : map.getLayers().get(3).getObjects().getByType(PolygonMapObject.class)) {
           	Polygon pol = ((PolygonMapObject) object).getPolygon();// cria um retangulo para definir o objeto
  
@@ -71,13 +69,11 @@ public class B2WorldCreator {
         
           	// cria o corpo no mundo
           	body = world.createBody(bdef);
-          	//shape.setAsBox((pol.getScaleX() / 2)/ GameProject.PPM, (pol.getScaleY() / 2)/ GameProject.PPM);// defini a forma
           	fdef.shape = shape;// passa a forma para o corpo
           	body.createFixture(fdef); //cria a fixture no mundo
           }
           
          
-       //Cria os tubos para bodies/fixtures
          for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
          	Rectangle rect = ((RectangleMapObject) object).getRectangle(); // cria um retangulo para definir o objeto
          	
@@ -153,8 +149,8 @@ public class B2WorldCreator {
            
            
            }
-         
-       //create all goombas
+
+
          enemies1 = new Array<Enemy1>();
         for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
@@ -179,12 +175,12 @@ public class B2WorldCreator {
          
     }
     
-    //recebe os goombas
+    
     public Array<Enemy1> getEnemies1() {
         return enemies1;
     }
-    
-    //recebe os inimigos
+
+
     public Array<Enemy> getEnemies(){
         Array<Enemy> enemies = new Array<Enemy>();
         enemies.addAll(enemies1);
@@ -192,7 +188,7 @@ public class B2WorldCreator {
         return enemies;
     }
     
-    //recebe os inimigos
+    
     public Array<Coin> getCoins(){
         Array<Coin> multicoins = new Array<Coin>();
         multicoins.addAll(coins);

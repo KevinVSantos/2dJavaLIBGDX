@@ -12,14 +12,11 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Scenes.Hud;
 import com.gdxproject.game.Screens.PlayScreen;
-import com.gdxproject.game.Sprites.Enemies.Enemy;
-import com.gdxproject.game.Sprites.Player.Player;
 
 public class Coin extends Sprite {
     
@@ -59,7 +56,7 @@ public class Coin extends Sprite {
         frames.add(new TextureRegion(new Texture(Gdx.files.internal("coins/coin8.png")), 0, 0, 20, 20));
         frames.add(new TextureRegion(new Texture(Gdx.files.internal("coins/coin9.png")), 0, 0, 20, 20));
         frames.add(new TextureRegion(new Texture(Gdx.files.internal("coins/coin10.png")), 0, 0, 20, 20));
-        walkAnimation = new Animation(0.2f, frames);
+        walkAnimation = new Animation<TextureRegion>(0.2f, frames);
         stateTime = 0;
        
         setBounds(getX(), getY(), 16 / GameProject.PPM, 16 / GameProject.PPM);
@@ -78,7 +75,6 @@ public class Coin extends Sprite {
             stateTime = 0; 
         }
         else if(!destroyed) {
-            //b2body.setLinearVelocity(velocity);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             setRegion(walkAnimation.getKeyFrame(stateTime, true));
         }

@@ -1,8 +1,6 @@
 package com.gdxproject.game.Screens;
 
 
-import java.util.concurrent.LinkedBlockingQueue;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -45,7 +43,8 @@ public class PlayScreen implements Screen {
     
     //Variaveis do Box2d
     private World world;
-    private Box2DDebugRenderer b2dr;
+    
+    //private Box2DDebugRenderer b2dr;
     private B2WorldCreator creator; // construçao do mapa
 
     //Sprites
@@ -63,8 +62,10 @@ public class PlayScreen implements Screen {
 	public PlayScreen(GameProject game,int level, String nick) {
 		stateGame = 0;
 		nickname=nick;
+		
 		//carrega o atlas referente as texturas
 		 slevel = level;
+		 
 		//recebe a classe principal do jogo
 		this.game = game;
 		
@@ -96,8 +97,10 @@ public class PlayScreen implements Screen {
         
         //cria nosso mundo Box2D, configura nenhuma gravidade para X, -10 gravidade em Y, e mantem os corpos em repouso
         world = new World(new Vector2(0, -10), true);
+        
         //Permissão para debug lines do nosso mundo Box2D. 
-        b2dr = new Box2DDebugRenderer();       
+        //b2dr = new Box2DDebugRenderer();     
+        
         //Inicializa a construção do nosso tiled map
         creator = new B2WorldCreator(this);
 
@@ -112,8 +115,6 @@ public class PlayScreen implements Screen {
         
         //Defini a musica de fundo do jogo
         music = GameProject.manager.get("audio/music/Blinding_Lights.mp3", Music.class);
-        
-        
         music.setLooping(true);
         music.setVolume(0.3f);
         music.play();
@@ -148,7 +149,7 @@ public class PlayScreen implements Screen {
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2)
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
-             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && player.currentState != Player.State.SHOOTING)
                 player.fire(this);
         }
 
@@ -223,8 +224,7 @@ public class PlayScreen implements Screen {
         //Atualiza nossa gamecam com as coordenadas corretas após alteração
         gamecam.update();
         //Passa ao renderer para desenhar na tela apenas o que nossa camera pode ver no nosso mundo.
-        renderer.setView(gamecam);
-        
+        renderer.setView(gamecam);        
         //renderer.setView(gamecam.combined,0,0,width,height);
 
     }
@@ -245,7 +245,7 @@ public class PlayScreen implements Screen {
         renderer.render();
         
         //renderer our Box2DDebugLines
-        b2dr.render(world, gamecam.combined);
+        //b2dr.render(world, gamecam.combined);
         
         //Seta a projeção para a gamecam e desenha o conteudo definido na tela
         game.batch.setProjectionMatrix(gamecam.combined);
@@ -355,7 +355,7 @@ public class PlayScreen implements Screen {
         map.dispose();
         renderer.dispose();
         world.dispose();
-        b2dr.dispose();
+        //b2dr.dispose();
         hud.dispose();
 		
 	}

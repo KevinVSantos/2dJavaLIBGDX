@@ -1,31 +1,15 @@
 package com.gdxproject.game.Screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdxproject.game.GameProject;
-import com.gdxproject.game.Sprites.Enemies.Enemy;
-import com.gdxproject.game.Sprites.Enemies.EnemyB;
-import com.gdxproject.game.Sprites.Items.Coin;
-import com.gdxproject.game.Sprites.Items.Helicoptero;
 import com.gdxproject.game.Sprites.Items.IntroDev;
 
 public class IntroDevScreen implements Screen {
@@ -35,10 +19,6 @@ public class IntroDevScreen implements Screen {
     private OrthographicCamera gamecam;
 
     private GameProject game;
-    
-    private float stateTime;
-    private Animation<TextureRegion> walkAnimation;
-    private Array<TextureRegion> frames;
     private IntroDev introDev ;
     
 
@@ -56,7 +36,6 @@ public class IntroDevScreen implements Screen {
         viewport = new FitViewport(GameProject.V_WIDTH, GameProject.V_HEIGHT, gamecam);
         stage = new Stage(viewport, ((GameProject) game).batch);
 
-        Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
 
         Table table = new Table();
         table.center();
@@ -128,8 +107,8 @@ public class IntroDevScreen implements Screen {
     
     public void update(float dt){
     	introDev.update(dt);
-    	gamecam.position.x = introDev.getX() + (game.V_WIDTH / 2);
-    	gamecam.position.y = introDev.getY() + (game.V_HEIGHT / 2);
+    	gamecam.position.x = introDev.getX() + (GameProject.V_WIDTH / 2);
+    	gamecam.position.y = introDev.getY() + (GameProject.V_HEIGHT / 2);
     	//Atualiza nossa gamecam com as coordenadas corretas após alteração
         gamecam.update();
     }

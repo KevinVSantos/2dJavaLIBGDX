@@ -29,7 +29,6 @@ public class Enemy2 extends Enemy
      
     private boolean setToDestroy;
     private boolean destroyed;
-   // float angle;
 
 
     public Enemy2(PlayScreen screen, float x, float y) {
@@ -37,7 +36,7 @@ public class Enemy2 extends Enemy
         frames = new Array<TextureRegion>();
         for(int i = 0; i < 4; i++) 
         frames.add(new TextureRegion(new Texture(Gdx.files.internal("sprites/Enemy.png")),  4+(i * 24), 68, 16, 20));
-        walkAnimation = new Animation(0.4f, frames);
+        walkAnimation = new Animation<TextureRegion>(0.4f, frames);
         stateTime = 0;
        
         setBounds(getX(), getY(), 16 / GameProject.PPM, 30 / GameProject.PPM);
