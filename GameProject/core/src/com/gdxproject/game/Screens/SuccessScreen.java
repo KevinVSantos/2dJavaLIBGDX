@@ -19,24 +19,51 @@ import com.gdxproject.game.Sprites.Items.Book;
 import com.gdxproject.game.Sprites.Items.PlayerRun;
 
 public class SuccessScreen implements Screen {
+	
+	/**
+	 * Gerencia uma câmera e determina como as coordenadas mundiais são mapeadas para a tela.
+	 * */
     private Viewport viewport;
+    
+    /**
+     * Variável responsável por lidar com a janela de visualização e distribui eventos de entrada.
+     * */
     private Stage stage;
+    
+    /**
+     * Variaveis basicas da Playscreen.
+     * */
     private OrthographicCamera gamecam;
-
+    
+    /**
+     * Responsável por trazer características do jogo.
+     * */
     private GameProject game;
+    
+    /**
+     * Variável responsável pelo primeiro áudio que toca.
+     * */
+    private Music music1;
+    
+    /**
+     * Variável responsável pelo segundo áudio que toca.
+     * */
+    private Music music2;
+    
+    /**
+     * Variável responsável pelos pontos que o jogador adquire.
+     * */
     private int slevel;
+    
+    /**
+     * Variável responsável pelo nome do jogador no jogo.
+     * */
+    String nickname;
     
     private Book book ;
     private PlayerRun run ;
     private EnemyBF eb ;
     private float angle;
-    
-  //Musicas
-    private Music music1;
-    private Music music2;
-    
-    
-    String nickname;
     
     public SuccessScreen(GameProject game,int level,String nick){
         this.game = game;

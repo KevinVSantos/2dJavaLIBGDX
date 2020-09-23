@@ -15,23 +15,65 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Sprites.Enemies.EnemyB;
 
+
+/** 
+ * Tela de Game Over.
+ * */
 public class GameOverScreen implements Screen {
+	
+	/**
+	 * Gerencia uma câmera e determina como as coordenadas mundiais são mapeadas para a tela.
+	 * */
     private Viewport viewport;
+    
+    /**
+     * Variável responsável por lidar com a janela de visualização e distribui eventos de entrada.
+     * */
     private Stage stage;
-	//Variaveis basicas da Playscreen
+    
+    /**
+     * Variaveis basicas da Playscreen.
+     * */
     private OrthographicCamera gamecam;
+    
+    /**
+     * Responsável por trazer características do jogo.
+     * */
     private GameProject game;
     
+    /**
+     * Responsável por  trazer os frames carregados para serem exibidos.
+     * */
     private EnemyB enemyb ;
     
 
-    //Musicas
+    /**
+     * Variável responsável pelo primeiro áudio que toca.
+     * */
     private Music music1;
+    
+    /**
+     * Variável responsável pelo segundo áudio que toca.
+     * */
     private Music music2;
+    
+    /**
+     * Variável responsável pelos pontos que o jogador adquire.
+     * */
     private int slevel;
     
+    /**
+     * Variável responsável pelo nome do jogador no jogo.
+     * */
     String nickname;
 
+    /**
+     * Construtor da classe.
+     * <br>
+     * Nela é possível ver os valores sendo iniciados, como o de viewport, stage e gamecam.
+     * <br>
+     * A variável de música recebe o endereço e o nome da música selecionada juntamente com a classe responsável por carrega-la(Music.class)
+     * */
     public GameOverScreen(GameProject game,int level, String nick){
         this.game = game;
         slevel = level;
@@ -75,15 +117,25 @@ public class GameOverScreen implements Screen {
         
           
         music1 = GameProject.manager.get("audio/voice/hahaha.mp3", Music.class);
+        
+        /**
+         * O áudio é iniciado.
+         * */
         music1.play();
         
         music2 =  GameProject.manager.get("audio/voice/idiota.mp3", Music.class);
+        
+        /**
+         * Método chamado quando o áudio termina de tocar.
+         * */
         music1.setOnCompletionListener(new Music.OnCompletionListener() {
 
             @Override
             public void onCompletion(Music music) {
+            	/**
+                 * O segundo áudio é iniciado.
+                 * */
             	music2.play();
-
             }
         });
 
@@ -98,6 +150,9 @@ public class GameOverScreen implements Screen {
 
     }
 
+    /**
+     * Método responsável por desenhar na tela.
+     * */
     @Override
     public void render(float delta) {
     	
@@ -127,6 +182,9 @@ public class GameOverScreen implements Screen {
     
     }
     
+    /**
+     * Método responsável por atualizar o que será exibido.
+     * */
     public void update(float dt){
     	enemyb.update(dt);
     	//Atualiza nossa gamecam com as coordenadas corretas após alteração
@@ -153,6 +211,9 @@ public class GameOverScreen implements Screen {
 
     }
 
+    /**
+     * Método responsável por liberar recursos.
+     * */
     @Override
     public void dispose() {
         stage.dispose();
