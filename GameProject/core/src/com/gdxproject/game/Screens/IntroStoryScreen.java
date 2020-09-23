@@ -12,20 +12,49 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Sprites.Items.IntroStory;
 
+/** 
+ * Tela de introdução com a história do jogo.
+ * */
 public class IntroStoryScreen implements Screen {
+	
+	/**
+	 * Gerencia uma câmera e determina como as coordenadas mundiais são mapeadas para a tela.
+	 * */
     private Viewport viewport;
+    
+    /**
+     * Variável responsável por lidar com a janela de visualização e distribui eventos de entrada.
+     * */
     private Stage stage;
-	//Variaveis basicas da Playscreen
+    
+    /**
+     * Variaveis basicas da Playscreen.
+     * */
     private OrthographicCamera gamecam;
-
+    
+    /**
+     * Responsável por trazer características do jogo.
+     * */
     private GameProject game;
     
+    /**
+     * Responsável por  trazer os frames carregados para serem exibidos.
+     * */
     private IntroStory introStory ;
     
 
-    //Musicas
+    /**
+     * Variável responsável pela música de fundo.
+     * */
     private Music music1;
 
+    /**
+     * Construtor da classe.
+     * <br>
+     * Nela é possível ver os valores sendo iniciados, como o de viewport, stage e gamecam.
+     * <br>
+     * A variável de música recebe o endereço e o nome da música selecionada juntamente com a classe responsável por carrega-la(Music.class)
+     * */
     public IntroStoryScreen(GameProject game){
         this.game = game;
         
@@ -54,19 +83,21 @@ public class IntroStoryScreen implements Screen {
         
           
         music1 = GameProject.manager.get("audio/music/song_intro_daydreaming_story.mp3", Music.class);
+        
+        /**
+         * A música é iniciada.
+         * */
         music1.play();
         
+        /**
+         * Método chamada quando a música termina de tocar.
+         * */
         music1.setOnCompletionListener(new Music.OnCompletionListener() {
 
             @Override
             public void onCompletion(Music music) {
             	closeScreen();            }
-        });
-
-        
-        
-       
-        
+        });   
     }
 
     @Override
@@ -74,11 +105,17 @@ public class IntroStoryScreen implements Screen {
 
     }
     
+    /**
+     * Método responsável por encerrar a janela e chamar outra.
+     * */
     public void closeScreen() {
     	game.setScreen(new MenuScreen((GameProject) game));
         dispose();    	
     }
 
+    /**
+     * Método responsável por desenhar na tela.
+     * */
     @Override
     public void render(float delta) {
     	
@@ -101,11 +138,15 @@ public class IntroStoryScreen implements Screen {
         game.batch.end();
        
         
-        
+      //Seta nosso batch para desenhar o que o a camera do HUD vê.
+        //game.batch.setProjectionMatrix(stage.getCamera().combined);
         stage.draw();
     
     }
     
+    /**
+     * Método responsável por atualizar o que será exibido.
+     * */
     public void update(float dt){
     	introStory.update(dt);
     	gamecam.position.x = introStory.getX() + (GameProject.V_WIDTH / 2);
@@ -134,6 +175,9 @@ public class IntroStoryScreen implements Screen {
 
     }
 
+    /**
+     * Método responsável por liberar recursos.
+     * */
     @Override
     public void dispose() {
         stage.dispose();
