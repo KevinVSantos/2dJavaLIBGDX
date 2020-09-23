@@ -18,6 +18,9 @@ import com.gdxproject.game.Sprites.Enemies.EnemyBF;
 import com.gdxproject.game.Sprites.Items.Book;
 import com.gdxproject.game.Sprites.Items.PlayerRun;
 
+/** 
+ * Classe responsável pela tela de Sucesso no final do jogo.
+ * */
 public class SuccessScreen implements Screen {
 	
 	/**
@@ -60,11 +63,33 @@ public class SuccessScreen implements Screen {
      * */
     String nickname;
     
+    /**
+     * Responsável por  trazer os frames da animação carregados para serem exibidos.
+     * */
     private Book book ;
+    
+    /**
+     * Responsável por  trazer os frames da animação carregados para serem exibidos.
+     * */
     private PlayerRun run ;
+    
+    /**
+     * Responsável por  trazer os frames da animação carregados para serem exibidos.
+     * */
     private EnemyBF eb ;
+    
+    /**
+     * Responsável por guardar o ângulo que uma imagem irá rotacionar.
+     * */
     private float angle;
     
+    /**
+     * Construtor da classe.
+     * <br>
+     * Nela é possível ver os valores sendo iniciados, como o de viewport, stage e gamecam.
+     * <br>
+     * A variável de música recebe o endereço e o nome da música selecionada juntamente com a classe responsável por carrega-la(Music.class)
+     * */
     public SuccessScreen(GameProject game,int level,String nick){
         this.game = game;
         slevel = level;
@@ -120,6 +145,9 @@ public class SuccessScreen implements Screen {
 
     }
 
+    /**
+     * Método responsável por desenhar na tela.
+     * */
     @Override
     public void render(float delta) {
     	
@@ -160,6 +188,9 @@ public class SuccessScreen implements Screen {
         stage.draw();
     }
     
+    /**
+     * Método responsável por atualizar o que será exibido.
+     * */
     public void update(float dt){
     	book.update(dt);
     	run.update(dt);
@@ -188,6 +219,9 @@ public class SuccessScreen implements Screen {
 
     }
 
+    /**
+     * Método responsável por liberar recursos.
+     * */
     @Override
     public void dispose() {
         stage.dispose();

@@ -13,7 +13,7 @@ import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Sprites.Items.IntroStory;
 
 /** 
- * Tela de introdução com a história do jogo.
+ * Classe responsável pela tela de introdução com a história do jogo.
  * */
 public class IntroStoryScreen implements Screen {
 	

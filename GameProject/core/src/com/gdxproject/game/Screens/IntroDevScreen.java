@@ -13,7 +13,7 @@ import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Sprites.Items.IntroDev;
 
 /** 
- * Tela de introdução com o nome dos desenvolvedores do jogo.
+ * Classe responsável pela tela de introdução com o nome dos desenvolvedores do jogo.
  * */
 public class IntroDevScreen implements Screen {
 	
@@ -91,7 +91,7 @@ public class IntroDevScreen implements Screen {
         music1.play();
         
         /**
-         * Método chamada quando a música termina de tocar.
+         * Método chamado quando a música termina de tocar.
          * */
         music1.setOnCompletionListener(new Music.OnCompletionListener() {
 
@@ -104,7 +104,7 @@ public class IntroDevScreen implements Screen {
     }
     
     /**
-     * Método responsável por encerrar a classe e chamar outra.
+     * Método responsável por encerrar a janela e chamar outra.
      * */
     public void closeScreen() {
     	game.setScreen(new IntroStoryScreen((GameProject) game));
