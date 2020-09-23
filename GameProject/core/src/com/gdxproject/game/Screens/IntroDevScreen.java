@@ -23,33 +23,37 @@ public class IntroDevScreen implements Screen {
     private Viewport viewport;
     
     /**
-     * 
+     * Variável responsável por lidar com a janela de visualização e distribui eventos de entrada.
      * */
     private Stage stage;
     
     /**
-     * Variaveis basicas da Playscreen
+     * Variaveis basicas da Playscreen.
      * */
     private OrthographicCamera gamecam;
     
     /**
-     * 
+     * Responsável por trazer características do jogo.
      * */
     private GameProject game;
     
     /**
-     * 
+     * Responsável por  trazer os frames carregados para serem exibidos.
      * */
     private IntroDev introDev;
     
 
     /**
-     * 
+     * Variável responsável pela música de fundo.
      * */
     private Music music1;
     
     /**
-     * 
+     * Construtor da classe.
+     * <br>
+     * Nela é possível ver os valores sendo iniciados, como o de viewport, stage e gamecam.
+     * <br>
+     * A variável de música recebe o endereço e o nome da música selecionada juntamente com a classe responsável por carrega-la(Music.class)
      * */
     public IntroDevScreen(GameProject game){
         this.game = game;
@@ -80,8 +84,15 @@ public class IntroDevScreen implements Screen {
         
           
         music1 = GameProject.manager.get("audio/music/song_intro_daydreaming.mp3", Music.class);
+        
+        /**
+         * A música é iniciada.
+         * */
         music1.play();
         
+        /**
+         * Método chamada quando a música termina de tocar.
+         * */
         music1.setOnCompletionListener(new Music.OnCompletionListener() {
 
             @Override
@@ -92,6 +103,9 @@ public class IntroDevScreen implements Screen {
        
     }
     
+    /**
+     * Método responsável por encerrar a classe e chamar outra.
+     * */
     public void closeScreen() {
     	game.setScreen(new IntroStoryScreen((GameProject) game));
         dispose();    	
@@ -102,6 +116,9 @@ public class IntroDevScreen implements Screen {
 
     }
 
+    /**
+     * Método responsável por desenhar na tela.
+     * */
     @Override
     public void render(float delta) {
     	
@@ -131,6 +148,9 @@ public class IntroDevScreen implements Screen {
     
     }
     
+    /**
+     * Método responsável por atualizar o que será exibido.
+     * */
     public void update(float dt){
     	introDev.update(dt);
     	gamecam.position.x = introDev.getX() + (GameProject.V_WIDTH / 2);
@@ -159,6 +179,9 @@ public class IntroDevScreen implements Screen {
 
     }
 
+    /**
+     * Método responsável por liberar recursos.
+     * */
     @Override
     public void dispose() {
         stage.dispose();
