@@ -16,24 +16,64 @@ import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Menu.LevelSelect;
 import com.gdxproject.game.Sprites.Items.Menu;
 
-public class MenuScreen implements Screen {
-    private Viewport viewport;
-    private Stage stage;
-	//Variaveis basicas da Playscreen
-    private OrthographicCamera gamecam;
 
+/** 
+ * Classe responsável pela tela de Menu.
+ * */
+public class MenuScreen implements Screen {
+	
+	/**
+	 * Gerencia uma câmera e determina como as coordenadas mundiais são mapeadas para a tela.
+	 * */
+    private Viewport viewport;
+    
+    /**
+     * Variável responsável por lidar com a janela de visualização e distribui eventos de entrada.
+     * */
+    private Stage stage;
+    
+    /**
+     * Variaveis basicas da Playscreen.
+     * */
+    private OrthographicCamera gamecam;
+    
+    /**
+     * Responsável por trazer características do jogo.
+     * */
     private GameProject game;
     
+    /**
+     * Responsável por  trazer os frames carregados para serem exibidos.
+     * */
     private Menu menu ;
     
+    /**
+     * Responsável por  trazer os traços de fontes através de um json.
+     * */
     private Skin skin;
+    
+    /**
+     * Variável de controle por tempo de digitação.
+     * */
     public int count = 0;
+    
+    /**
+     * Componente responsável pela caixa de texto que aparece no menu.
+     * */
     private TextField textField;
     
-    
-    //Musicas
+    /**
+     * Variável responsável pela música de fundo.
+     * */
     private Music music1;
-
+    
+    /**
+     * Construtor da classe.
+     * <br>
+     * Nela é possível ver os valores sendo iniciados, como o de viewport, stage e gamecam.
+     * <br>
+     * A variável de música recebe o endereço e o nome da música selecionada juntamente com a classe responsável por carrega-la(Music.class)
+     * */
     public MenuScreen(GameProject game){
         this.game = game;
         
@@ -84,6 +124,9 @@ public class MenuScreen implements Screen {
        
     }
     
+    /**
+     * Método Responsável por verificar a digitação do usuário e colocar na tela.
+     * */
     public void verifyDigit(){
         String texto="";
         if(count <= 0 || count >= 7){
@@ -175,6 +218,10 @@ public class MenuScreen implements Screen {
         count++;
 
     }
+    
+    /**
+     * Método responsável por encerrar a janela e chamar outra.
+     * */
     public void closeScreen() {
     	try {
 			Thread.sleep(200);
@@ -191,6 +238,10 @@ public class MenuScreen implements Screen {
 
     }
 
+
+    /**
+     * Método responsável por desenhar na tela.
+     * */
     @Override
     public void render(float delta) {
     	
@@ -218,6 +269,9 @@ public class MenuScreen implements Screen {
     
     }
     
+    /**
+     * Método responsável por atualizar o que será exibido.
+     * */
     public void update(float dt){
     	menu.update(dt);
     	gamecam.position.x = menu.getX() + (GameProject.V_WIDTH / 2);
@@ -247,6 +301,9 @@ public class MenuScreen implements Screen {
 
     }
 
+    /**
+     * Método responsável por liberar recursos.
+     * */
     @Override
     public void dispose() {
         stage.dispose();

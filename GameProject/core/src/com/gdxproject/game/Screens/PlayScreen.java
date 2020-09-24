@@ -28,35 +28,63 @@ import com.gdxproject.game.Tools.B2WorldCreator;
 
 public class PlayScreen implements Screen {
 
+    /**
+     * Responsável por trazer características do jogo.
+     * */
 	private GameProject game;
 	private TextureAtlas atlas;
     
-	//Variaveis basicas da Playscreen
+	/**
+     * Variavel basicas da Playscreen.
+     * */
     private OrthographicCamera gamecam;
     private Viewport gamePort;
+    
+	/**
+     * Classe de pontuação e controle de tempo.
+     * */
     private Hud hud;
     
-    //Variaveis do Mapa Tiled
+	/**
+     * Variaveis do Mapa Tiled.
+     * */
     private TmxMapLoader maploader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     
-    //Variaveis do Box2d
+	/**
+     * Variaveis do Box2d.
+     * */
     private World world;
     
-    //private Box2DDebugRenderer b2dr;
-    private B2WorldCreator creator; // construçao do mapa
+	/**
+     * Construção do mapa.
+     * */
+    private B2WorldCreator creator;
 
+  //private Box2DDebugRenderer b2dr;
+    
     //Sprites
     private Player player;
     
-    //Musicas
+	/**
+     * Músicas.
+     * */
     private Music music;
 
+	/**
+     * Variável de estado.
+     * */
     private int stateGame;
     
+	/**
+     * Variável que carrega o atlas referente as texturas.
+     * */
     public static int slevel;
     
+	/**
+     * Apelido do jogador.
+     * */
     String nickname;
     
 	public PlayScreen(GameProject game,int level, String nick) {
@@ -136,7 +164,9 @@ public class PlayScreen implements Screen {
 		
 	}
 	
-	
+	/**
+     * Controla nosso Player usando impulsos imediatos.
+     * */
 	public void handleInput(float dt){
         //Controla nosso Player usando impulsos imediatos
 	   if(player.currentState != Player.State.DEAD) {
@@ -155,8 +185,10 @@ public class PlayScreen implements Screen {
 
     }
 
+	/**
+	 * Update será responsavel por atualizar os elementos da tela.
+	 * */
     public void update(float dt){
-    	//Update será responsavel por atualizar os elementos da tela
     	
         //chamada para os input do jogador
     	handleInput(dt);
@@ -294,16 +326,20 @@ public class PlayScreen implements Screen {
 		 
 	}
 
+	/**
+	 * Verifica se ocorreu um gameover.
+	 * */
 	public boolean gameOver(){
-		//verifica se ocorreu um gameover
         if(player.currentState == Player.State.DEAD && player.getStateTimer() > 3){
             return true;
         }
         return false;
     }
 
+	/**
+	 * Verifica se ocorreu um gameover.
+	 * */
 	public boolean completeGame(){
-		//verifica se ocorreu um gameover
         return Player.instance.saved;
     }
 	
@@ -317,10 +353,17 @@ public class PlayScreen implements Screen {
 
     }
 
+	/**
+	 * Retorna o TiledMap para a Playscreen.
+	 * */
     public TiledMap getMap(){
     	//Retorna o TiledMap para a Playscreen
         return map;
     }
+    
+	/**
+	 * Retorna o mundo para a Playscreen.
+	 * */
     public World getWorld(){
     	//Retorna o mundo para a Playscreen
         return world;
@@ -345,6 +388,9 @@ public class PlayScreen implements Screen {
 		
 	}
 
+	/**
+	 * Seta o estado do game.
+	 * */
 	public void setStateGame(){
     	stateGame = 1;
     }
@@ -360,6 +406,9 @@ public class PlayScreen implements Screen {
 		
 	}
 	
+	/**
+	 * Retorna o HUD para a Playscreen.
+	 * */
 	public Hud getHud(){ 
 		//Retorna o HUD para a Playscreen
 		return hud; 
