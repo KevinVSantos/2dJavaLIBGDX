@@ -22,13 +22,35 @@ import com.gdxproject.game.Sprites.Enemies.Enemy2;
 import com.gdxproject.game.Sprites.Items.Coin;
 import com.gdxproject.game.Sprites.Items.Helicoptero;
 
+
+/**
+ * Mundo do Jogo e instancia de seus blocos.
+ */
 public class B2WorldCreator {
 	
+	/**
+	 * Lista de inimigos 1.
+	 */
 	private Array<Enemy1> enemies1;
+	
+	/**
+	 * Lista de inimigos 2.
+	 */
     private Array<Enemy2> enemies2;
+    
+    /**
+     * Lista de coins.
+     */
     private Array<Coin> coins;
+    
+    /**
+     * Helicoptero.
+     */
     private Helicoptero helicoptero;
 
+    /**
+     * Cria o mundo, inimigos e itens e define seus corpos.
+     */
     public B2WorldCreator(PlayScreen screen){
     	World world = screen.getWorld(); // recebe o mundo da screen
     	TiledMap map = screen.getMap(); // recebe o tiledmap da  screen
@@ -175,12 +197,17 @@ public class B2WorldCreator {
          
     }
     
-    
+    /**
+     * Pega a lista de Enimies1.
+     */
     public Array<Enemy1> getEnemies1() {
         return enemies1;
     }
 
 
+    /**
+     * Pega a lista de Enimies2.
+     */
     public Array<Enemy> getEnemies(){
         Array<Enemy> enemies = new Array<Enemy>();
         enemies.addAll(enemies1);
@@ -188,14 +215,18 @@ public class B2WorldCreator {
         return enemies;
     }
     
-    
+    /**
+     * Pega a lista de Coins.
+     */
     public Array<Coin> getCoins(){
         Array<Coin> multicoins = new Array<Coin>();
         multicoins.addAll(coins);
         return multicoins;
     }
     
-
+    /**
+     * Pega a lista de Helicopteros.
+     */
     public Helicoptero getHelicoptero(){
         return helicoptero;
     }

@@ -12,7 +12,14 @@ import com.gdxproject.game.Sprites.Items.Helicoptero;
 import com.gdxproject.game.Sprites.Player.Bullet;
 import com.gdxproject.game.Sprites.Player.Player;
 
+/**
+ * Receptor de contatos.
+ */
 public class WorldContactListener implements ContactListener {
+	
+	/**
+	 * Ao acontecer um contato.
+	 */
     @Override
     public void beginContact(Contact contact) {
     	//recebe os objetos que se chocaram
@@ -135,20 +142,25 @@ public class WorldContactListener implements ContactListener {
     		  
         }
     	
-}
-    
-    
+    }
 
-    
-
+    /**
+     * Ao final do contato.
+     */
     @Override
     public void endContact(Contact contact) {
     }
 
+    /**
+     * Antes do contato.
+     */
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
     }
 
+    /**
+     * Após o contato.
+     */
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
 

@@ -19,15 +19,53 @@ import com.gdxproject.game.Screens.PlayScreen;
 
 public class Bullet extends Sprite {
 
+	/**
+	 * Tela atual.
+	 */
     PlayScreen screen;
+    
+    /**
+     * Mundo do jogo.
+     */
     World world;
+    
+    /**
+     * Animação do disparo.
+     */
     Animation<TextureRegion> fireAnimation;
+    
+    /**
+     * Tempo entre animações
+     */
     float stateTime;
+    
+    /**
+     * Se está destruído.
+     */
     boolean destroyed;  
+    
+    /**
+     * Deve ser destruído.
+     */
     boolean setToDestroy;
+    
+    /**
+     * Direção do disparo.
+     */
     boolean fireRight;
 
+    /**
+     * Corpo de colisão.
+     */
     Body b2body;
+    
+    /**
+     * Criação do disparo.
+     * @param screen - Tela atual.
+     * @param x - Posição no eixo X.
+     * @param y - Posição no eixo Y.
+     * @param fireRight - Direção do disparo.
+     */
     public Bullet(PlayScreen screen, float x, float y, boolean fireRight){
     
     	this.fireRight = fireRight;
@@ -43,6 +81,9 @@ public class Bullet extends Sprite {
         defineFireBall();
     }
 
+    /**
+     * Define disparo.
+     */
     public void defineFireBall(){
         BodyDef bdef = new BodyDef();
         bdef.position.set(fireRight ?  getX() + 12 /GameProject.PPM : getX() - 12 /GameProject.PPM, getY()+0.04f);
@@ -69,6 +110,10 @@ public class Bullet extends Sprite {
         
     }
 
+    /**
+     * Método responsável por atualizar o que será exibido.
+     * @param dt - Tempo desde a última atualização
+     */
     public void update(float dt){
         stateTime += dt;
         
@@ -96,6 +141,10 @@ public class Bullet extends Sprite {
             setToDestroy();*/
     }
     
+    /**
+     * Seleciona o frame a ser exibido.
+     * @param dt - Tempo decorrido.
+     */
     public TextureRegion getFrame(TextureRegion region, boolean t){
     	  
     	if(t) {
@@ -120,10 +169,16 @@ public class Bullet extends Sprite {
 
     }
 
+    /**
+     * Seta para ser destruído.
+     */
     public void setToDestroy(){
         setToDestroy = true;
     }
 
+    /**
+     * Verifica se está destruído.
+     */
     public boolean isDestroyed(){
         return destroyed;
     }

@@ -26,35 +26,104 @@ import com.gdxproject.game.Screens.PlayScreen;
 import com.gdxproject.game.Sprites.Enemies.Enemy;
 
 
-
+/**
+ * Classe do protagonista.
+ */
 public class Player extends Sprite {
-	  public enum State { FALLING, JUMPING, STANDING, RUNNING, SHOOTING, GROWING, DEAD, SAVE };
-	    public State currentState;
-	    public State previousState;
 
+	/**
+	 * Enumerador de estado.
+	 */
+	public enum State { FALLING, JUMPING, STANDING, RUNNING, SHOOTING, GROWING, DEAD, SAVE };
+	  
+	/**
+	 * Status atual.
+	 */
+	public State currentState;
+    
+    /**
+     * Status anterior.
+     */
+    public State previousState;
+
+    /**
+     * Mundo do jogo.
+     */
     public World world;
+    
+    /**
+     * Corpo de colisões. 
+     */
     public Body b2body;
     
-    
+    /**
+     * Animação do player parado.
+     */
     private Animation<TextureRegion> playerStand;    
+    
+    /**
+     * Animação do player correndo.
+     */
     private Animation<TextureRegion>  playerRun;
+    
+    /**
+     * Animação do player pulando.
+     */
     private Animation<TextureRegion>  playerJump;
+    
+    /**
+     * Animação do player atirando.
+     */
     private Animation<TextureRegion>  playerShoot;
+    
+    /**
+     * Tempo decorrido entre animações
+     */
     private float stateTimer;
+    
+    /**
+     * Delay entre disparos.
+     */
     private float shootTimer;
+    
+    /**
+     * Direção da corrida.
+     */
     private boolean runningRight;
+    
+    /**
+     * Player esta salvo.
+     */
     public boolean saved = false;
+    
+    /**
+     * Animação do player morrendoo.
+     */
     private Animation<TextureRegion> playerDead;     
     
+    /**
+     * Singleton do player.
+     */
     public static Player instance;   
      
+    /**
+     * Se o player está morto.
+     */
     private boolean playerIsDead;
     
+    /**
+     * Estrutura do jogador.
+     */
     protected Fixture fixture;
 
+    /**
+     * Lista de Balas.
+     */
     private Array<Bullet> bullets;
     
-
+	/**
+	 * Cria o personagem Principal.
+	 */
     public Player(PlayScreen screen){
     	super();
         this.world = screen.getWorld();
@@ -113,7 +182,10 @@ public class Player extends Sprite {
         
     }
 
-
+    /**
+     * Método responsável por atualizar o que será exibido.
+     * @param dt - Tempo desde a última atualização
+     */
     public void update(float dt){
     	
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 - 6 / GameProject.PPM);       
@@ -139,6 +211,10 @@ public class Player extends Sprite {
         
     }
     
+    /**
+     * Seleciona o frame da bala a ser exibido.
+     * @param dt - Tempo decorrido.
+     */
     public TextureRegion getFrameFire(float dt){
         
 
@@ -163,6 +239,10 @@ public class Player extends Sprite {
 
     }
     
+    /**
+     * Seleciona o frame a ser exibido.
+     * @param dt - Tempo decorrido.
+     */
     public TextureRegion getFrame(float dt){     
 
         TextureRegion region;
@@ -200,6 +280,9 @@ public class Player extends Sprite {
 
     }
 
+    /**
+     * Retorna o status do personagem.
+     */
     public State getState(){
         if(playerIsDead)
             return State.DEAD;
@@ -215,7 +298,9 @@ public class Player extends Sprite {
             return State.STANDING;
     }
     
-    
+   /**
+    * Mata o personagem.
+    */
    public void die() {
 
         if (!isDead()) {        	
@@ -228,6 +313,9 @@ public class Player extends Sprite {
         }
     }
    
+   /**
+    * Finaliza o player.
+    */
    public void finish(){
        Filter filter = new Filter();
        filter.maskBits = GameProject.NOTHING_BIT;
@@ -238,23 +326,37 @@ public class Player extends Sprite {
       
    }
 
+   /**
+    * Verifica se o player está morto.
+    */
     public boolean isDead(){
         return playerIsDead;
     }
     
+    /**
+     * Seta o player como morto.
+     */
     public void setDead(boolean status) {
     	playerIsDead  = status;
     }
 
+    /**
+     * Retorna o tempo entre animações.
+     */
     public float getStateTimer(){
         return stateTimer;
     }
 
-
+	/**
+	 * Ao ser atingido por um inimigo.
+	 */
     public void hit(Enemy enemy){
     	die();
     }
     
+    /**
+     * Pula.
+     */
     public void jump(){
         if ( currentState != State.JUMPING &&  currentState != State.FALLING) {
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
@@ -262,7 +364,9 @@ public class Player extends Sprite {
         } 
     }
     
-    
+    /**
+     * Define um jogador.
+     */
 	public void definePlayer(){
 		BodyDef bdef = new BodyDef();
         bdef.position.set(32 / GameProject.PPM, 64 / GameProject.PPM);
@@ -296,24 +400,32 @@ public class Player extends Sprite {
         b2body.createFixture(fdef).setUserData(this);
     }
 	
-	 
-	 	public void fire(PlayScreen screen){
-	 		
-	 		bullets.add(new Bullet(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight ? true : false));
-	    }
+	 /**
+	  * Atirar.
+	  */
+ 	public void fire(PlayScreen screen){
+ 		
+ 		bullets.add(new Bullet(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight ? true : false));
+    }
 
-	 	public void setSaved(boolean status)
-	 	{
-	 		saved = status;
-	 	}
-	 	
-	    public void draw(Batch batch){
-	    	if(!saved)
-	    	{
-		        super.draw(batch);
-		        for(Bullet ball : bullets)
-		            ball.draw(batch);
-	    	}
-	    }
+ 	/**
+ 	 * Seta o player como salvo.
+ 	 */
+ 	public void setSaved(boolean status)
+ 	{
+ 		saved = status;
+ 	}
+ 	
+ 	/**
+     * Método responsável por desenhar na tela.
+     */
+    public void draw(Batch batch){
+    	if(!saved)
+    	{
+	        super.draw(batch);
+	        for(Bullet ball : bullets)
+	            ball.draw(batch);
+    	}
+    }
 
 }
