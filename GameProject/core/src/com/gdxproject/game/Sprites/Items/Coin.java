@@ -18,22 +18,62 @@ import com.gdxproject.game.GameProject;
 import com.gdxproject.game.Scenes.Hud;
 import com.gdxproject.game.Screens.PlayScreen;
 
+/**
+ * Moedas
+ */
 public class Coin extends Sprite {
-    
 	
-	//atributos que serão setados para os inimigos
+	/**
+	 * Mundo do jogo.
+	 */
     protected World world;
+    
+    /**
+     * Tela atual.
+     */
     protected PlayScreen screen; 
+    
+    /**
+     * Corpo de colisão.
+     */
     public Body b2body;
+    
+    /**
+     * Velocidade.
+     */
     public Vector2 velocity;
+    
+    /**
+     * Tempo entre animações
+     */
     private float stateTime;
+    
+    /**
+     * Aniamção e movimento.
+     */
     private Animation<TextureRegion> walkAnimation;
+    
+    /**
+     * Frames a serem exibidos.
+     */
     private Array<TextureRegion> frames;
 
+    /**
+     * Deverá ser destruído.
+     */
     private boolean setToDestroy;
+    
+    /**
+     * Se está destruído.
+     */
     private boolean destroyed;
 
-    
+    /**
+     * Cria a moeda.
+     * @param screen - Tela atual.
+     * @param x - Posição X.
+     * @param y - Posição Y.
+     */
     public Coin(PlayScreen screen, float x, float y) {
        
         
@@ -66,6 +106,10 @@ public class Coin extends Sprite {
         
     }
 
+    /**
+     * Método responsável por atualizar o que será exibido.
+     * @param dt - Tempo desde a última atualização
+     */
     public void update(float dt){
         stateTime += dt;   	
         if(setToDestroy && !destroyed){ 	
@@ -80,6 +124,9 @@ public class Coin extends Sprite {
         }
     }
 
+    /**
+     * Define a moeda.
+     */
     protected void defineCoin() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
@@ -100,19 +147,27 @@ public class Coin extends Sprite {
         b2body.createFixture(fdef).setUserData(this);
     }
 
+    /**
+     * Método responsável por desenhar na tela.
+     */
     public void draw(Batch batch){
         if(!destroyed)
             super.draw(batch);
     }
     
     
-    
+    /**
+     * Pega uma moeda.
+     */
     public void getCoin(){
         GameProject.manager.get("audio/coin.wav", Sound.class).play();
         setToDestroy = true;
         Hud.addScore(300);
     }
     
+    /**
+     * Verifica se esta destruído.
+     */
     public boolean isDestroyed() {
     	return destroyed;
     }

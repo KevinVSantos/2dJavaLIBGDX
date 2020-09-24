@@ -11,14 +11,37 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.GameProject;
 
-
+/**
+ * Menu Principal
+ */
 public class Menu extends Sprite
 {
+	/**
+	 * Tempo entre animações.
+	 */
     private float stateTime;
+    
+    /**
+     * Animação e movimento.
+     */
     private Animation<TextureRegion> walkAnimation; 
+    
+    /**
+     * Frames que serão exibidos.
+     */
     private Array<TextureRegion> frames;
+    
+    /**
+     * Tela de sucesso.
+     */
     protected GameProject screen; 
 
+    /**
+     * Criação do objeto.
+     * @param screen - Tela atual.
+     * @param x - Posição X.
+     * @param y - Posição Y.
+     */
     public Menu(GameProject screen, float x, float y) {
 
         this.screen = screen; //recebe a screen
@@ -34,12 +57,19 @@ public class Menu extends Sprite
         setBounds(0, 0, GameProject.V_WIDTH, GameProject.V_HEIGHT);
     }
 
+    /**
+     * Método responsável por atualizar o que será exibido.
+     * @param dt - Tempo desde a última atualização
+     */
     public void update(float dt){
         stateTime += dt;   	
         setRegion(walkAnimation.getKeyFrame(stateTime, true));
       
     }
 
+    /**
+     * Método responsável por desenhar na tela.
+     */
     public void draw(Batch batch){    	
              super.draw(batch); 
     }

@@ -10,14 +10,37 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.Screens.SuccessScreen;
 
-
+/**
+ * Sprite final.
+ */
 public class PlayerRun extends Sprite
 {
+	/**
+	 * Tempo entre animações.
+	 */
     private float stateTime;
+    
+    /**
+     * Animação e movimento.
+     */
     private Animation<TextureRegion> walkAnimation; 
+    
+    /**
+     * Frames que serão exibidos.
+     */
     private Array<TextureRegion> frames;
+    
+    /**
+     * Tela de sucesso.
+     */
     protected SuccessScreen screen; 
 
+    /**
+     * Criação do objeto.
+     * @param screen - Tela atual.
+     * @param x - Posição X.
+     * @param y - Posição Y.
+     */
     public PlayerRun(SuccessScreen screen, float x, float y) {
 
         this.screen = screen; //recebe a screen
@@ -31,6 +54,10 @@ public class PlayerRun extends Sprite
         
     }
     
+    /**
+     * Método responsável por atualizar o que será exibido.
+     * @param dt - Tempo desde a última atualização
+     */
     public void update(float dt){
         stateTime += dt;
         
@@ -41,6 +68,9 @@ public class PlayerRun extends Sprite
       
     }
 
+    /**
+     * Método responsável por desenhar na tela.
+     */
     public void draw(Batch batch){    	
     	
              super.draw(batch); 

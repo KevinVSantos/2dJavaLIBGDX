@@ -19,25 +19,76 @@ import com.gdxproject.game.Screens.PlayScreen;
 import com.gdxproject.game.Sprites.Player.Player;
 import com.gdxproject.game.Sprites.Player.Player.State;
 
+/**
+ * Helicoptero.
+ */
 public class Helicoptero extends Sprite {
 
-	//atributos que serão setados para os inimigos
+	/**
+	 * Mundo do jogo.
+	 */
     protected World world;
+    
+    /**
+     * Tela atual.
+     */
     protected PlayScreen screen; 
+    
+    /**
+     * Corpo de colisão.
+     */
     public Body b2body;
+    
+    /**
+     * Velocidade.
+     */
     public Vector2 velocity;
+    
+    /**
+     * Tempo entre animações
+     */
     private float stateTime;
+    
+    /**
+     * Aniamção e movimento.
+     */
     private Animation<TextureRegion> walkAnimation;
+    
+    /**
+     * Frames a serem exibidos.
+     */
     private Array<TextureRegion> frames;
+    
+    /**
+     * Inicia o salvamento.
+     */
     private boolean startSave = false;
     
+    /**
+     * Tempo do inicio do salvamento.
+     */
     private float startSaveTime;
 
+    /**
+     * Deverá ser destruído.
+     */
     private boolean setToDestroy;
+    /**
+     * Se está destruído.
+     */
     private boolean destroyed;
-  //Musicas
+    
+   /**
+    * Musica.
+    */
     private Music music;
 	
+    /**
+     * Cria o Helicoptero.
+     * @param screen - Tela atual.
+     * @param x - Posição X.
+     * @param y - Posição Y.
+     */
 	public Helicoptero(PlayScreen screen, float x, float y) {
        
         this.world = screen.getWorld(); //  recebe o mundo da screen
@@ -70,6 +121,9 @@ public class Helicoptero extends Sprite {
         
     }
 	
+	/**
+	 * Define o Helicoptero.
+	 */
 	protected void defineHelicoptero() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
@@ -91,12 +145,19 @@ public class Helicoptero extends Sprite {
         b2body.createFixture(fdef).setUserData(this);
     }
 	
+	/**
+     * Método responsável por desenhar na tela.
+     */
 	public void draw(Batch batch){
 		
         if(!destroyed)
             super.draw(batch);
     }
     
+	/**
+     * Método responsável por atualizar o que será exibido.
+     * @param dt - Tempo desde a última atualização
+     */
 	public void update(float dt){
         stateTime += dt;
         
@@ -128,6 +189,9 @@ public class Helicoptero extends Sprite {
         }
     }
 	
+	/**
+	 * Contado do Player com o Helicoptero.
+	 */
 	public void bind(Player player) {
 		
 		music = GameProject.manager.get("audio/voice/coquinho.mp3", Music.class);
