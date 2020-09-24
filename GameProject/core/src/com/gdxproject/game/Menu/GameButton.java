@@ -10,10 +10,21 @@ import com.badlogic.gdx.math.Vector3;
 
 public class GameButton {
 	
-	// center at x, y
+	/**
+	 * Posição x do centro em x.
+	 */
 	private float x;
+	/**
+	 * Posição y do centro em x.
+	 */
 	private float y;
+	/**
+	 * Tamanho em Largura.
+	 */
 	private float width;
+	/**
+	 * Tamanho em Altura.
+	 */
 	private float height;
 	
 	private TextureRegion reg;
