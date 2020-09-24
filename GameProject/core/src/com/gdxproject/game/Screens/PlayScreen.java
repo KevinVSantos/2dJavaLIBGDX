@@ -262,7 +262,9 @@ public class PlayScreen implements Screen {
     }
     
   
-    
+	/**
+	 * Método para redenrização.
+	 * */
 	@Override
 	public void render(float delta) {
 		
@@ -343,6 +345,9 @@ public class PlayScreen implements Screen {
         return Player.instance.saved;
     }
 	
+	/**
+	 * Atualiza a nossa Viewport do jogo.
+	 * */
     @Override
     public void resize(int width, int height) {
         // TODO Auto-generated method stub
@@ -395,6 +400,9 @@ public class PlayScreen implements Screen {
     	stateGame = 1;
     }
 	
+	/**
+	 * Dispose de todos os nossos recursos abertos
+	 * */
 	@Override
 	public void dispose() {
 		//dispose de todos os nossos recursos abertos

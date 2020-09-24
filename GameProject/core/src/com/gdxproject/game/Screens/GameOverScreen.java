@@ -17,7 +17,7 @@ import com.gdxproject.game.Sprites.Enemies.EnemyB;
 
 
 /** 
- * Tela de Game Over.
+ * Classe responsável pela tela de Game Over.
  * */
 public class GameOverScreen implements Screen {
 	

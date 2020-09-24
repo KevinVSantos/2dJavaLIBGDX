@@ -3,6 +3,9 @@ package com.gdxproject.game.Menu;
 
 public class BBInput {
 	
+	/**
+	 * 
+	 */
 	public static int x;
 	public static int y;
 	public static boolean down;
