@@ -20,17 +20,42 @@ import com.gdxproject.game.Screens.PlayScreen;
 import com.gdxproject.game.Sprites.Player.Bullet;
 import com.gdxproject.game.Sprites.Player.Player;
 
-
+/**
+ * Primeiro Inimigo.
+ */
 public class Enemy1 extends Enemy
 {
+	/**
+	 * Tempo entre animações.
+	 */
     private float stateTime;
+    
+    /**
+     * Região da animação de andar.
+     */
     private Animation<TextureRegion> walkAnimation;
+    
+    /**
+     * Frames para exibição.
+     */
     private Array<TextureRegion> frames;
     
+    /**
+     * Deve ser destruído.
+     */
     private boolean setToDestroy;
+    
+    /**
+     * Está destruido.
+     */
     private boolean destroyed;
 
-
+    /**
+     * Cria o inimigo.
+     * @param screen - Tela atual.
+     * @param x - Posição X .
+     * @param y - Posição Y.
+     */
     public Enemy1(PlayScreen screen, float x, float y) {
         super(screen, x, y);
         frames = new Array<TextureRegion>();
@@ -44,6 +69,10 @@ public class Enemy1 extends Enemy
         destroyed = false;
     }
 
+    /**
+     * Método responsável por atualizar o que será exibido.
+     * @param dt - Tempo desde a última atualização.
+     */
     public void update(float dt){
         stateTime += dt;   	
         if(setToDestroy && !destroyed){ 	
@@ -61,6 +90,9 @@ public class Enemy1 extends Enemy
         }
     }
     
+    /**
+     * Seleciona o frame a ser exibido.
+     */
     public TextureRegion getFrame(TextureRegion region, boolean t){
   
     	if(t) {
@@ -85,6 +117,9 @@ public class Enemy1 extends Enemy
 
     }
 
+    /**
+     * Defini o inimigo.
+     */
     @Override
     protected void defineEnemy() {
         BodyDef bdef = new BodyDef();
@@ -131,13 +166,18 @@ public class Enemy1 extends Enemy
 
     }
 
+    /**
+     * Método responsável por desenhar na tela.
+     */
     public void draw(Batch batch){
        if(!destroyed || stateTime < 1)
             super.draw(batch);
     }
 
-
-
+    /**
+     * Se o plauer pular na cabeça do inimigo.
+     * @param mario - Player.
+     */
     @Override
    public void hitOnHead(Player mario) {
         setToDestroy = true;
@@ -146,6 +186,10 @@ public class Enemy1 extends Enemy
 
     }
     
+    /**
+     * Se uma bala acertar o inimigo.
+     * @param bullet - Bala que o atingiu.
+     */
     @Override
     public void hitbyBullet(Bullet bullet) {
     	bullet.setToDestroy();
@@ -156,16 +200,26 @@ public class Enemy1 extends Enemy
          
      }
      
+    /**
+     * Se inimigos se chocarem.
+     * @param enemy - Inimigo que se chocou.
+     */
     @Override
     public void hitByEnemy(Enemy enemy) {
             reverseVelocity(true, false);
     }
     
+    /**
+     * Verifica se está destruído.
+     */
     @Override
     public boolean isDestroyed() {
     	return destroyed;
     }
     
+    /**
+     * Ao atingir um buraco.
+     */
     public void hitHole() {
         setToDestroy = true;
     }

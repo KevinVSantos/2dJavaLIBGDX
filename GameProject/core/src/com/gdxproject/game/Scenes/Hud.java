@@ -17,32 +17,100 @@ package com.gdxproject.game.Scenes;
  import com.gdxproject.game.Scenes.Score;
  import java.util.ArrayList;
  
+ /**
+  * HUD do jogo, ou seja, define as informações constantes na tela.
+  */
 public class Hud implements Disposable{
      //Scene2D.ui Stage e dua propria Viewport para HUD
+	/**
+     * Variável responsável por lidar com a janela de visualização e distribui eventos de entrada.
+     * */
      public Stage stage;
+     
+     /**
+ 	 * Gerencia uma câmera e determina como as coordenadas mundiais são mapeadas para a tela.
+ 	 * */
      private Viewport viewport;
  
     //Jogador pontuação/time variaveis de rastreamento
+     /**
+      * Variavel que conta o tempo do jogo para exibir.
+      */
      private Integer worldTimer;
+     
+     /**
+      * Variavel que indica se o tempo chegou a zero.
+      */
      private boolean timeUp; // true quando o timer do mundo chega a 0.
+     
+     /**
+      * Tempo real.
+      */
      private float timeCount;
+     
+     /**
+      * Pontuação.
+      */
      private static Integer score;
  
     //Scene2D widgets
      private Label countdownLabel;
+     
+     /**
+      * Label para exibição da pontuação.
+      */
      private static Label scoreLabel;
+     
+     /**
+      * Label para exibição do tempo.
+      */
      private Label timeLabel;
+     
+     /**
+      * Label que indica a fase.
+      */
      private Label levelLabel;
+     
+     /**
+      * Label que indica o mundo.
+      */
      private Label worldLabel;
+     
+     /**
+      * Label do protagonista.
+      */
      private Label playerLabel;
+     
+     /**
+      * Label da Pontuação nos recordes.
+      */
      private Label scoreRank;
+     
+     /**
+      * Label do nome da pontuação nos recordes.
+      */
      private Label scoreRankName;
 
-
+     /**
+      * Lista de pontuações.
+      */
      public static ArrayList<Score> scores;
+     
+     /**
+      * Arquivo de pontuação.
+      */
      FileSave<ArrayList<Score>> file;
+     
+     /**
+      * Nome do Jogador.
+      */
      public static String nickname; 
    
+     /**
+      * Criação da HUD do jogo, ou seja, define as informações constantes na tela.
+      * @param sb - Batch para desenhar na tela.
+      * @param nick - Nome do jogador.
+      */
      public Hud(SpriteBatch sb, String nick){
          String aux = "";
          nickname = nick;
@@ -121,6 +189,10 @@ public class Hud implements Disposable{
 
      }
  
+     /**
+      * Método responsável por atualizar o que será exibido.
+      * @param dt - Tempo desde a última atualização
+      */
     public void update(float dt){
          //atualiza o contador
          timeCount += dt;
@@ -138,6 +210,10 @@ public class Hud implements Disposable{
          }
      }
  
+    /**
+     * Aumenta a pontuação do jogador.
+     * @param value - Pontuação
+     */
     public static void addScore(int value){
          //adiciona pontuação
          score += value;
@@ -145,6 +221,9 @@ public class Hud implements Disposable{
      }
 
 
+    /**
+     * Salva a pontuação do jogador.
+     */
      public static void saveScore(){
          try
          {
@@ -173,13 +252,18 @@ public class Hud implements Disposable{
          }
      }        
  
+     /**
+      * Liberação de recursos
+      */
     @Override
      public void dispose() {
          stage.dispose();
          file.WriteBin("score.bin", scores);
      }
  
-    //verifica se atingiu o tempo limite
+    /**
+     * Método que verifia se o tempo limite foi atingido.
+     */
      public boolean isTimeUp() { return timeUp; }
  
 }

@@ -11,14 +11,37 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.gdxproject.game.Screens.SuccessScreen;
 
-
+/**
+ * Inimigo exibido ao concluir nível.
+ */
 public class EnemyBF extends Sprite
 {
+	/**
+	 * Tempo entre animações.
+	 */
     private float stateTime;
+    
+    /**
+     * Região da animação de andar.
+     */
     private Animation<TextureRegion> walkAnimation; 
+    
+    /**
+     * Frames para exibição.
+     */
     private Array<TextureRegion> frames;
+    
+    /**
+     * Tela Atual;
+     */
     protected SuccessScreen screen; 
 
+    /**
+     * Cria o inimigo.
+     * @param screen - Tela atual.
+     * @param x - Posição X.
+     * @param y - Posição Y.
+     */
     public EnemyBF(SuccessScreen screen, float x, float y) {
 
         this.screen = screen; //recebe a screen
@@ -31,12 +54,19 @@ public class EnemyBF extends Sprite
         setBounds(0, 0, 40, 70 );
     }
 
+    /**
+     * Método responsável por atualizar o que será exibido.
+     * @param dt - Tempo desde a última atualização.
+     */
     public void update(float dt){
         stateTime += dt;   	
         setRegion(walkAnimation.getKeyFrame(stateTime, true));
       
     }
 
+    /**
+     * Método responsável por desenhar na tela.
+     */
     public void draw(Batch batch){    	
     	
              super.draw(batch); 

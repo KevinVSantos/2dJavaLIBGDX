@@ -37,7 +37,7 @@ public class BackMenu extends Sprite
 
     /**
      * Método responsável por atualizar o que será exibido.
-     * @param dt
+     * @param dt - Tempo desde a última atualização
      */
     public void update(float dt){
         stateTime += dt;   	
