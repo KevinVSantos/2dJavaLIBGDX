@@ -4,7 +4,7 @@ package com.gdxproject.game.Menu;
 public class BBInput {
 	
 	/**
-	 * 
+	 * Classe responsavel por comunicar o BBInputProcessor e o GameButton passando as informações relacionadas ao clique
 	 */
 	public static int x;
 	public static int y;

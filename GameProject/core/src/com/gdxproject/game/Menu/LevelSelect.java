@@ -17,7 +17,10 @@ import com.gdxproject.game.Screens.PlayScreen;
 import com.gdxproject.game.GameProject;
 
 public class LevelSelect implements Screen {
-	
+	/*
+	 * Screen responsavel por criar uma matriz de botões relacionadas
+	 *  a fases do jogo em conjunto com uma matriz visual dos botões
+	 * */
 	private TextureRegion reg;
 	GameProject game;
 	private GameButton[][] buttons;
